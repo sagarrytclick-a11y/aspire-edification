@@ -40,14 +40,19 @@ export default function Navbar() {
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Colleges", href: "/colleges", hasDropdown: true },
+    { name: "Courses", href: "/courses", hasDropdown: true },
     { name: "Exams", href: "/exams", hasDropdown: true },
-    { name: "Blog", href: "/blogs" },
+    { name: "Update", href: "/blogs" },
     { name: "Services", href: "/service" },
-
   ];
 
   const dropdownContent = {
     Colleges: colleges.map(c => ({ title: c.name, href: `/colleges/${c.slug}` })),
+    Courses: [
+      { title: "Management", href: "/courses/management" },
+      { title: "Medical", href: "/courses/medical" },
+      { title: "Engineering", href: "/courses/engineering" },
+    ],
     Exams: exams.map(e => ({ title: e.short_name, href: `/exams/${e.slug}` })),
     Countries: countries.map(c => ({
       title: `Study in ${c.name}`,
@@ -65,32 +70,32 @@ export default function Navbar() {
     }`}>
       
       {/* TOP BAR - Hidden on mobile */}
-      <div className={`hidden lg:block bg-slate-900 overflow-hidden transition-all duration-300 ${isScrolled ? "h-0" : "h-10"}`}>
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 h-full text-[11px] font-bold text-white/90 uppercase tracking-widest">
+      <div className={`hidden lg:block bg-blue-600 overflow-hidden transition-all duration-300 ${isScrolled ? "h-0" : "h-12"}`}>
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-8 h-full text-sm font-medium text-white">
           <div className="flex items-center gap-6">
-            <a href={`tel:${phones.primaryRaw}`} className="flex items-center gap-2 hover:text-[#FACC15]">
-              <Phone size={12} className="text-[#FACC15]" /> +91-930477744
+            <a href={`tel:${phones.primaryRaw}`} className="flex items-center gap-2 hover:text-yellow-300 transition-colors">
+              <Phone size={16} className="text-yellow-300" /> +91-930477744
             </a>
-            <a href={`mailto:${emails.info}`} className="flex items-center gap-2 hover:text-[#FACC15]">
-              <Mail size={12} className="text-[#FACC15]" /> {emails.info}
+            <a href={`mailto:${emails.info}`} className="flex items-center gap-2 hover:text-yellow-300 transition-colors">
+              <Mail size={16} className="text-yellow-300" /> {emails.info}
             </a>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin size={12} className="text-[#FACC15]" /> {address.office}
+            <MapPin size={16} className="text-yellow-300" /> {address.office}
           </div>
         </div>
       </div>
 
       {/* NAVIGATION BAR */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 items-center justify-between">
           
           {/* LOGO */}
-          <Link href="/" className="relative z-[50] flex-shrink-0">
+          <Link href="/" className="relative z-50 shrink-0">
             <img 
               src={SITE_IDENTITY.assets.logo.main} 
               alt="Logo" 
-              className="h-12 sm:h-16 lg:h-20 w-auto transition-all"
+              className="h-10 w-32 transition-all"
             />
           </Link>
 
@@ -99,18 +104,18 @@ export default function Navbar() {
             {navItems.map((item) => (
               <div
                 key={item.name}
-                className="relative group py-6"
+                className="relative group py-4"
                 onMouseEnter={() => setHoveredItem(item.name)}
                 onMouseLeave={() => { setHoveredItem(null); setHoveredCountry(null); }}
               >
                 <Link 
                   href={item.href} 
-                  className={`px-2 sm:px-4 py-2 text-[11px] sm:text-[12px] font-black uppercase tracking-tight transition-all flex items-center gap-1.5 rounded-full
-                    ${isActive(item.href) ? "text-[#1A4AB2] bg-blue-50" : "text-slate-700 hover:text-[#1A4AB2]"}
+                  className={`px-4 py-2 text-sm font-medium transition-all flex items-center gap-1.5 rounded-lg
+                    ${isActive(item.href) ? "text-blue-600 bg-blue-50" : "text-gray-700 hover:text-blue-600 hover:bg-gray-50"}
                   `}
                 >
                   {item.name}
-                  {item.hasDropdown && <ChevronDown size={14} className="opacity-50" />}
+                  {item.hasDropdown && <ChevronDown size={14} className="opacity-60" />}
                 </Link>
 
                 {/* MEGA DROPDOWN (Desktop) */}
@@ -119,18 +124,18 @@ export default function Navbar() {
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className={`absolute top-[90%] left-1/2 -translate-x-1/2 bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden z-[50] ${item.name === 'Countries' ? 'w-[600px] sm:w-[700px]' : 'w-48 sm:w-64'}`}
+                      className={`absolute top-full left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-xl border border-gray-200 overflow-hidden z-[50] ${item.name === 'Countries' ? 'w-[600px]' : 'w-64'}`}
                     >
-                      <div className="flex max-h-[450px]">
-                        <div className="flex-1 overflow-y-auto p-3">
+                      <div className="flex max-h-[400px]">
+                        <div className="flex-1 overflow-y-auto p-2">
                           {dropdownContent[item.name as keyof typeof dropdownContent]?.map((sub: any) => (
                             <Link
                               key={sub.title}
                               href={sub.href}
                               onMouseEnter={() => item.name === 'Countries' && setHoveredCountry(sub.slug)}
-                              className="flex items-center justify-between px-4 py-3 rounded-xl hover:bg-[#1A4AB2] hover:text-white transition-all group"
+                              className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-all group"
                             >
-                              <span className="text-[12px] font-bold uppercase tracking-wide">
+                              <span className="text-sm font-medium">
                                 {sub.flag} {sub.title}
                               </span>
                               <ChevronRight size={14} className="opacity-0 group-hover:opacity-100" />
@@ -138,15 +143,15 @@ export default function Navbar() {
                           ))}
                         </div>
                         {item.name === 'Countries' && (
-                          <div className="w-1/2 bg-slate-50 p-6 border-l">
-                            <h4 className="text-[10px] font-black text-[#1A4AB2] uppercase tracking-widest mb-4">Top Colleges</h4>
+                          <div className="w-1/2 bg-gray-50 p-4 border-l">
+                            <h4 className="text-sm font-semibold text-blue-600 mb-3">Top Colleges</h4>
                             <div className="space-y-2">
                               {countryColleges.slice(0, 5).map((col: any) => (
-                                <Link key={col._id} href={`/colleges/${col.slug}`} className="block p-3 bg-white rounded-xl text-[11px] font-bold hover:border-[#1A4AB2] border border-transparent transition-all shadow-sm">
+                                <Link key={col._id} href={`/colleges/${col.slug}`} className="block p-2 bg-white rounded-lg text-sm font-medium hover:border-blue-600 border border-transparent transition-all">
                                   {col.name}
                                 </Link>
                               ))}
-                              <Link href="/colleges" className="flex items-center justify-center gap-2 p-3 bg-slate-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest mt-4">
+                              <Link href="/colleges" className="flex items-center justify-center gap-2 p-2 bg-blue-600 text-white rounded-lg text-sm font-medium mt-3">
                                 View All <ArrowRight size={14} />
                               </Link>
                             </div>
@@ -161,19 +166,19 @@ export default function Navbar() {
           </nav>
 
           {/* ACTION BUTTONS */}
-          <div className="flex items-center gap-2 sm:gap-4 relative z-[50]">
+          <div className="flex items-center gap-3 relative z-[50]">
             <button 
               onClick={openModal} 
-              className="hidden sm:flex px-6 py-3 bg-[#1A4AB2] text-white text-[11px] font-black uppercase tracking-widest rounded-full hover:bg-slate-900 transition-all shadow-lg shadow-blue-100"
+              className="hidden sm:flex px-6 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all"
             >
               Apply Now
             </button>
             
             <button 
               onClick={() => setIsOpen(!isOpen)} 
-              className="p-2 text-slate-900 hover:bg-slate-100 rounded-xl transition-colors lg:hidden"
+              className="p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors lg:hidden"
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
@@ -188,7 +193,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-slate-950/20 backdrop-blur-sm lg:hidden z-[45]"
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm lg:hidden z-[45]"
               onClick={() => setIsOpen(false)}
             />
             
@@ -198,20 +203,20 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white z-[50] shadow-2xl flex flex-col lg:hidden"
+              className="fixed right-0 top-0 bottom-0 w-[80%] max-w-sm bg-white z-[50] shadow-xl flex flex-col lg:hidden"
             >
-              <div className="flex items-center justify-between p-6 border-b">
-                <span className="text-xs font-black uppercase tracking-widest text-[#1A4AB2]">Navigation</span>
-                <button onClick={() => setIsOpen(false)} className="p-2 bg-slate-50 rounded-xl"><X size={20} /></button>
+              <div className="flex items-center justify-between p-4 border-b">
+                <span className="text-sm font-semibold text-blue-600">Menu</span>
+                <button onClick={() => setIsOpen(false)} className="p-2 hover:bg-gray-100 rounded-lg"><X size={20} /></button>
               </div>
 
-              <div className="flex-grow overflow-y-auto px-6 py-4">
+              <div className="flex-grow overflow-y-auto px-4 py-4">
                 {navItems.map((item) => (
                   <div key={item.name} className="mb-2">
-                    <div className="flex items-center justify-between py-4">
+                    <div className="flex items-center justify-between py-3">
                       <Link 
                         href={item.href} 
-                        className={`text-base font-black uppercase tracking-tight ${isActive(item.href) ? 'text-[#1A4AB2]' : 'text-slate-800'}`}
+                        className={`text-base font-medium ${isActive(item.href) ? 'text-blue-600' : 'text-gray-800'}`}
                         onClick={() => !item.hasDropdown && setIsOpen(false)}
                       >
                         {item.name}
@@ -219,7 +224,7 @@ export default function Navbar() {
                       {item.hasDropdown && (
                         <button 
                           onClick={() => setExpandedMobileItem(expandedMobileItem === item.name ? null : item.name)}
-                          className="p-2 bg-slate-50 rounded-lg"
+                          className="p-2 hover:bg-gray-100 rounded-lg"
                         >
                           <ChevronDown size={18} className={`transition-transform ${expandedMobileItem === item.name ? "rotate-180" : ""}`} />
                         </button>
@@ -233,15 +238,15 @@ export default function Navbar() {
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
-                          className="overflow-hidden bg-slate-50 rounded-2xl px-4"
+                          className="overflow-hidden bg-gray-50 rounded-lg px-3"
                         >
-                          <div className="py-4 space-y-4">
-                            {dropdownContent[item.name as keyof typeof dropdownContent]?.slice(0, 10).map((sub: any) => (
+                          <div className="py-3 space-y-2">
+                            {dropdownContent[item.name as keyof typeof dropdownContent]?.slice(0, 8).map((sub: any) => (
                               <Link 
                                 key={sub.title} 
                                 href={sub.href} 
                                 onClick={() => setIsOpen(false)}
-                                className="block text-[12px] font-bold text-slate-600 uppercase tracking-wide hover:text-[#1A4AB2]"
+                                className="block text-sm font-medium text-gray-600 hover:text-blue-600 py-1"
                               >
                                 {sub.flag} {sub.title}
                               </Link>
@@ -254,12 +259,12 @@ export default function Navbar() {
                 ))}
               </div>
 
-              <div className="p-6 border-t bg-slate-50">
+              <div className="p-4 border-t bg-gray-50">
                 <button 
                   onClick={() => { openModal(); setIsOpen(false); }}
-                  className="w-full py-4 bg-[#1A4AB2] text-white text-xs font-black uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-blue-200"
+                  className="w-full py-3 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-all"
                 >
-                  Quick Apply Now
+                  Apply Now
                 </button>
               </div>
             </motion.div>

@@ -4,9 +4,9 @@
 export const SITE_ASSETS = {
   // Logo variants
   logo: {
-    main: "/logo.jpg",
-    favicon: "/logo.jpg",
-    appleTouchIcon: "/logo.jpg",
+    main: "/logo.png",
+    favicon: "/logo.png",
+    appleTouchIcon: "/logo.png",
   },
 
   // PWA icons
