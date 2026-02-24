@@ -36,6 +36,7 @@ export const INDIAN_CITIES: CityConfig[] = [
     features: ["IIT Bombay", "NMIMS", "Top Medical Colleges"],
     stats: { colleges: "500+", students: "2L+", avgFees: "₹2-15L" }
   },
+  
   {
     id: "delhi",
     name: "Delhi",
