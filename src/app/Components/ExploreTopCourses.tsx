@@ -3,8 +3,15 @@
 import React from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { useFormModal } from "@/context/FormModalContext";
+
 
 const ExploreTopCourses = () => {
+
+
+  const { openModal } = useFormModal();
+
+
   const categories = [
     {
       title: "Engineering",
@@ -81,7 +88,7 @@ const ExploreTopCourses = () => {
           <h3 className="text-xl font-semibold mb-1">Need career guidance?</h3>
           <p className="text-[#64748B] text-sm font-medium">Talk to our experts for a personalized admission roadmap.</p>
         </div>
-        <button className="bg-[#1E293B] text-white px-8 py-3 rounded-md text-sm font-bold hover:bg-[#4A90E2] transition-colors active:scale-95">
+        <button onClick={() => openModal()} className="bg-[#1E293B] text-white px-8 py-3 rounded-md text-sm font-bold hover:bg-[#4A90E2] transition-colors active:scale-95">
           Contact Support
         </button>
       </div>

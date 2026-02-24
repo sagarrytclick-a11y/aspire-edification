@@ -92,7 +92,7 @@ export default function EnquiriesPage() {
       title: 'Contact',
       render: (value: string, record: Enquiry) => (
         <div className="max-w-md">
-          <div className="font-medium text-gray-900">{value}</div>
+          <div className="font-medium text-white">{value}</div>
           <div className="text-sm text-gray-500">{record.email}</div>
           <div className="text-sm text-gray-500">{record.phone}</div>
         </div>
@@ -103,7 +103,7 @@ export default function EnquiriesPage() {
       title: 'Subject',
       render: (value: string) => (
         <div className="max-w-xs">
-          <div className="font-medium text-gray-900 line-clamp-2">{value}</div>
+          <div className="font-medium text-white line-clamp-2">{value}</div>
         </div>
       )
     },
@@ -184,7 +184,7 @@ export default function EnquiriesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Enquiries</h1>
+          <h1 className="text-2xl font-bold text-gray-400">Enquiries</h1>
           <p className="text-gray-600">Manage student enquiries and support requests</p>
         </div>
       </div>
@@ -310,44 +310,44 @@ export default function EnquiriesPage() {
             {/* Contact Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Name</label>
+                <label className="text-sm font-medium text-white">Name</label>
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="h-4 w-4 text-gray-400" />
+                  <MessageSquare className="h-4 w-4 text-white" />
                   <span>{selectedEnquiry.name}</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Email</label>
+                <label className="text-sm font-medium text-white">Email</label>
                 <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-gray-400" />
+                  <Mail className="h-4 w-4 text-white" />
                   <span>{selectedEnquiry.email}</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Phone</label>
+                <label className="text-sm font-medium text-white">Phone</label>
                 <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 text-gray-400" />
-                  <span>{selectedEnquiry.phone}</span>
+                  <Phone className="h-4 w-4 text-white" />
+                  <span className="text-white">{selectedEnquiry.phone}</span>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Source</label>
-                <Badge variant="outline">{selectedEnquiry.source}</Badge>
+                <label className="text-sm font-medium text-white">Source</label>
+                <Badge variant="outline" className="text-white border-white/50">{selectedEnquiry.source}</Badge>
               </div>
             </div>
 
             {/* Enquiry Details */}
             <div className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-gray-700">Subject</label>
-                <div className="mt-1 p-3 bg-gray-50 rounded-lg">
+                <label className="text-sm font-medium text-white">Subject</label>
+                <div className="mt-1 p-3 rounded-lg">
                   {selectedEnquiry.subject}
                 </div>
               </div>
               
               <div>
-                <label className="text-sm font-medium text-gray-700">Message</label>
-                <div className="mt-1 p-3 bg-gray-50 rounded-lg whitespace-pre-wrap">
+                <label className="text-sm font-medium text-white">Message</label>
+                <div className="mt-1 p-3  rounded-lg whitespace-pre-wrap">
                   {selectedEnquiry.message}
                 </div>
               </div>

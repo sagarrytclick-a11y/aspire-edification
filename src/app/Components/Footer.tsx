@@ -5,6 +5,7 @@ import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Instagram, Linkedin, Tw
 import { SITE_IDENTITY } from "@/site-identity";
 import { useContactInfo, createMailtoLink, createTelLink, createWhatsAppLink } from "@/hooks/useContactInfo";
 import { useFormModal } from '@/context/FormModalContext';
+import Image from 'next/image';
 
 const Footer = () => {
   const { emails, phones, address } = useContactInfo();
@@ -35,9 +36,7 @@ const Footer = () => {
           {/* Brand Identity */}
           <div className="lg:col-span-4 space-y-6">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="w-8 h-8 bg-[#4A90E2] rounded-md flex items-center justify-center group-hover:rotate-6 transition-transform">
-                <Zap size={18} className="text-white fill-white" />
-              </div>
+              <Image src={`/logo.png`} alt={SITE_IDENTITY.name} width={50} height={50} />
               <span className="text-xl font-bold text-[#1E293B] tracking-tight">
                 {SITE_IDENTITY.name}
               </span>
@@ -113,15 +112,35 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">
-            © {new Date().getFullYear()} {SITE_IDENTITY.name} • Education for all
-          </p>
-          
-          <div className="flex gap-6 text-[10px] font-bold uppercase tracking-widest text-[#94A3B8]">
-            <Link href="/privacy" className="hover:text-[#4A90E2] transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-[#4A90E2] transition-colors">Terms</Link>
-            <Link href="/contact" className="hover:text-[#4A90E2] transition-colors">Sitemap</Link>
+        {/* Bottom Bar */}
+        <div className="pt-10 border-t border-slate-100">
+          {/* Disclaimer - Refined Structure */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
+            <div className="lg:col-span-8">
+              <div className="flex items-start gap-3 opacity-70 group">
+                <div className="mt-1 p-1 bg-slate-100 rounded text-[#94A3B8] group-hover:bg-[#4A90E2]/10 group-hover:text-[#4A90E2] transition-colors">
+                  <Sparkles size={12} />
+                </div>
+                <div className="space-y-2">
+                  <h5 className="text-[10px] font-black uppercase tracking-[0.15em] text-[#1E293B]">Legal Disclaimer</h5>
+                  <p className="text-[10px] leading-relaxed font-medium">
+                    The content provided by <span className="text-[#1E293B] font-bold">{SITE_IDENTITY.name}</span> is for general informational purposes only. All information on the site is provided in good faith, however, we make no representation or warranty of any kind regarding the accuracy, validity, or completeness of institutional data. 
+                    <span className="block mt-1 italic text-[#94A3B8]">Final admission and visa decisions rest solely with the respective universities and governmental authorities.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="lg:col-span-4 flex flex-col lg:items-end gap-4">
+              <div className="flex gap-6 text-[10px] font-black uppercase tracking-widest text-[#1E293B]">
+                <Link href="/privacy" className="hover:text-[#4A90E2] transition-colors">Privacy Policy</Link>
+                <Link href="/term" className="hover:text-[#4A90E2] transition-colors">Terms of Use</Link>
+                <Link href="/contact" className="hover:text-[#4A90E2] transition-colors">Sitemap</Link>
+              </div>
+              <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest">
+                © {new Date().getFullYear()} {SITE_IDENTITY.name} • All Rights Reserved
+              </p>
+            </div>
           </div>
         </div>
       </div>

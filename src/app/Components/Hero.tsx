@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Building2, MapPin, ChevronRight, Sparkles } from "lucide-react";
+import { Search, ChevronRight, Sparkles, ArrowUpRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import Link from "next/link"; // Changed to next/link for standard Next.js behavior
+import Link from "next/link";
 
 // --- Swiper Imports ---
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -34,13 +34,13 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-20 pb-16 overflow-hidden bg-white font-sans">
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-white font-sans">
       
-      {/* --- BACKGROUND SLIDER LAYER --- */}
-      <div className="absolute inset-0 z-0">
+      {/* --- BACKGROUND / IMAGE SECTION (RIGHT SIDE) --- */}
+      <div className="absolute top-0 right-0 w-full lg:w-[45%] h-full z-0 hidden lg:block">
         <Swiper
           modules={[Autoplay, EffectFade]}
-          speed={2000}
+          speed={1500}
           autoplay={{ delay: 5000, disableOnInteraction: false }}
           effect="fade"
           className="h-full w-full"
@@ -48,49 +48,44 @@ const Hero: React.FC = () => {
           {featuredColleges.map((college, idx) => (
             <SwiperSlide key={idx}>
               <div 
-                className="w-full h-full bg-cover bg-center transition-transform duration-[7000ms] scale-105"
+                className="w-full h-full bg-cover bg-center"
                 style={{ backgroundImage: `url(${college.img})` }}
               >
-                {/* DARK TINT LAYER: Ye images ko thoda dark karega taaki images ki details dikhen */}
-                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent" />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
-        
-        {/* IMPROVED GRADIENT OVERLAY: 
-            Left side (Text area) is white for readability.
-            Right side is transparent so images are visible. */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-24 relative z-20">
-        <div className="max-w-3xl text-left">
+      {/* --- CONTENT SECTION (LEFT SIDE) --- */}
+      <div className="container mx-auto px-6 lg:px-24 relative z-10">
+        <div className="max-w-2xl lg:text-left text-center">
           
-          {/* Tagline */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 bg-white/80 backdrop-blur-md border border-slate-100 rounded-md shadow-sm">
-            <Sparkles size={14} className="text-[#4A90E2]" />
-            <span className="text-[10px] font-bold tracking-widest text-[#4A90E2] uppercase">
-              Premium Admission Intelligence 2026
+          {/* Subtle Tagline */}
+          <div className="inline-flex mt-4 items-center gap-2 px-3 py-1 mb-8 bg-[#4A90E2]/5  border border-[#4A90E2]/10 rounded-full">
+            <Sparkles size={12} className="text-[#4A90E2]" />
+            <span className="text-[10px] font-bold tracking-widest  text-[#4A90E2] uppercase">
+              Admission Intelligence 2026
             </span>
           </div>
 
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-bold text-[#1E293B] mb-6 tracking-tight leading-tight">
-            Elevate Your <br />
-            <span className="text-[#4A90E2]">Academic Journey</span>
+          {/* Clean Typography */}
+          <h1 className="text-5xl md:text-5xl font-bold text-[#1E293B] mb-6 tracking-tighter leading-[1.1]">
+            Find Your <br />
+            <span className="text-[#4A90E2]">Future Campus.</span>
           </h1>
 
-          <p className="text-sm md:text-base text-[#475569] font-semibold mb-10 max-w-xl leading-relaxed">
-            Navigate the landscape of 500+ elite global universities. Get data-driven insights for JEE, NEET, and MBA admissions with Aspire Edification.
+          <p className="text-base md:text-lg text-[#64748B] font-medium mb-10 max-w-lg lg:mx-0 mx-auto leading-relaxed">
+            Direct access to data-driven insights for 500+ elite universities. Your journey to JEE, NEET, and MBA success starts here.
           </p>
 
-          {/* Search Section */}
-          <div className="relative max-w-2xl mb-12">
-            <div className="relative bg-white rounded-lg border border-slate-200 shadow-2xl p-1.5 transition-all focus-within:border-[#4A90E2] focus-within:ring-4 focus-within:ring-[#4A90E2]/10">
+          {/* Sleek Search Bar */}
+          <div className="relative max-w-xl mb-12 lg:mx-0 mx-auto group">
+            <div className="relative bg-white rounded-2xl border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-2 transition-all group-focus-within:shadow-[0_20px_50px_rgba(74,144,226,0.1)] group-focus-within:border-[#4A90E2]/30">
               <div className="flex items-center">
                 <div className="pl-4 pr-2 text-slate-400">
-                  <Search size={20} />
+                  <Search size={18} />
                 </div>
 
                 <input
@@ -100,48 +95,50 @@ const Hero: React.FC = () => {
                     setQuery(e.target.value);
                     setShowResults(e.target.value.length >= 2);
                   }}
-                  placeholder="Search elite institutions..."
-                  className="flex-1 bg-transparent py-3 text-[#1E293B] font-bold placeholder-slate-400 text-base focus:outline-none"
+                  placeholder="Search by college, course or exam..."
+                  className="flex-1 bg-transparent py-3 text-[#1E293B] font-medium placeholder-slate-400 text-sm focus:outline-none"
                 />
 
-                <button className="hidden md:block bg-[#1E293B] hover:bg-[#4A90E2] text-white px-8 py-3 rounded-md font-bold text-sm transition-all shadow-sm active:scale-95">
-                  Find Now
+                <button className="bg-[#1E293B] text-white px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 hover:bg-[#4A90E2] active:scale-95">
+                  Search
+                  <ArrowUpRight size={14} />
                 </button>
               </div>
             </div>
 
             {/* Dropdown Results */}
             {showResults && (
-              <div className="absolute left-0 right-0 mt-2 bg-white rounded-lg shadow-2xl border border-slate-100 max-h-[350px] overflow-y-auto z-50">
+              <div className="absolute left-0 right-0 mt-3 bg-white rounded-2xl shadow-2xl border border-slate-50 max-h-[380px] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
                 {isLoading ? (
-                  <div className="p-8 text-center">
-                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-[#4A90E2] mx-auto mb-3"></div>
-                    <span className="text-xs text-[#64748B] font-medium">Analyzing Database...</span>
+                  <div className="p-10 text-center">
+                    <div className="w-5 h-5 border-2 border-[#4A90E2] border-t-transparent rounded-full animate-spin mx-auto" />
                   </div>
                 ) : colleges.length > 0 ? (
-                  <div className="py-1">
+                  <div className="py-2 overflow-y-auto max-h-[380px]">
                     {colleges.map((college: any) => (
                       <Link
                         key={college._id}
                         href={`/colleges/${college.slug}`}
-                        className="flex items-center gap-4 px-5 py-4 hover:bg-[#F8FAFC] transition-colors border-b border-slate-50 last:border-none group"
+                        className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 transition-colors group/item"
                       >
-                        <div className="bg-[#F8FAFC] p-2 rounded-md text-[#4A90E2] group-hover:bg-[#4A90E2] group-hover:text-white transition-all">
-                          <Building2 size={18} />
+                        <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
+                          <img 
+                            src={college.banner_url || "/api/placeholder/100/100"} 
+                            alt={college.name}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                         <div className="flex-1">
-                          <div className="font-bold text-[#1E293B] text-sm">{college.name}</div>
-                          <div className="text-[10px] text-[#64748B] flex items-center gap-1 mt-0.5 font-bold uppercase tracking-tight">
-                            <MapPin size={12} className="text-[#4A90E2]" /> {college.state}
-                          </div>
+                          <div className="font-bold text-[#1E293B] text-sm group-hover/item:text-[#4A90E2] transition-colors">{college.name}</div>
+                          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{college.city || 'Global Campus'}</div>
                         </div>
-                        <ChevronRight size={16} className="text-slate-300 group-hover:text-[#4A90E2]" />
+                        <ChevronRight size={14} className="text-slate-300 group-hover/item:translate-x-1 transition-transform" />
                       </Link>
                     ))}
                   </div>
                 ) : (
-                  <div className="p-8 text-center text-xs text-[#64748B] font-bold uppercase tracking-widest">
-                    No matching results found.
+                  <div className="p-8 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                    No results found
                   </div>
                 )}
               </div>
@@ -149,15 +146,15 @@ const Hero: React.FC = () => {
           </div>
 
           {/* Stats Section */}
-          <div className="flex flex-wrap gap-8 md:gap-12 border-t border-slate-100 pt-10">
+          <div className="flex items-center lg:justify-start justify-center flex-wrap gap-12 pt-10 border-t border-slate-50">
             {[
-              { val: "15k+", label: "Students" },
-              { val: "500+", label: "Universities" },
-              { val: "Top 1%", label: "Mentors" },
+              { val: "15k+", label: "Aspirants" },
+              { val: "500+", label: "Institutes" },
+              { val: "Top 1%", label: "Insights" },
             ].map((stat, i) => (
-              <div key={i}>
-                <div className="text-2xl font-black text-[#1E293B]">{stat.val}</div>
-                <div className="text-[9px] text-[#4A90E2] font-black uppercase tracking-[0.2em]">{stat.label}</div>
+              <div key={i} className="group">
+                <div className="text-3xl font-bold text-[#1E293B] group-hover:text-[#4A90E2] transition-colors">{stat.val}</div>
+                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{stat.label}</div>
               </div>
             ))}
           </div>

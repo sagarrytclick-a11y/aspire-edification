@@ -63,9 +63,9 @@ export function AdminTable<T = Record<string, unknown>>({
 
   if (data.length === 0) {
     return (
-      <div className="text-center py-8 sm:py-12 text-gray-400">
+      <div className="text-center py-8 sm:py-12 text-white">
         <div className="text-base sm:text-lg font-medium mb-2">{emptyMessage}</div>
-        <div className="text-sm">No records found</div>
+        <div className="text-sm text-white">No records found</div>
       </div>
     )
   }
@@ -76,16 +76,16 @@ export function AdminTable<T = Record<string, unknown>>({
         <TableHeader>
           <TableRow className="border-gray-700">
             {columns.map((column) => (
-              <TableHead 
-                key={String(column.key)} 
+              <TableHead
+                key={String(column.key)}
                 style={{ width: column.width }}
-                className="text-gray-200 font-semibold"
+                className="text-white font-semibold"
               >
                 {column.title}
               </TableHead>
             ))}
             {actions && actions.length > 0 && (
-              <TableHead className="w-24 text-gray-200 font-semibold">Actions</TableHead>
+              <TableHead className="w-24 text-white font-semibold">Actions</TableHead>
             )}
           </TableRow>
         </TableHeader>
@@ -93,52 +93,52 @@ export function AdminTable<T = Record<string, unknown>>({
           {data.map((record, index) => (
             <TableRow key={index} className="border-gray-700">
               {columns.map((column) => (
-                <TableCell key={String(column.key)} className="text-gray-300">
-  {(() => {
-    try {
-      const value = (record as any)[column.key];
+                <TableCell key={String(column.key)} className="text-white">
+                  {(() => {
+                    try {
+                      const value = (record as any)[column.key];
 
-      // 1. If a custom render function is provided, use it
-      if (column.render) {
-        const rendered = column.render(value, record, index);
-        // Safety: If the render function accidentally returns an object, stringify it
-        return typeof rendered === 'object' && rendered !== null && !Array.isArray(rendered) && !(rendered as any).$$typeof
-          ? JSON.stringify(rendered)
-          : rendered;
-      }
+                      // 1. If a custom render function is provided, use it
+                      if (column.render) {
+                        const rendered = column.render(value, record, index);
+                        // Safety: If the render function accidentally returns an object, stringify it
+                        return typeof rendered === 'object' && rendered !== null && !Array.isArray(rendered) && !(rendered as any).$$typeof
+                          ? JSON.stringify(rendered)
+                          : rendered;
+                      }
 
-      // 2. Handle null or undefined
-      if (value === undefined || value === null) {
-        return <span className="text-gray-500">N/A</span>;
-      }
+                      // 2. Handle null or undefined
+                      if (value === undefined || value === null) {
+                        return <span className="text-white">N/A</span>;
+                      }
 
-      // 3. Handle Dates
-      if (value instanceof Date) {
-        return value.toLocaleDateString();
-      }
+                      // 3. Handle Dates
+                      if (value instanceof Date) {
+                        return <span className="text-white">{value.toLocaleDateString()}</span>;
+                      }
 
-      // 4. Handle Objects (The culprit)
-      if (typeof value === 'object') {
-        // If it's a specific object like your University data, 
-        // we extract most useful string (title or name)
-        const displayValue = value.title || value.name || value.label;
-        
-        if (displayValue && typeof displayValue === 'string') {
-          return displayValue;
-        }
+                      // 4. Handle Objects (The culprit)
+                      if (typeof value === 'object') {
+                        // If it's a specific object like your University data, 
+                        // we extract most useful string (title or name)
+                        const displayValue = value.title || value.name || value.label;
 
-        // Fallback: Just stringify the whole thing so it doesn't crash
-        return <span className="text-xs text-gray-500 font-mono">{JSON.stringify(value)}</span>;
-      }
+                        if (displayValue && typeof displayValue === 'string') {
+                          return <span className="text-white">{displayValue}</span>;
+                        }
 
-      // 5. Default for strings, numbers, booleans
-      return String(value);
-    } catch (error) {
-      console.error('Error rendering table cell:', error);
-      return <span className="text-red-400">Render Error</span>;
-    }
-  })()}
-</TableCell>
+                        // Fallback: Just stringify the whole thing so it doesn't crash
+                        return <span className="text-xs text-white font-mono">{JSON.stringify(value)}</span>;
+                      }
+
+                      // 5. Default for strings, numbers, booleans
+                      return <span className="text-white">{String(value)}</span>;
+                    } catch (error) {
+                      console.error('Error rendering table cell:', error);
+                      return <span className="text-red-400">Render Error</span>;
+                    }
+                  })()}
+                </TableCell>
               ))}
               {actions && actions.length > 0 && (
                 <TableCell>
@@ -150,7 +150,7 @@ export function AdminTable<T = Record<string, unknown>>({
                         size="sm"
                         onClick={() => action.onClick(record, index)}
                         disabled={action.disabled}
-                        className="text-gray-300 hover:text-white hover:bg-gray-700"
+                        className="text-white hover:text-white hover:bg-gray-700"
                       >
                         {action.icon || action.label}
                       </Button>

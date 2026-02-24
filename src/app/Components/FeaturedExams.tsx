@@ -147,8 +147,8 @@ export default function FeaturedSection() {
               country={u.country_ref?.name}
               establishment_year={u.establishment_year}
               ranking={u.ranking?.country_ranking || u.ranking}
-              fees={u.fees_structure?.courses?.[0]?.annual_tuition_fee}
-              duration={u.fees_structure?.courses?.[0]?.duration}
+              fees={u.fees || u.annual_fees || u.fees_structure?.courses?.[0]?.annual_tuition_fee}
+              duration={u.duration || u.fees_structure?.courses?.[0]?.duration}
             />
           ))}
         </div>
@@ -166,7 +166,7 @@ export default function FeaturedSection() {
                 disabled={isLoadingMore}
                 className="px-8 py-3 bg-white border border-slate-200 text-[#1E293B] text-sm font-bold rounded-md hover:border-[#4A90E2] hover:text-[#4A90E2] transition-all flex items-center gap-2 disabled:opacity-50"
               >
-                {isLoadingMore ? "Loading..." : "Explore More"}
+                {isLoadingMore ? "Loading..." : "Load More"}
                 {!isLoadingMore && <ArrowRight size={14} />}
               </button>
             )}
