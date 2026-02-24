@@ -8,160 +8,151 @@ import {
   Briefcase,
   ArrowRight,
   TrendingUp,
+  Award,
+  Users
 } from 'lucide-react'
 
 const ExploreTopCourses = () => {
-  // Theme Color Tokens
-  const PRIMARY_BLUE = "#1A4AB2"
-  const ACCENT_GOLD = "#FACC15"
-  const MEDICAL_GREEN = "#10B981"
-  const MANAGEMENT_PURPLE = "#8B5CF6"
+  // Theme Color Tokens from your saved palette
+  const PRIMARY_BLUE = "#4A90E2"
+  const SECONDARY_CYAN = "#00D4FF"
+  const BACKGROUND_DEEP = "#12141D"
+  const SURFACE_CARD = "#1E212B"
+  const TEXT_PRIMARY = "#F8FAFC"
+  const TEXT_MUTED = "#94A3B8"
 
   const categories = [
     {
-      title: "Engineering",
-      description: "Explore top engineering colleges offering B.Tech, M.Tech programs with excellent placement records and cutting-edge research facilities.",
-      icon: <BookOpen className="w-8 h-8 text-white" />,
-      iconBg: "bg-[#1A4AB2]",
-      borderColor: "border-[#1A4AB2]",
-      hoverBg: "hover:bg-[#1A4AB2]/5",
-      examName: "JEE",
-      examColor: "text-[#1A4AB2]",
+      title: "Engineering & Tech",
+      description: "Shape the future with B.Tech/M.Tech from premier institutes like IITs & NITs. Focused on innovation and high-scale placements.",
+      icon: <BookOpen className="w-8 h-8 text-[#00D4FF]" />,
+      examName: "JEE / GATE",
       href: "/colleges/engineering",
-      features: ["Top IITs & NITs", "Excellent Placements", "Research Opportunities"],
-      stats: { colleges: "5000+", exams: "JEE Main, GATE" }
+      features: ["Elite IIT/NIT Network", "Tech-First Curriculum", "High ROI Placements"],
+      stats: { colleges: "5000+", students: "2M+ Aspirants" }
     },
     {
       title: "Medical Sciences",
-      description: "Discover premier medical institutions offering MBBS, BDS, and specialized healthcare programs with advanced clinical training.",
-      icon: <Stethoscope className="w-8 h-8 text-white" />,
-      iconBg: "bg-[#10B981]",
-      borderColor: "border-[#10B981]",
-      hoverBg: "hover:bg-[#10B981]/5",
-      examName: "NEET",
-      examColor: "text-[#10B981]",
+      description: "Excellence in healthcare. Discover top-tier medical colleges for MBBS and specialized clinical research programs.",
+      icon: <Stethoscope className="w-8 h-8 text-[#00D4FF]" />,
+      examName: "NEET UG/PG",
       href: "/colleges/medical",
-      features: ["AIIMS & Top Medical", "Clinical Exposure", "Research Programs"],
-      stats: { colleges: "800+", exams: "NEET UG, NEET PG" }
+      features: ["AIIMS Level Training", "Hands-on Clinicals", "Global Recognition"],
+      stats: { colleges: "850+", students: "1.5M+ Aspirants" }
     },
     {
-      title: "Management Studies",
-      description: "Find leading business schools offering MBA, PGDM programs with strong industry connections and leadership development.",
-      icon: <Briefcase className="w-8 h-8 text-white" />,
-      iconBg: "bg-[#8B5CF6]",
-      borderColor: "border-[#8B5CF6]",
-      hoverBg: "hover:bg-[#8B5CF6]/5",
-      examName: "CAT",
-      examColor: "text-[#8B5CF6]",
+      title: "Management Excellence",
+      description: "Leadership starts here. Find top-ranked B-Schools for MBA and PGDM with global corporate connections.",
+      icon: <Briefcase className="w-8 h-8 text-[#00D4FF]" />,
+      examName: "CAT / XAT",
       href: "/colleges/management",
-      features: ["Top B-Schools", "Corporate Connect", "Leadership Programs"],
-      stats: { colleges: "3000+", exams: "CAT, XAT, MAT" }
+      features: ["Strategic Leadership", "Corporate Networks", "CXO Mentorship"],
+      stats: { colleges: "3200+", students: "500k+ Aspirants" }
     }
   ]
 
   return (
-    <div className="bg-white py-24 px-6 sm:px-12 lg:px-24 font-sans">
+    <div className={`bg-[${BACKGROUND_DEEP}] py-28 px-6 lg:px-24 font-sans text-[${TEXT_PRIMARY}] relative overflow-hidden`}>
+      {/* Decorative background glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#4A90E2]/5 blur-[120px] -z-10" />
+
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="mb-16 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#1A4AB2]/10 border border-[#1A4AB2]/20 text-[#1A4AB2] px-4 py-2 rounded-full text-[11px] font-bold uppercase tracking-widest mb-4">
-            <span className="w-2 h-2 bg-[#FACC15] rounded-full animate-pulse" />
-            Explore Top Courses
+        <div className="mb-20 text-center">
+          <div className="inline-flex items-center gap-2 bg-[#4A90E2]/10 border border-[#4A90E2]/30 text-[#00D4FF] px-5 py-2 rounded-full text-[12px] font-bold uppercase tracking-[0.2em] mb-6">
+            <Award size={14} />
+            Academic Verticals
           </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-6">
-            Find Your <span className="text-[#1A4AB2]">Perfect</span> Career Path
+          <h2 className="text-4xl md:text-6xl font-black text-[#F8FAFC] tracking-tight mb-8">
+            Expertly Curated <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Career Paths</span>
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Discover premier institutions across Engineering, Medical, and Management streams. 
-            Explore comprehensive details about entrance exams, rankings, and admission guidance.
+          <p className="text-lg md:text-xl text-[#94A3B8] max-w-2xl mx-auto leading-relaxed">
+            We bridge the gap between your aspirations and world-class education. Choose your domain and let us guide your journey.
           </p>
         </div>
 
         {/* Category Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 mb-20">
           {categories.map((category, index) => (
             <div 
               key={index} 
-              className={`group relative bg-white border-2 ${category.borderColor} rounded-3xl p-8 shadow-lg hover:shadow-2xl ${category.hoverBg} transition-all duration-500 overflow-hidden`}
+              className="group relative bg-[#1E212B] border border-[#94A3B8]/10 rounded-[2rem] p-10 hover:border-[#4A90E2]/50 transition-all duration-500 hover:-translate-y-2 shadow-2xl"
             >
-              {/* Gradient Overlay on Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Subtle hover gradient */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#4A90E2]/5 to-transparent opacity-0 group-hover:opacity-100 rounded-[2rem] transition-opacity duration-500" />
               
-              {/* Icon Container */}
-              <div className={`w-20 h-20 ${category.iconBg} rounded-2xl flex items-center justify-center mb-6 shadow-xl group-hover:scale-110 transition-transform duration-300 relative z-10`}>
-                {category.icon}
-              </div>
+              {/* Icon & Title */}
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-[#12141D] border border-[#94A3B8]/20 rounded-2xl flex items-center justify-center mb-8 shadow-inner group-hover:shadow-[#4A90E2]/20 transition-all">
+                  {category.icon}
+                </div>
 
-              {/* Title & Description */}
-              <h3 className={`text-2xl font-bold text-slate-900 mb-4 group-hover:${category.examColor} transition-colors relative z-10`}>
-                {category.title}
-              </h3>
-              <p className="text-slate-600 leading-relaxed mb-6 relative z-10">
-                {category.description}
-              </p>
+                <h3 className="text-2xl font-bold text-[#F8FAFC] mb-4 group-hover:text-[#00D4FF] transition-colors">
+                  {category.title}
+                </h3>
+                <p className="text-[#94A3B8] text-sm leading-relaxed mb-8">
+                  {category.description}
+                </p>
 
-              {/* Features List */}
-              <div className="space-y-3 mb-6 relative z-10">
-                {category.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <div className={`w-2 h-2 ${category.examColor === 'text-[#1A4AB2]' ? 'bg-[#1A4AB2]' : category.examColor === 'text-[#10B981]' ? 'bg-[#10B981]' : 'bg-[#8B5CF6]'} rounded-full`} />
-                    <span className="text-sm font-semibold text-slate-700">{feature}</span>
-                  </div>
-                ))}
-              </div>
+                {/* Features List */}
+                <div className="space-y-4 mb-8">
+                  {category.features.map((feature, idx) => (
+                    <div key={idx} className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 bg-[#4A90E2] rounded-full shadow-[0_0_8px_#4A90E2]" />
+                      <span className="text-sm font-medium text-[#F8FAFC]/80">{feature}</span>
+                    </div>
+                  ))}
+                </div>
 
-              {/* Stats Section */}
-              <div className="bg-slate-50 rounded-2xl p-4 mb-6 relative z-10">
-                <div className="flex justify-between items-center">
+                {/* Quick Stats Surface */}
+                <div className="flex items-center justify-between bg-[#12141D] rounded-2xl p-5 mb-8 border border-[#94A3B8]/5">
                   <div>
-                    <p className="text-xs text-slate-500 uppercase tracking-wider">Colleges</p>
-                    <p className={`text-lg font-bold ${category.examColor}`}>{category.stats.colleges}</p>
+                    <p className="text-[10px] text-[#94A3B8] uppercase tracking-tighter mb-1 font-bold">Verified Colleges</p>
+                    <p className="text-lg font-black text-[#F8FAFC]">{category.stats.colleges}</p>
                   </div>
+                  <div className="w-[1px] h-8 bg-[#94A3B8]/20" />
                   <div className="text-right">
-                    <p className="text-xs text-slate-500 uppercase tracking-wider">Exams</p>
-                    <p className="text-sm font-semibold text-slate-700">{category.stats.exams}</p>
+                    <p className="text-[10px] text-[#94A3B8] uppercase tracking-tighter mb-1 font-bold">Impact</p>
+                    <p className="text-sm font-bold text-[#00D4FF]">{category.stats.students}</p>
                   </div>
                 </div>
-              </div>
 
-              {/* Action Buttons */}
-              <div className="flex gap-3 relative z-10">
-                <Link href={category.href} className="flex-1">
-                  <button className={`w-full ${category.examColor === 'text-[#1A4AB2]' ? 'bg-[#1A4AB2] hover:bg-[#1A4AB2]/90' : category.examColor === 'text-[#10B981]' ? 'bg-[#10B981] hover:bg-[#10B981]/90' : 'bg-[#8B5CF6] hover:bg-[#8B5CF6]/90'} text-white font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg`}>
-                    Explore Colleges
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                {/* Action CTA */}
+                <Link href={category.href}>
+                  <button className="w-full bg-[#1E212B] border border-[#4A90E2] hover:bg-[#4A90E2] text-[#F8FAFC] font-bold py-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg group/btn">
+                    Explore Institutions
+                    <ArrowRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </Link>
-                <button className={`px-4 py-3 border-2 ${category.borderColor} ${category.examColor} rounded-xl text-sm font-bold transition-all duration-300 hover:bg-slate-50`}>
-                  {category.examName}
-                </button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA Section */}
-        <div className="text-center bg-gradient-to-r from-[#1A4AB2]/5 to-[#FACC15]/5 rounded-3xl p-12">
-          <h3 className="text-2xl font-bold text-slate-900 mb-4">
-            Not Sure Which Path to Choose?
-          </h3>
-          <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-            Get personalized recommendations based on your interests, scores, and career goals. 
-            Our AI-powered counselor helps you find the perfect match.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/colleges">
-              <button className="bg-[#1A4AB2] hover:bg-[#1A4AB2]/90 text-white font-bold py-4 px-8 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg">
-                Browse All Colleges
-                <ArrowRight size={16} />
-              </button>
-            </Link>
-            <Link href="/exams">
-              <button className="bg-white hover:bg-slate-50 text-[#1A4AB2] border-2 border-[#1A4AB2] font-bold py-4 px-8 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300">
-                View All Exams
-                <TrendingUp size={16} />
-              </button>
-            </Link>
+        {/* Bottom CTA - Redesigned as a Floating Dark Section */}
+        <div className="relative bg-gradient-to-br from-[#1E212B] to-[#12141D] border border-[#4A90E2]/20 rounded-[2.5rem] p-12 text-center overflow-hidden">
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#00D4FF]/5 blur-[80px]" />
+          
+          <div className="relative z-10 max-w-3xl mx-auto">
+            <h3 className="text-3xl font-black text-[#F8FAFC] mb-6">
+              Confused About Your Next Step?
+            </h3>
+            <p className="text-[#94A3B8] mb-10 text-lg">
+              Our mentorship program has helped over <span className="text-[#00D4FF] font-bold">15,000+ students</span> land their dream campus. Get a personalized roadmap today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-5 justify-center">
+              <Link href="/colleges" className="w-full sm:w-auto">
+                <button className="w-full px-10 py-4 bg-[#4A90E2] hover:bg-[#00D4FF] text-white font-black rounded-2xl transition-all shadow-xl shadow-[#4A90E2]/20 active:scale-95">
+                  Browse Directories
+                </button>
+              </Link>
+              <Link href="/exams" className="w-full sm:w-auto">
+                <button className="w-full px-10 py-4 bg-transparent border-2 border-[#94A3B8]/30 hover:border-[#00D4FF] text-[#F8FAFC] font-black rounded-2xl transition-all flex items-center justify-center gap-2">
+                  Entrance Guide
+                  <TrendingUp size={18} className="text-[#00D4FF]" />
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

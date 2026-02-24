@@ -1,325 +1,362 @@
 'use client'
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { getCountrySlug, getCountryName } from "@/lib/normalize"
+import { getCountryName } from "@/lib/normalize"
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, X, ArrowRight, AlertCircle, RefreshCw, Award, Calendar, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search, ArrowRight, GraduationCap, ChevronLeft, ChevronRight, MapPin, Filter, X, Globe, Award } from 'lucide-react'
 import { useAllColleges } from '@/hooks/useColleges'
 import BackgroundSlider from '@/components/BackgroundSlider'
 
-// Theme Constants
-const PRIMARY_BLUE = "#1A4AB2";
-const ACCENT_GOLD = "#FACC15";
-
 export default function CollegesPage() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
   const [selectedCountry, setSelectedCountry] = useState<string>('all')
   const [selectedExam, setSelectedExam] = useState<string>('all')
+  const [showFilters, setShowFilters] = useState(false)
+  const itemsPerPage = 9
   const [currentPage, setCurrentPage] = useState(1)
-  const [isSearchLoading, setIsSearchLoading] = useState(false)
-  const itemsPerPage = 10
 
-  // Debounce search term
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm)
-      setIsSearchLoading(false)
-    }, 500)
-
-    return () => {
-      clearTimeout(timer)
-    }
+    const timer = setTimeout(() => setDebouncedSearch(searchTerm), 500)
+    return () => clearTimeout(timer)
   }, [searchTerm])
 
-  // Handle search input change
-  const handleSearchChange = useCallback((value: string) => {
-    setSearchTerm(value)
-    if (value.trim()) {
-      setIsSearchLoading(true)
-    }
-  }, [])
+  const { data: collegesResponse, isLoading } = useAllColleges(debouncedSearch, selectedCountry, selectedExam)
+  const colleges = collegesResponse?.colleges || []
 
-  const {
-    data: collegesResponse = { colleges: [], total: 0, page: 1, totalPages: 1, hasMore: false },
-    isLoading,
-    isError,
-    error,
-    refetch
-  } = useAllColleges(debouncedSearchTerm, selectedCountry, selectedExam)
+  useEffect(() => setCurrentPage(1), [debouncedSearch, selectedCountry, selectedExam])
 
-  const colleges = collegesResponse.colleges
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [debouncedSearchTerm, selectedCountry, selectedExam])
-
-  // Pagination logic
-  const { paginatedColleges, totalPages } = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage
-    const endIndex = startIndex + itemsPerPage
-    const paginated = colleges.slice(startIndex, endIndex)
-    const pages = Math.ceil(colleges.length / itemsPerPage)
-    return { paginatedColleges: paginated, totalPages: pages }
-  }, [colleges, currentPage])
-
+  // Extract unique countries and exams from colleges
   const { countries, exams } = useMemo(() => {
     const countrySet = new Set(
       colleges.map((c: any) => typeof c.country_ref === "object" ? c.country_ref.name : c.country_ref).filter(Boolean)
     )
-    const examSet = new Set(colleges.flatMap((college: any) => college.exams))
+    const examSet = new Set(colleges.flatMap((college: any) => college.exams || []))
     return {
       countries: Array.from(countrySet) as string[],
       exams: Array.from(examSet) as string[]
     }
   }, [colleges])
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-slate-50">
-        {/* Hero Header Skeleton */}
-        <div className="bg-slate-950/80 border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-            <div className="text-center mb-16">
-              <div className="h-8 bg-slate-700 rounded-full w-48 mx-auto mb-8 animate-pulse"></div>
-              <div className="h-16 bg-slate-700 rounded-lg w-3/4 mx-auto mb-6 animate-pulse"></div>
-              <div className="h-4 bg-slate-700 rounded w-1/2 mx-auto animate-pulse"></div>
-            </div>
+  const paginatedColleges = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage
+    return colleges.slice(start, start + itemsPerPage)
+  }, [colleges, currentPage])
 
-            {/* Search Bar Skeleton */}
-            <div className="max-w-2xl mx-auto px-4 sm:px-6 w-full">
-              <div className="bg-white w-full rounded-2xl p-2 shadow-xl">
-                <div className="h-12 bg-slate-100 rounded-xl animate-pulse"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* College Cards Skeleton */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="bg-white rounded-[20px] sm:rounded-[30px] lg:rounded-[40px] border border-slate-100 overflow-hidden">
-                {/* Banner Skeleton */}
-                <div className="h-40 sm:h-48 lg:h-60 bg-slate-200 animate-pulse"></div>
-                
-                {/* Info Skeleton */}
-                <div className="p-4 sm:p-6 lg:p-8">
-                  <div className="h-6 bg-slate-200 rounded-lg mb-4 animate-pulse"></div>
-                  <div className="flex gap-2 mb-6">
-                    <div className="h-6 bg-slate-200 rounded-lg w-20 animate-pulse"></div>
-                    <div className="h-6 bg-slate-200 rounded-lg w-20 animate-pulse"></div>
-                  </div>
-                  <div className="grid grid-cols-2 gap-3 mb-8">
-                    <div className="h-16 bg-slate-200 rounded-2xl animate-pulse"></div>
-                    <div className="h-16 bg-slate-200 rounded-2xl animate-pulse"></div>
-                  </div>
-                  <div className="h-12 bg-slate-200 rounded-xl animate-pulse"></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    )
-  }
+  const totalPages = Math.ceil(colleges.length / itemsPerPage)
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Hero Header */}
+    <div className="min-h-screen bg-[#12141D] text-[#F8FAFC] selection:bg-[#4A90E2]/30">
+      
+      {/* --- SECTION 1: HERO HEADER --- */}
       <BackgroundSlider>
-        <div className="bg-slate-950/80 backdrop-blur-sm border-b border-white/10">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 bg-[#1A4AB2] text-white px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest mb-8 shadow-xl shadow-blue-900/20">
-                <GraduationCap size={14} className="text-[#FACC15]" /> Explorer Mode
-              </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tighter">
-                FIND YOUR <span className="text-[#FACC15]">DREAM</span> COLLEGE
-              </h1>
-              <p className="text-slate-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-medium uppercase tracking-wider leading-relaxed">
-                Discover global opportunities across {countries.length || 'multiple'} countries with expert guidance.
-              </p>
-            </div>
+        <div className="relative bg-[#12141D]/80 backdrop-blur-xl border-b border-white/5 py-24 overflow-hidden">
+          {/* Decorative Glows */}
+          <div className="absolute top-0 -left-24 w-96 h-96 bg-[#4A90E2]/10 blur-[100px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 -right-24 w-96 h-96 bg-[#00D4FF]/10 blur-[100px] rounded-full pointer-events-none" />
 
-            {/* Filter Bar */}
-            <div className="max-w-2xl mx-auto px-4 sm:px-6 w-full flex justify-center items-center">
-              <div className="bg-white w-full rounded-2xl p-2 shadow-xl">
-                <div className="flex flex-col sm:flex-row items-center gap-2">
-                  {/* Search Input Container */}
-                  <div className="relative flex-1 w-full">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#1A4AB2] h-4 w-4" />
+          <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 bg-[#1E212B] border border-[#4A90E2]/30 text-[#00D4FF] px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl">
+              <GraduationCap size={14} className="animate-pulse" /> 2026 Academic Directory
+            </div>
+            
+            <h1 className="text-5xl md:text-8xl font-black mb-8 uppercase tracking-tighter leading-[0.9]">
+              Find your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] via-[#00D4FF] to-[#4A90E2]">Future Hub</span>
+            </h1>
+            
+            {/* Ultra Modern Search Bar with Filters */}
+            <div className="max-w-4xl mx-auto relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-[#4A90E2] to-[#00D4FF] rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500" />
+              <div className="relative bg-[#1E212B] border border-white/10 rounded-2xl p-2 shadow-2xl">
+                <div className="flex flex-col lg:flex-row gap-3">
+                  {/* Search Input */}
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#4A90E2]" size={22} />
                     <Input
-                      placeholder="Search colleges..."
+                      placeholder="Search by name, city or country..."
                       value={searchTerm}
-                      onChange={(e) => handleSearchChange(e.target.value)}
-                      className="pl-10 h-12 w-full bg-transparent border-none rounded-xl text-sm font-medium placeholder:text-slate-400 focus-visible:ring-0"
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="bg-transparent border-none text-lg h-14 pl-12 focus-visible:ring-0 placeholder:text-[#94A3B8] font-medium"
                     />
-                    {isSearchLoading && (
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                        <div className="w-4 h-4 border-2 border-slate-200 border-t-[#1A4AB2] rounded-full animate-spin"></div>
+                  </div>
+                  
+                  {/* Filter Toggle Button */}
+                  <Button
+                    onClick={() => setShowFilters(!showFilters)}
+                    className="bg-[#4A90E2] hover:bg-[#00D4FF] text-white rounded-xl h-14 px-6 transition-all border-none flex items-center gap-2"
+                  >
+                    <Filter size={18} />
+                    <span className="font-black uppercase tracking-wider text-xs">Filters</span>
+                    {(selectedCountry !== 'all' || selectedExam !== 'all' || searchTerm) && (
+                      <div className="w-2 h-2 bg-[#00D4FF] rounded-full animate-pulse" />
+                    )}
+                  </Button>
+                </div>
+                
+                {/* Filter Panel */}
+                {showFilters && (
+                  <div className="mt-4 pt-4 border-t border-white/10">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8] flex items-center gap-2">
+                          <Globe size={14} className="text-[#4A90E2]" />
+                          Country/Region
+                        </label>
+                        <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                          <SelectTrigger className="bg-[#12141D] border-white/10 text-white h-12 rounded-xl">
+                            <SelectValue placeholder="All Countries" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#1E212B] border-white/10">
+                            <SelectItem value="all" className="text-white hover:bg-[#4A90E2]/20">All Countries</SelectItem>
+                            {countries.map((country) => (
+                              <SelectItem key={country} value={country} className="text-white hover:bg-[#4A90E2]/20">
+                                {country}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8] flex items-center gap-2">
+                          <Award size={14} className="text-[#4A90E2]" />
+                          Entrance Exam
+                        </label>
+                        <Select value={selectedExam} onValueChange={setSelectedExam}>
+                          <SelectTrigger className="bg-[#12141D] border-white/10 text-white h-12 rounded-xl">
+                            <SelectValue placeholder="All Exams" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#1E212B] border-white/10">
+                            <SelectItem value="all" className="text-white hover:bg-[#4A90E2]/20">All Exams</SelectItem>
+                            {exams.map((exam) => (
+                              <SelectItem key={exam} value={exam} className="text-white hover:bg-[#4A90E2]/20">
+                                {exam}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    
+                    {/* Active Filters Display */}
+                    {(selectedCountry !== 'all' || selectedExam !== 'all' || searchTerm) && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {searchTerm && (
+                          <div className="inline-flex items-center gap-1 bg-[#4A90E2]/20 text-[#4A90E2] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                            Search: {searchTerm}
+                            <X size={12} className="cursor-pointer hover:text-white" onClick={() => setSearchTerm('')} />
+                          </div>
+                        )}
+                        {selectedCountry !== 'all' && (
+                          <div className="inline-flex items-center gap-1 bg-[#4A90E2]/20 text-[#4A90E2] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                            Country: {selectedCountry}
+                            <X size={12} className="cursor-pointer hover:text-white" onClick={() => setSelectedCountry('all')} />
+                          </div>
+                        )}
+                        {selectedExam !== 'all' && (
+                          <div className="inline-flex items-center gap-1 bg-[#4A90E2]/20 text-[#4A90E2] px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">
+                            Exam: {selectedExam}
+                            <X size={12} className="cursor-pointer hover:text-white" onClick={() => setSelectedExam('all')} />
+                          </div>
+                        )}
+                        <Button
+                          onClick={() => {
+                            setSearchTerm('')
+                            setSelectedCountry('all')
+                            setSelectedExam('all')
+                          }}
+                          className="bg-[#1E212B] border border-white/10 hover:bg-[#1E212B]/80 text-white h-8 px-3 rounded-full text-[10px] font-black uppercase tracking-wider"
+                        >
+                          Clear All
+                        </Button>
                       </div>
                     )}
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
         </div>
       </BackgroundSlider>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        {colleges.length === 0 ? (
-          <div className="text-center py-20 sm:py-24 lg:py-32 bg-white rounded-[20px] sm:rounded-[30px] lg:rounded-[40px] border border-dashed border-slate-200">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
-              <Search size={24} className="sm:size-32 text-slate-300" />
+      {/* --- SECTION 2: RESULTS --- */}
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <div key={i} className="h-[450px] bg-[#1E212B] rounded-[2.5rem] animate-pulse border border-white/5" />
+            ))}
+          </div>
+        ) : colleges.length === 0 ? (
+          <div className="text-center py-32 bg-[#1E212B]/50 rounded-[3rem] border border-dashed border-white/10 backdrop-blur-sm">
+            <div className="w-20 h-20 bg-[#12141D] rounded-3xl flex items-center justify-center mx-auto mb-6 border border-white/5">
+                <Search size={32} className="text-[#94A3B8] opacity-50" />
             </div>
-            <h3 className="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-tight">No results matched your search</h3>
-            <p className="text-slate-500 text-xs font-bold uppercase mt-2">Try adjusting your filters or search term</p>
+            <h3 className="text-3xl font-black text-[#F8FAFC] uppercase tracking-tighter">No Matches Found</h3>
+            <p className="text-[#94A3B8] mt-2 font-medium">Try broadening your search or checking for typos.</p>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-              {paginatedColleges.map((college: any) => (
-                <div
-                  key={college._id}
-                  className="group bg-white rounded-[20px] sm:rounded-[30px] lg:rounded-[40px] border border-slate-100 overflow-hidden hover:shadow-[0_40px_80px_-20px_rgba(26,74,178,0.15)] transition-all duration-500 hover:-translate-y-2"
-                >
-                  {/* Banner */}
-                  <div className="relative h-40 sm:h-48 lg:h-60 overflow-hidden">
-                    <img
-                      src={college.banner_url || `https://picsum.photos/seed/${college.slug}/600/400`}
-                      alt={college.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      loading="lazy"
-                    />
-                    <div className="absolute top-3 sm:top-5 left-3 sm:left-5">
-                      <div className="bg-white/95 backdrop-blur-md text-[#1A4AB2] px-3 sm:px-4 py-1.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-widest shadow-lg">
-                        {getCountryName(college.country_ref)}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-4 sm:p-6 lg:p-8">
-                    <h3 className="text-base sm:text-lg lg:text-xl font-black text-slate-950 mb-3 sm:mb-4 leading-tight group-hover:text-[#1A4AB2] transition-colors line-clamp-2">
-                      {college.name}
-                    </h3>
-
-                    <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                      {college.exams.slice(0, 2).map((exam: any) => (
-                        <span key={exam} className="text-[9px] font-black bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-100 uppercase tracking-tighter">
-                          {exam}
-                        </span>
-                      ))}
-                      {college.city && (
-                        <span className="text-[9px] font-black bg-blue-50 text-blue-600 px-3 py-1.5 rounded-lg border border-blue-100 uppercase tracking-tighter">
-                          {college.city}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-6 sm:mb-8">
-                      <div className="bg-slate-50 p-3 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-100">
-                        <div className="flex items-center gap-2 text-slate-400 mb-1">
-                          <Award size={14} />
-                          <span className="text-[9px] font-black uppercase tracking-widest">Ranking</span>
-                        </div>
-                        <div className="text-sm font-black text-[#1A4AB2]">
-                          {typeof college.ranking === 'string' ? college.ranking : 'Top Tier'}
-                        </div>
-                      </div>
-                      <div className="bg-slate-50 p-3 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-100">
-                        <div className="flex items-center gap-2 text-slate-400 mb-1">
-                          <Calendar size={14} />
-                          <span className="text-[9px] font-black uppercase tracking-widest">Est.</span>
-                        </div>
-                        <div className="text-sm font-black text-slate-900">
-                          {college.establishment_year || 'N/A'}
-                        </div>
-                      </div>
-                    </div>
-
-                    <Link href={`/colleges/${college.slug}`} className="block">
-                      <Button className="w-full bg-slate-950 hover:bg-[#1A4AB2] text-white h-12 sm:h-14 rounded-xl sm:rounded-2xl text-[10px] sm:text-[11px] font-black uppercase tracking-[0.15em] transition-all group-hover:shadow-xl group-hover:shadow-blue-900/20">
-                        View Details
-                        <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </Link>
-                  </div>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6">
+              <div>
+                <h2 className="text-4xl font-black uppercase tracking-tighter">Institution <span className="text-[#4A90E2]">Gallery</span></h2>
+                <p className="text-[#94A3B8] font-bold text-xs uppercase tracking-widest mt-1">
+                  Showing {paginatedColleges.length} of {colleges.length} globally recognized hubs
+                  {colleges.length > 0 && (
+                    <span className="ml-2 text-[#00D4FF]">
+                      {selectedCountry !== 'all' && `in ${selectedCountry}`}
+                      {selectedCountry !== 'all' && selectedExam !== 'all' && ' • '}
+                      {selectedExam !== 'all' && `for ${selectedExam}`}
+                    </span>
+                  )}
+                </p>
+              </div>
+              
+              {/* Results Stats */}
+              <div className="flex items-center gap-4">
+                <div className="text-right">
+                  <div className="text-2xl font-black text-[#4A90E2]">{colleges.length}</div>
+                  <div className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8]">Total Results</div>
                 </div>
+                {countries.length > 0 && (
+                  <div className="text-right">
+                    <div className="text-2xl font-black text-[#00D4FF]">{countries.length}</div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8]">Countries</div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+              {paginatedColleges.map((college : any) => (
+                <CollegeCard key={college._id} college={college} />
               ))}
             </div>
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 sm:mt-12">
-                <div className="text-xs sm:text-sm text-slate-500 text-center sm:text-left">
-                  Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, colleges.length)} of {colleges.length} colleges
-                </div>
-                <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="flex items-center space-x-1 text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3"
-                  >
-                    <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span className="hidden sm:inline">Previous</span>
-                    <span className="sm:hidden">Prev</span>
-                  </Button>
-                  
-                  <div className="flex items-center space-x-1">
-                    {Array.from({ length: Math.min(totalPages <= 3 ? totalPages : 5, totalPages) }, (_, i) => {
-                      let pageNum
-                      if (totalPages <= 5) {
-                        pageNum = i + 1
-                      } else if (currentPage <= 3) {
-                        pageNum = i + 1
-                      } else if (currentPage >= totalPages - 2) {
-                        pageNum = totalPages - 4 + i
-                      } else {
-                        pageNum = currentPage - 2 + i
-                      }
-                      
-                      return (
-                        <Button
-                          key={pageNum}
-                          variant={currentPage === pageNum ? "default" : "outline"}
-                          size="sm"
-                          onClick={() => setCurrentPage(pageNum)}
-                          className="w-7 h-7 sm:w-8 sm:h-8 p-0 text-xs sm:text-sm"
+                <div className="mt-20 flex flex-col items-center gap-6">
+                    <div className="flex items-center gap-3">
+                        <Button 
+                            disabled={currentPage === 1}
+                            onClick={() => {
+                                setCurrentPage(p => p - 1);
+                                window.scrollTo({ top: 400, behavior: 'smooth' });
+                            }}
+                            className="w-14 h-14 rounded-2xl bg-[#1E212B] border border-white/10 hover:border-[#4A90E2] transition-all group"
                         >
-                          {pageNum}
+                            <ChevronLeft className="group-hover:-translate-x-1 transition-transform" />
                         </Button>
-                      )
-                    })}
-                  </div>
-                  
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="flex items-center space-x-1 text-xs sm:text-sm h-8 sm:h-10 px-2 sm:px-3"
-                  >
-                    <span className="hidden sm:inline">Next</span>
-                    <span className="sm:hidden">Next</span>
-                    <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
-                  </Button>
+
+                        <div className="bg-[#1E212B] border border-white/10 px-8 h-14 rounded-2xl flex items-center font-black tracking-widest text-sm">
+                            <span className="text-[#4A90E2]">{currentPage}</span>
+                            <span className="mx-2 text-white/20">/</span>
+                            <span>{totalPages}</span>
+                        </div>
+
+                        <Button 
+                            disabled={currentPage === totalPages}
+                            onClick={() => {
+                                setCurrentPage(p => p + 1);
+                                window.scrollTo({ top: 400, behavior: 'smooth' });
+                            }}
+                            className="w-14 h-14 rounded-2xl bg-[#1E212B] border border-white/10 hover:border-[#4A90E2] transition-all group"
+                        >
+                            <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                    </div>
                 </div>
-              </div>
             )}
           </>
         )}
-
       </div>
+    </div>
+  )
+}
+
+function CollegeCard({ college }: { college: any }) {
+  return (
+    <div className="group relative bg-[#1E212B] rounded-[2.5rem] border border-white/5 overflow-hidden transition-all duration-500 hover:border-[#4A90E2]/40 hover:-translate-y-3 shadow-2xl">
+      {/* Image Container */}
+      <div className="relative h-60 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1E212B] via-transparent to-transparent z-10 opacity-60" />
+        <img
+          src={college.banner_url || `https://picsum.photos/seed/${college.slug}/600/400`}
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform duration-1000"
+          alt={college.name}
+        />
+        <div className="absolute top-6 left-6 z-20">
+          <div className="bg-[#12141D]/90 backdrop-blur-md px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] border border-white/10 text-[#00D4FF]">
+            {getCountryName(college.country_ref)}
+          </div>
+        </div>
+        {/* Ranking Badge */}
+        {college.ranking && (
+          <div className="absolute top-6 right-6 z-20">
+            <div className="bg-[#4A90E2]/90 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-[0.15em] border border-white/10 text-white">
+              #{college.ranking}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-8 pt-4">
+        <h3 className="text-2xl font-black mb-3 leading-tight uppercase tracking-tighter group-hover:text-[#4A90E2] transition-colors line-clamp-2 min-h-[3.5rem]">
+          {college.name}
+        </h3>
+        
+        <div className="flex items-center gap-2 mb-4 text-[#94A3B8]">
+            <MapPin size={14} className="text-[#00D4FF]" />
+            <span className="text-[10px] font-black uppercase tracking-widest">
+                {college.city || 'Global Campus'}
+            </span>
+        </div>
+
+        {/* Exams/Tags */}
+        {college.exams && college.exams.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {college.exams.slice(0, 2).map((exam: string, index: number) => (
+              <span key={index} className="text-[9px] font-black bg-[#4A90E2]/20 text-[#4A90E2] px-3 py-1 rounded-lg border border-[#4A90E2]/30 uppercase tracking-tighter">
+                {exam}
+              </span>
+            ))}
+            {college.exams.length > 2 && (
+              <span className="text-[9px] font-black bg-[#1E212B] text-[#94A3B8] px-3 py-1 rounded-lg border border-white/10 uppercase tracking-tighter">
+                +{college.exams.length - 2} more
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          {college.establishment_year && (
+            <div className="bg-[#12141D] p-3 rounded-2xl border border-white/5">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8] mb-1">Est.</div>
+              <div className="text-sm font-black text-[#F8FAFC]">{college.establishment_year}</div>
+            </div>
+          )}
+          <div className="bg-[#12141D] p-3 rounded-2xl border border-white/5">
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#94A3B8] mb-1">Type</div>
+            <div className="text-sm font-black text-[#F8FAFC]">University</div>
+          </div>
+        </div>
+
+        <Link href={`/colleges/${college.slug}`}>
+          <Button className="w-full bg-[#4A90E2] hover:bg-[#00D4FF] text-white rounded-2xl h-14 text-[11px] font-black uppercase tracking-[0.2em] shadow-lg shadow-blue-500/10 transition-all border-none">
+            Explore Institution <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </Link>
+      </div>
+
+      {/* Subtle Bottom Glow on Hover */}
+      <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#4A90E2] to-[#00D4FF] scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
     </div>
   )
 }
