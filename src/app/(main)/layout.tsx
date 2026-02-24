@@ -11,7 +11,7 @@ export default function MainLayout({
   return (
     <>
       <Navbar />
-      <div className="pt-20 lg:pt-28">
+      <div className="">
         {children}
       </div>
       <Footer />

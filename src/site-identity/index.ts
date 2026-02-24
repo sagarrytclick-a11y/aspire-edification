@@ -69,9 +69,9 @@ export const SITE_IDENTITY: SiteIdentity = {
   tagline: "Your Gateway to Top Indian Universities",
   domain: "admissioncampus.com",
   brand: {
-    primaryColor: "#ea580c", // Orange color from manifest
-    secondaryColor: "#ffffff",
-    accentColor: "#1f2937", // Dark gray for contrast
+    primaryColor: "#4A90E2",
+    secondaryColor: "#00D4FF",
+    accentColor: "#F8FAFC",
   },
   contact: {
     phone: {

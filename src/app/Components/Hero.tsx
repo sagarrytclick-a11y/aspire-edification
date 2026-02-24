@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, GraduationCap, BookOpen, Building2, MapPin, ChevronRight } from "lucide-react";
+import { Search, GraduationCap, BookOpen, Building2, MapPin, ChevronRight, Sparkles } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
@@ -22,39 +22,39 @@ const Hero: React.FC = () => {
   const colleges = collegesData?.data?.colleges || [];
 
   return (
-    <section className="relative bg-slate-50 pt-20 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-40 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px]" />
-      </div>
+    <section className="relative bg-[#12141D] pt-24 pb-20 lg:pt-36 lg:pb-32 overflow-hidden">
+      {/* Premium Gradient Glows */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#4A90E2] opacity-10 blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#00D4FF] opacity-10 blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Tag */}
-          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wide text-blue-700 uppercase bg-blue-100 rounded-full">
-            India's Most Trusted Admission Portal
-          </span>
+        <div className="max-w-5xl mx-auto text-center">
+          
+          {/* Tagline with Icon */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-[#4A90E2]/30 bg-[#4A90E2]/5 rounded-full backdrop-blur-sm">
+            <Sparkles size={16} className="text-[#00D4FF]" />
+            <span className="text-xs md:text-sm font-bold tracking-widest text-[#F8FAFC] uppercase">
+              Premium Admission Intelligence 2026
+            </span>
+          </div>
 
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-            Find Your Dream College & <br />
-            <span className="text-blue-600">Secure Your Future</span>
+          {/* Main Heading - Refined for "Aspire" */}
+          <h1 className="text-5xl md:text-7xl font-black text-[#F8FAFC] mb-8 tracking-tight leading-[1.1]">
+            Elevate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Academic Journey</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Explore 500+ top-rated universities, compare courses, and get expert guidance for JEE, NEET, and CAT admissions.
+          <p className="text-lg md:text-xl text-[#94A3B8] mb-12 max-w-3xl mx-auto leading-relaxed">
+            Navigate the landscape of 500+ elite global universities. Get data-driven insights for JEE, NEET, and MBA admissions with Aspire Edification.
           </p>
 
-          {/* Search Section */}
-          <div className="relative max-w-4xl mx-auto group">
-            <div className="relative bg-white rounded-3xl shadow-2xl shadow-blue-100/50 border border-blue-200 overflow-hidden transition-all duration-300 focus-within:ring-4 focus-within:ring-blue-200 focus-within:shadow-blue-200/50">
+          {/* Search Section - Redesigned as a Floating Surface */}
+          <div className="relative max-w-3xl mx-auto">
+            <div className="relative bg-[#1E212B] rounded-2xl border border-[#94A3B8]/10 shadow-2xl p-2 transition-all duration-300 focus-within:border-[#4A90E2]/50 focus-within:ring-1 focus-within:ring-[#4A90E2]/50">
               <div className="flex items-center">
-                {/* Search Icon */}
-                <div className="pl-6 pr-2 py-4 text-blue-600">
-                  <Search size={24} />
+                <div className="pl-5 pr-3 text-[#94A3B8]">
+                  <Search size={22} />
                 </div>
 
-                {/* Input Field */}
                 <input
                   type="text"
                   value={query}
@@ -62,106 +62,89 @@ const Hero: React.FC = () => {
                     setQuery(e.target.value);
                     setShowResults(e.target.value.length >= 2);
                   }}
-                  placeholder="Search colleges like IIT Delhi, AIIMS, NITs..."
-                  className="flex-1 py-4 px-2 text-slate-800 placeholder-slate-400 text-lg font-medium focus:outline-none"
+                  placeholder="Search elite institutions (e.g. IIT, IIM, Harvard...)"
+                  className="flex-1 bg-transparent py-4 text-[#F8FAFC] placeholder-[#94A3B8]/50 text-lg focus:outline-none"
                 />
 
-                {/* Search Button */}
-                <button className="hidden md:flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-4 font-bold transition-all duration-300 shadow-lg">
-                  <Search size={18} />
-                  Search
+                <button className="hidden md:flex items-center gap-2 bg-[#4A90E2] hover:bg-[#00D4FF] text-white px-8 py-3.5 rounded-xl font-bold transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg shadow-[#4A90E2]/20">
+                  Find Now
                 </button>
               </div>
             </div>
 
-            {/* Mobile Search Button */}
-            <button className="md:hidden mt-4 w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-4 rounded-2xl font-bold transition-all duration-300 shadow-lg flex items-center justify-center gap-2">
-              <Search size={20} />
-              Search Colleges
-            </button>
-
-            {/* Enhanced Dropdown Results */}
+            {/* Dropdown Results - Styled for Dark Theme */}
             {showResults && (
-              <div className="absolute left-0 right-0 mt-4 bg-white rounded-2xl shadow-2xl border border-blue-100 max-h-[450px] overflow-y-auto z-50">
+              <div className="absolute left-0 right-0 mt-4 bg-[#1E212B] rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#4A90E2]/20 max-h-[450px] overflow-y-auto z-50 backdrop-blur-xl">
                 {isLoading ? (
-                  <div className="p-8 text-center">
-                    <div className="inline-flex items-center gap-3 text-blue-600">
-                      <div className="animate-spin rounded-full h-6 w-6 border-2 border-blue-600 border-t-transparent"></div>
-                      <span className="font-medium">Searching colleges...</span>
-                    </div>
+                  <div className="p-10 text-center">
+                    <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-[#00D4FF] mx-auto mb-4"></div>
+                    <span className="text-[#94A3B8]">Analyzing Database...</span>
                   </div>
                 ) : colleges.length > 0 ? (
                   <div className="py-2">
-                    <div className="px-6 py-3 bg-blue-50 border-b border-blue-100">
-                      <p className="text-sm font-semibold text-blue-800">Found {colleges.length} colleges</p>
+                    <div className="px-6 py-3 border-b border-[#94A3B8]/10 flex justify-between items-center">
+                      <p className="text-xs font-bold text-[#4A90E2] uppercase tracking-widest">Matching Institutions</p>
+                      <span className="text-[10px] px-2 py-1 bg-[#4A90E2]/10 text-[#00D4FF] rounded-md">{colleges.length} Results</span>
                     </div>
                     {colleges.map((college: any) => (
                       <Link
                         key={college._id}
                         href={`/colleges/${college.slug}`}
-                        className="flex items-center gap-4 px-6 py-4 hover:bg-blue-50 transition-all duration-200 border-b border-slate-50 last:border-none group"
+                        className="flex items-center gap-4 px-6 py-5 hover:bg-[#4A90E2]/5 transition-all duration-200 border-b border-[#94A3B8]/5 last:border-none group"
                       >
-                        <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-3 rounded-xl text-blue-600 group-hover:scale-110 transition-transform">
+                        <div className="bg-[#12141D] p-3 rounded-lg border border-[#94A3B8]/10 text-[#4A90E2] group-hover:border-[#00D4FF] transition-colors">
                           <Building2 size={20} />
                         </div>
                         <div className="flex-1 text-left">
-                          <div className="font-bold text-slate-900 text-lg leading-tight group-hover:text-blue-700 transition-colors">
+                          <div className="font-bold text-[#F8FAFC] text-lg group-hover:text-[#00D4FF] transition-colors">
                             {college.name}
                           </div>
-                          <div className="text-sm text-slate-500 flex items-center gap-2 mt-1">
-                            <MapPin size={14} className="text-blue-500" />
+                          <div className="text-sm text-[#94A3B8] flex items-center gap-2 mt-1">
+                            <MapPin size={14} className="text-[#4A90E2]" />
                             {college.state}
                           </div>
                         </div>
-                        <ChevronRight size={20} className="text-slate-400 group-hover:text-blue-600 transition-colors" />
+                        <ChevronRight size={20} className="text-[#94A3B8] group-hover:translate-x-1 transition-all" />
                       </Link>
                     ))}
                   </div>
                 ) : (
-                  <div className="p-8 text-center">
-                    <div className="bg-slate-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Search size={24} className="text-slate-400" />
-                    </div>
-                    <p className="text-slate-600 font-medium mb-2">No colleges found</p>
-                    <p className="text-slate-400 text-sm">Try searching for different colleges or locations</p>
+                  <div className="p-12 text-center">
+                    <p className="text-[#F8FAFC] font-semibold mb-1">No matching results</p>
+                    <p className="text-[#94A3B8] text-sm">Refine your search for better results.</p>
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          {/* Quick Categories */}
-          <div className="mt-12 flex flex-wrap justify-center gap-3">
+          {/* Categories - Sleek Minimalism */}
+          <div className="mt-14 flex flex-wrap justify-center gap-4">
             {[
-              { label: "Engineering", icon: <GraduationCap size={16} /> },
-              { label: "Medical", icon: <BookOpen size={16} /> },
-              { label: "Management", icon: <Building2 size={16} /> },
+              { label: "Engineering", icon: <GraduationCap size={18} /> },
+              { label: "Medical Sciences", icon: <BookOpen size={18} /> },
+              { label: "Business Management", icon: <Building2 size={18} /> },
             ].map((cat, i) => (
-              <button key={i} className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-full text-slate-700 font-medium hover:border-blue-500 hover:text-blue-600 transition-all shadow-sm">
-                {cat.icon}
+              <button key={i} className="flex items-center gap-3 px-6 py-3 bg-[#1E212B] border border-[#94A3B8]/10 rounded-xl text-[#F8FAFC] font-semibold hover:border-[#4A90E2] hover:bg-[#4A90E2]/5 transition-all group">
+                <span className="text-[#4A90E2] group-hover:text-[#00D4FF]">{cat.icon}</span>
                 {cat.label}
               </button>
             ))}
           </div>
 
-          {/* Stats Summary */}
-          <div className="mt-16 pt-10 border-t border-slate-200 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-3xl font-bold text-slate-900">15k+</div>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Students Helped</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-slate-900">500+</div>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Colleges</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-slate-900">100+</div>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Exams Covered</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-slate-900">24/7</div>
-              <div className="text-sm text-slate-500 font-medium uppercase tracking-wide">Expert Advice</div>
-            </div>
+          {/* Stats Section - High Contrast Cards */}
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+            {[
+              { val: "15k+", label: "Success Stories" },
+              { val: "500+", label: "Partner Universities" },
+              { val: "100+", label: "Entrance Exams" },
+              { val: "Top 1%", label: "Expert Mentors" },
+            ].map((stat, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-[#1E212B]/50 border border-[#94A3B8]/5 backdrop-blur-sm">
+                <div className="text-3xl font-black text-[#F8FAFC] mb-1">{stat.val}</div>
+                <div className="text-[10px] md:text-xs text-[#4A90E2] font-bold uppercase tracking-[2px]">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

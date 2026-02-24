@@ -1,13 +1,17 @@
 "use client"
-import { GraduationCap, ShieldCheck, Globe, CheckCircle2, ArrowRight } from "lucide-react";
+import React from "react";
+import { GraduationCap, ShieldCheck, Globe, CheckCircle2, ArrowRight, Star } from "lucide-react";
 import { useFormModal } from "@/context/FormModalContext";
-
-// Strict Brand Theme
-const PRIMARY_BLUE = "#1A4AB2"; 
-const ACCENT_GOLD = "#FACC15";  
 
 export default function AdmissionCampusAdvantage() {
   const { openModal } = useFormModal();
+
+  // Brand Theme Tokens
+  const PRIMARY_BLUE = "#4A90E2"; 
+  const SECONDARY_CYAN = "#00D4FF";
+  const BG_DEEP = "#12141D";
+  const SURFACE_CARD = "#1E212B";
+
   const stats = [
     { label: "IITs Guided", value: "500+" },
     { label: "NEET Success", value: "95%" },
@@ -34,65 +38,72 @@ export default function AdmissionCampusAdvantage() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-white relative overflow-hidden">
+    <section id="about" className="py-24 bg-[#12141D] relative overflow-hidden">
       {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#1A4AB2]/5 rounded-full blur-[120px] translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#4A90E2]/5 blur-[150px] translate-x-1/4 -translate-y-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00D4FF]/5 blur-[120px] -translate-x-1/4 translate-y-1/4 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
           {/* Left Side: Content */}
-          <div>
-            <div className="inline-flex items-center gap-2 bg-white border border-slate-200 text-[#1A4AB2] px-5 py-2.5 rounded-full text-[11px] font-black uppercase tracking-widest mb-8 shadow-sm">
-              <span className="w-2.5 h-2.5 bg-[#FACC15] rounded-full animate-pulse"></span>
+          <div className="relative">
+            <div className="inline-flex items-center gap-3 bg-[#1E212B] border border-[#94A3B8]/10 text-[#00D4FF] px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl">
+              <Star size={14} className="text-[#4A90E2] fill-[#4A90E2]" />
               Why Choose Us
             </div>
             
-            <h2 className="text-3xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight leading-[1.1]">
-              Trusted <span className="text-[#1A4AB2]">Indian College</span> Consultants
+            <h2 className="text-4xl md:text-7xl font-black text-[#F8FAFC] mb-8 tracking-tighter leading-[1.05]">
+              Trusted <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Indian College</span> Consultants
             </h2>
             
-            <p className="text-slate-600 text-lg leading-relaxed mb-10 max-w-xl">
+            <p className="text-[#94A3B8] text-lg leading-relaxed mb-12 max-w-xl">
               We help students secure admissions in top Indian engineering and medical colleges 
               through expert guidance, transparent processes, and strong institutional partnerships.
             </p>
 
-            {/* Stats Grid - Enhanced with Brand Tints */}
-            <div className="grid grid-cols-2 gap-6 mb-12">
+            {/* Stats Grid - Modern Dark Style */}
+            <div className="grid grid-cols-2 gap-5 mb-12">
               {stats.map((stat, i) => (
-                <div key={i} className="bg-[#1A4AB2]/5 border border-[#1A4AB2]/10 p-6 rounded-[24px] group hover:bg-white hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500">
-                  <div className="text-2xl font-black text-slate-900 tracking-tighter group-hover:text-[#1A4AB2] transition-colors">
+                <div key={i} className="bg-[#1E212B] border border-[#94A3B8]/10 p-7 rounded-[32px] group hover:border-[#4A90E2]/30 transition-all duration-500 shadow-xl">
+                  <div className="text-3xl font-black text-[#F8FAFC] tracking-tighter group-hover:text-[#00D4FF] transition-colors mb-1">
                     {stat.value}
                   </div>
-                  <div className="text-[10px] uppercase font-black tracking-widest text-slate-400 mt-1">
+                  <div className="text-[10px] uppercase font-black tracking-widest text-[#94A3B8]">
                     {stat.label}
                   </div>
                 </div>
               ))}
             </div>
 
-            <button onClick={() => openModal()} className="bg-[#1A4AB2] text-white px-8 py-4 rounded-full font-black text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-slate-900 transition-all shadow-lg shadow-blue-900/20">
+            <button 
+              onClick={() => openModal()} 
+              className="bg-[#4A90E2] text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.15em] flex items-center gap-3 hover:bg-[#00D4FF] transition-all shadow-[0_15px_35px_rgba(74,144,226,0.3)] active:scale-95 group"
+            >
               Get Started Now
-              <ArrowRight size={18} />
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
-          {/* Right Side: Feature Cards */}
-          <div className="space-y-8">
+          {/* Right Side: Feature Vertical Cards */}
+          <div className="space-y-6">
             {points.map((item, i) => (
               <div
                 key={i}
-                className="group bg-white border border-slate-200 p-10 rounded-[40px] hover:border-[#1A4AB2]/30 hover:shadow-[0_30px_60px_rgba(26,74,178,0.1)] transition-all duration-500 flex items-start gap-8 hover:-translate-y-2"
+                className="group bg-[#1E212B] border border-[#94A3B8]/5 p-8 md:p-10 rounded-[40px] hover:border-[#4A90E2]/20 hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col md:flex-row items-start gap-8 hover:-translate-y-2 relative overflow-hidden"
               >
-                <div className="shrink-0 w-16 h-16 bg-[#1A4AB2]/5 text-[#1A4AB2] flex items-center justify-center rounded-2xl group-hover:bg-[#1A4AB2] group-hover:text-white transition-all duration-500 shadow-sm">
+                {/* Accent line on hover */}
+                <div className="absolute top-0 left-0 h-full w-1 bg-[#4A90E2] opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                <div className="shrink-0 w-16 h-16 bg-[#12141D] text-[#4A90E2] border border-[#94A3B8]/10 flex items-center justify-center rounded-2xl group-hover:bg-[#4A90E2] group-hover:text-white transition-all duration-500 shadow-inner">
                   <item.icon size={28} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-extrabold text-slate-900 mb-3 group-hover:text-[#1A4AB2] transition-colors">
+                  <h3 className="text-xl font-bold text-[#F8FAFC] mb-3 group-hover:text-[#00D4FF] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-[#94A3B8] text-sm leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -103,10 +114,10 @@ export default function AdmissionCampusAdvantage() {
         </div>
 
         {/* Bottom Verification Strip */}
-        <div className="mt-24 pt-12 border-t border-slate-100 flex flex-wrap justify-center gap-10 md:gap-20">
+        <div className="mt-24 pt-12 border-t border-[#94A3B8]/5 flex flex-wrap justify-center gap-8 md:gap-16">
           {['IIT/JEE Specialized', 'NEET Counseling', 'Direct College Tie-ups'].map((text, i) => (
-            <div key={i} className="flex items-center gap-3 text-slate-400 text-[10px] font-black uppercase tracking-widest">
-              <CheckCircle2 size={18} className="text-[#FACC15]" />
+            <div key={i} className="flex items-center gap-3 text-[#94A3B8] text-[10px] font-black uppercase tracking-[0.2em]">
+              <CheckCircle2 size={18} className="text-[#00D4FF]" />
               {text}
             </div>
           ))}
