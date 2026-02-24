@@ -36,7 +36,34 @@ export const INDIAN_CITIES: CityConfig[] = [
     features: ["IIT Bombay", "NMIMS", "Top Medical Colleges"],
     stats: { colleges: "500+", students: "2L+", avgFees: "₹2-15L" }
   },
-  
+  {
+    id: "ghaziabad",
+    name: "Ghaziabad",
+    slug: "ghaziabad",
+    description: "A major educational hub in NCR known for its dense cluster of engineering and management institutions and industrial connectivity.",
+    gradient: "from-[#7C3AED] via-[#7C3AED]/90 to-slate-900",
+    examName: "JEE",
+    examColor: "text-[#7C3AED]",
+    borderColor: "border-[#7C3AED]",
+    hoverBg: "hover:bg-[#7C3AED]/5",
+    href: "/colleges/city/ghaziabad",
+    features: ["KIET Group", "AKGEC", "Top Private Universities"],
+    stats: { colleges: "120+", students: "70K+", avgFees: "₹1-7L" }
+  },
+  {
+    id: "gurugram",
+    name: "Gurugram",
+    slug: "gurugram",
+    description: "The corporate hub of India, offering premier private universities and specialized management and technology programs.",
+    gradient: "from-[#0891B2] via-[#0891B2]/90 to-slate-900",
+    examName: "CAT",
+    examColor: "text-[#0891B2]",
+    borderColor: "border-[#0891B2]",
+    hoverBg: "hover:bg-[#0891B2]/5",
+    href: "/colleges/city/gurugram",
+    features: ["MDI Gurgaon", "NorthCap University", "Corporate Training Hubs"],
+    stats: { colleges: "90+", students: "60K+", avgFees: "₹2-25L" }
+  } , 
   {
     id: "delhi",
     name: "Delhi",
