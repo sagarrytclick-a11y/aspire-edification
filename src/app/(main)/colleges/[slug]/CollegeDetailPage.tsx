@@ -184,7 +184,7 @@ const CollegeDetailPage: React.FC<CollegeDetailPageProps> = ({ slug }) => {
   } = useCollege(slug);
 if (isLoading) {
   return (
-    <div className="min-h-screen bg-slate-50 p-8 space-y-6">
+    <div className="min-h-screen bg-[#F8FAFC] p-8 space-y-6">
       {/* Header Skeleton */}
       <div className="flex items-center space-x-4 animate-pulse">
         <div className="w-20 h-20 bg-slate-200 rounded-lg"></div>
@@ -224,12 +224,12 @@ if (isLoading) {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button
               onClick={() => refetch()}
-              className="bg-[#1A4AB2] hover:bg-[#1A4AB2]/90 text-white"
+              className="bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white"
             >
               Try Again
             </Button>
             <Link href="/colleges">
-              <Button variant="outline" className="border-[#1A4AB2] text-[#1A4AB2] hover:bg-[#1A4AB2]/10">
+              <Button variant="outline" className="border-[#4A90E2] text-[#4A90E2] hover:bg-[#4A90E2]/10">
                 Browse All Colleges
               </Button>
             </Link>
@@ -240,16 +240,16 @@ if (isLoading) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen py-12 bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-slate-50 to-white py-12">
+      <div className="bg-gradient-to-br from-[#F8FAFC] to-white py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
 
             {/* LEFT SIDE: CONTENT */}
             <div>
               <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-                <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium">
+                <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium">
                   <Flag className="w-3 h-3 mr-2" />
                   {college.country_ref?.name || 'International'}
                 </Badge>
@@ -262,48 +262,48 @@ if (isLoading) {
                 )}
               </div>
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4 sm:mb-6">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#1E293B] mb-4 sm:mb-6">
                 {college.name}
-                <span className="text-[#1A4AB2]">.</span>
+                <span className="text-[#4A90E2]">.</span>
               </h1>
 
               {/* Hero Description */}
               <div className="mb-6 sm:mb-8">
-                <p className="text-slate-600 max-w-xl leading-relaxed">
+                <p className="text-[#64748B] max-w-xl leading-relaxed">
                   {college.overview?.description || college.about_content}
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-6 py-6 border-y border-slate-200">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#1A4AB2]/10 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-[#1A4AB2]" />
+                  <div className="w-10 h-10 bg-[#4A90E2]/10 rounded-lg flex items-center justify-center">
+                    <MapPin className="w-5 h-5 text-[#4A90E2]" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 uppercase font-medium">Location</p>
-                    <p className="text-sm font-semibold text-slate-900">{college.country_ref?.name || 'Global'}</p>
+                    <p className="text-xs text-[#64748B] uppercase font-medium">Location</p>
+                    <p className="text-sm font-semibold text-[#1E293B]">{college.country_ref?.name || 'Global'}</p>
                   </div>
                 </div>
 
                 {college.establishment_year && (
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#1A4AB2]/10 rounded-lg flex items-center justify-center">
-                      <Calendar className="w-5 h-5 text-[#1A4AB2]" />
+                    <div className="w-10 h-10 bg-[#4A90E2]/10 rounded-lg flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-[#4A90E2]" />
                     </div>
                     <div>
-                      <p className="text-xs text-slate-500 uppercase font-medium">Founded</p>
-                      <p className="text-sm font-semibold text-slate-900">{college.establishment_year}</p>
+                      <p className="text-xs text-[#64748B] uppercase font-medium">Founded</p>
+                      <p className="text-sm font-semibold text-[#1E293B]">{college.establishment_year}</p>
                     </div>
                   </div>
                 )}
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#1A4AB2]/10 rounded-lg flex items-center justify-center">
-                    <Users className="w-5 h-5 text-[#1A4AB2]" />
+                  <div className="w-10 h-10 bg-[#4A90E2]/10 rounded-lg flex items-center justify-center">
+                    <Users className="w-5 h-5 text-[#4A90E2]" />
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500 uppercase font-medium">Community</p>
-                    <p className="text-sm font-semibold text-slate-900">Intl. Students</p>
+                    <p className="text-xs text-[#64748B] uppercase font-medium">Community</p>
+                    <p className="text-sm font-semibold text-[#1E293B]">Intl. Students</p>
                   </div>
                 </div>
               </div>
@@ -348,8 +348,8 @@ if (isLoading) {
                 }}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap ${
                   activeTab === tab.id
-                    ? 'bg-[#1A4AB2] text-white'
-                    : 'text-slate-600 hover:text-[#1A4AB2]'
+                    ? 'bg-[#4A90E2] text-white'
+                    : 'text-[#64748B] hover:text-[#4A90E2]'
                 }`}
               >
                 {tab.name}
@@ -368,21 +368,21 @@ if (isLoading) {
             <div id="overview">
               <div className="bg-white border border-slate-200 rounded-xl p-8">
                 <div className="mb-6">
-                  <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                     Institution
                   </Badge>
-                  <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  <h2 className="text-2xl font-bold text-[#1E293B] mb-4">
                     {college.overview?.title || 'About the Institution'}
                   </h2>
                 </div>
 
-                <p className="text-slate-600 leading-relaxed mb-6">
+                <p className="text-[#64748B] leading-relaxed mb-6">
                   {college.overview?.description || college.about_content}
                 </p>
 
                 <button
                   onClick={() => setIsExpanded(!isExpanded)}
-                  className="text-[#1A4AB2] font-medium text-sm flex items-center gap-2 hover:text-[#1A4AB2]/80"
+                  className="text-[#4A90E2] font-medium text-sm flex items-center gap-2 hover:text-[#4A90E2]/80"
                 >
                   {isExpanded ? 'Show Less' : 'Show More'}
                   <ArrowRight className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
@@ -394,10 +394,10 @@ if (isLoading) {
             <div id="key-highlights">
               <div className="bg-white border border-slate-200 rounded-xl p-8">
                 <div className="mb-6">
-                  <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                     Essentials
                   </Badge>
-                  <h2 className="text-2xl font-bold text-slate-900">Key Information</h2>
+                  <h2 className="text-2xl font-bold text-[#1E293B]">Key Information</h2>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -433,12 +433,12 @@ if (isLoading) {
                   ].map((item, i) => item.show && (
                     <div key={i} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                       <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                        <item.icon className="w-6 h-6 text-[#1A4AB2]" />
+                        <item.icon className="w-6 h-6 text-[#4A90E2]" />
                       </div>
                       <div>
-                        <div className="text-xs text-slate-500 uppercase font-medium mb-1">{item.label}</div>
-                        <div className="text-lg font-semibold text-slate-900">{item.value}</div>
-                        <div className="text-xs text-slate-400">{item.sub}</div>
+                        <div className="text-xs text-[#64748B] uppercase font-medium mb-1">{item.label}</div>
+                        <div className="text-lg font-semibold text-[#1E293B]">{item.value}</div>
+                        <div className="text-xs text-[#64748B]">{item.sub}</div>
                       </div>
                     </div>
                   ))}
@@ -451,13 +451,13 @@ if (isLoading) {
               {college.exams && college.exams.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Eligibility
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">Accepted Entrance Exams</h2>
+                    <h2 className="text-2xl font-bold text-[#1E293B]">Accepted Entrance Exams</h2>
                   </div>
 
-                  <p className="text-slate-600 mb-6">
+                  <p className="text-[#64748B] mb-6">
                     The following standardized tests are recognized for admission. Ensure your scores are within the valid timeframe for your intake.
                   </p>
 
@@ -465,11 +465,11 @@ if (isLoading) {
                     {college.exams.map((exam, index) => (
                       <div key={exam} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                         <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                          <FileText className="w-6 h-6 text-[#1A4AB2]" />
+                          <FileText className="w-6 h-6 text-[#4A90E2]" />
                         </div>
                         <div>
-                          <div className="font-semibold text-slate-900">{exam}</div>
-                          <div className="text-xs text-slate-500">Official Score Required</div>
+                          <div className="font-semibold text-[#1E293B]">{exam}</div>
+                          <div className="text-xs text-[#64748B]">Official Score Required</div>
                         </div>
                       </div>
                     ))}
@@ -483,16 +483,16 @@ if (isLoading) {
               {college.key_highlights?.features && college.key_highlights.features.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       At a Glance
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.key_highlights.title || 'Key Highlights'}
                     </h2>
                   </div>
 
                   {college.key_highlights.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.key_highlights.description}
                     </p>
                   )}
@@ -500,10 +500,10 @@ if (isLoading) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {college.key_highlights.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
-                        <div className="w-8 h-8 bg-[#1A4AB2]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                          <Star className="w-4 h-4 text-[#1A4AB2]" />
+                        <div className="w-8 h-8 bg-[#4A90E2]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                          <Star className="w-4 h-4 text-[#4A90E2]" />
                         </div>
-                        <div className="text-slate-700">{feature}</div>
+                        <div className="text-[#64748B]">{feature}</div>
                       </div>
                     ))}
                   </div>
@@ -516,16 +516,16 @@ if (isLoading) {
               {college.why_choose_us?.features && college.why_choose_us.features.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Benefits
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.why_choose_us.title || 'Why Choose Us'}
                     </h2>
                   </div>
 
                   {college.why_choose_us.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.why_choose_us.description}
                     </p>
                   )}
@@ -533,12 +533,12 @@ if (isLoading) {
                   <div className="space-y-4">
                     {college.why_choose_us.features.map((feature, index) => (
                       <div key={index} className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg">
-                        <div className="w-8 h-8 bg-[#1A4AB2]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                          <Lightbulb className="w-4 h-4 text-[#1A4AB2]" />
+                        <div className="w-8 h-8 bg-[#4A90E2]/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                          <Lightbulb className="w-4 h-4 text-[#4A90E2]" />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-slate-900 mb-2">{feature.title}</h4>
-                          <p className="text-slate-600 text-sm">{feature.description}</p>
+                          <h4 className="font-semibold text-[#1E293B] mb-2">{feature.title}</h4>
+                          <p className="text-[#64748B] text-sm">{feature.description}</p>
                         </div>
                       </div>
                     ))}
@@ -552,16 +552,16 @@ if (isLoading) {
               {college.ranking && typeof college.ranking === 'object' && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Recognition
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.ranking.title || 'Ranking & Recognition'}
                     </h2>
                   </div>
 
                   {college.ranking.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.ranking.description}
                     </p>
                   )}
@@ -582,12 +582,12 @@ if (isLoading) {
                       <div key={i} className="p-6 bg-slate-50 rounded-lg">
                         <div className="flex items-center justify-between mb-4">
                           <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                            <item.icon className="w-6 h-6 text-[#1A4AB2]" />
+                            <item.icon className="w-6 h-6 text-[#4A90E2]" />
                           </div>
-                          <div className="text-3xl font-bold text-[#1A4AB2]">#{item.val}</div>
+                          <div className="text-3xl font-bold text-[#4A90E2]">#{item.val}</div>
                         </div>
-                        <h4 className="text-lg font-semibold text-slate-900">#{item.val}</h4>
-                        <p className="text-sm text-slate-500">{item.label}</p>
+                        <h4 className="text-lg font-semibold text-[#1E293B]">#{item.val}</h4>
+                        <p className="text-sm text-[#64748B]">{item.label}</p>
                       </div>
                     ))}
                   </div>
@@ -617,16 +617,16 @@ if (isLoading) {
               {college.admission_process?.steps && college.admission_process.steps.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Step-by-Step
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.admission_process.title || 'Admission Process'}
                     </h2>
                   </div>
 
                   {college.admission_process.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.admission_process.description}
                     </p>
                   )}
@@ -634,17 +634,17 @@ if (isLoading) {
                   <div className="space-y-4">
                     {college.admission_process.steps.map((step, index) => (
                       <div key={index} className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg">
-                        <div className="w-8 h-8 bg-[#1A4AB2] rounded-lg flex items-center justify-center text-white font-semibold flex-shrink-0">
+                        <div className="w-8 h-8 bg-[#4A90E2] rounded-lg flex items-center justify-center text-white font-semibold flex-shrink-0">
                           {String(index + 1).padStart(2, '0')}
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-slate-900">{step}</p>
+                          <p className="font-medium text-[#1E293B]">{step}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-8 p-6 bg-gradient-to-r from-[#1A4AB2] to-[#1A4AB2]/90 rounded-xl text-white shadow-xl shadow-[#1A4AB2]/20">
+                  <div className="mt-8 p-6 bg-gradient-to-r from-[#4A90E2] to-[#4A90E2]/90 rounded-xl text-white shadow-xl shadow-[#4A90E2]/20">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
@@ -657,7 +657,7 @@ if (isLoading) {
                       </div>
                       <button
                         onClick={openModal}
-                        className="bg-white text-[#1A4AB2] font-semibold px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors"
+                        className="bg-white text-[#4A90E2] font-semibold px-6 py-3 rounded-lg hover:bg-black hover:text-white transition-colors"
                       >
                         Get Free Assistance
                       </button>
@@ -672,16 +672,16 @@ if (isLoading) {
               {college.documents_required?.documents && college.documents_required.documents.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Checklist
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.documents_required.title || 'Documents Required'}
                     </h2>
                   </div>
 
                   {college.documents_required.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.documents_required.description}
                     </p>
                   )}
@@ -690,9 +690,9 @@ if (isLoading) {
                     {college.documents_required.documents.map((doc, index) => (
                       <div key={index} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                         <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                          <Shield className="w-6 h-6 text-[#1A4AB2]" />
+                          <Shield className="w-6 h-6 text-[#4A90E2]" />
                         </div>
-                        <div className="font-medium text-slate-900">{doc}</div>
+                        <div className="font-medium text-[#1E293B]">{doc}</div>
                       </div>
                     ))}
                   </div>
@@ -705,16 +705,16 @@ if (isLoading) {
               {college.fees_structure?.courses && college.fees_structure.courses.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Investment
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.fees_structure.title || 'Fees Structure'}
                     </h2>
                   </div>
 
                   {college.fees_structure.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.fees_structure.description}
                     </p>
                   )}
@@ -725,16 +725,16 @@ if (isLoading) {
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                              <GraduationCap className="w-6 h-6 text-[#1A4AB2]" />
+                              <GraduationCap className="w-6 h-6 text-[#4A90E2]" />
                             </div>
                             <div>
-                              <h4 className="font-semibold text-slate-900">{course.course_name}</h4>
-                              <div className="text-xs text-slate-500">{course.duration} Program</div>
+                              <h4 className="font-semibold text-[#1E293B]">{course.course_name}</h4>
+                              <div className="text-xs text-[#64748B]">{course.duration} Program</div>
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-xl font-bold text-[#1A4AB2]">{course.annual_tuition_fee}</div>
-                            <div className="text-xs text-slate-500">Tuition / Year</div>
+                            <div className="text-xl font-bold text-[#4A90E2]">{course.annual_tuition_fee}</div>
+                            <div className="text-xs text-[#64748B]">Tuition / Year</div>
                           </div>
                         </div>
                       </div>
@@ -749,16 +749,16 @@ if (isLoading) {
               {college.campus_highlights?.highlights && college.campus_highlights.highlights.length > 0 && (
                 <div className="bg-white border border-slate-200 rounded-xl p-8">
                   <div className="mb-6">
-                    <Badge className="bg-[#1A4AB2]/10 text-[#1A4AB2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
+                    <Badge className="bg-[#4A90E2]/10 text-[#4A90E2] border-none px-3 py-1 rounded-full text-sm font-medium mb-4">
                       Lifestyle & Facilities
                     </Badge>
-                    <h2 className="text-2xl font-bold text-slate-900">
+                    <h2 className="text-2xl font-bold text-[#1E293B]">
                       {college.campus_highlights.title || 'Campus Highlights'}
                     </h2>
                   </div>
 
                   {college.campus_highlights.description && (
-                    <p className="text-slate-600 mb-6">
+                    <p className="text-[#64748B] mb-6">
                       {college.campus_highlights.description}
                     </p>
                   )}
@@ -778,11 +778,11 @@ if (isLoading) {
                       return (
                         <div key={index} className="flex items-center gap-4 p-4 bg-slate-50 rounded-lg">
                           <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center">
-                            <div className="text-[#1A4AB2]">
+                            <div className="text-[#4A90E2]">
                               {getIcon(highlight)}
                             </div>
                           </div>
-                          <div className="font-medium text-slate-900">{highlight}</div>
+                          <div className="font-medium text-[#1E293B]">{highlight}</div>
                         </div>
                       );
                     })}
@@ -790,7 +790,7 @@ if (isLoading) {
 
                   <button
                     onClick={openModal}
-                    className="mt-6 w-full bg-[#1A4AB2] text-white rounded-lg py-3 px-6 font-medium hover:bg-[#1A4AB2]/90 transition-colors flex items-center justify-center gap-2"
+                    className="mt-6 w-full bg-[#4A90E2] text-white rounded-lg py-3 px-6 font-medium hover:bg-[#4A90E2]/90 transition-colors flex items-center justify-center gap-2"
                   >
                     <Globe className="w-5 h-5" />
                     Request a Virtual Campus Tour
@@ -803,7 +803,7 @@ if (isLoading) {
           {/* Right Column - CTA and Related */}
           <div className="space-y-8 lg:sticky lg:top-8 lg:h-fit">
             {/* CTA Card */}
-            <div className="bg-gradient-to-br from-[#1A4AB2] to-[#1A4AB2]/90 text-white rounded-xl p-8 shadow-xl shadow-[#1A4AB2]/20">
+            <div className="bg-gradient-to-br from-[#4A90E2] to-[#4A90E2]/90 text-white rounded-xl p-8 shadow-xl shadow-[#4A90E2]/20">
               <div className="text-center">
                 <div className="w-16 h-16 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
                   <GraduationCap className="w-8 h-8 text-white" />
@@ -813,7 +813,7 @@ if (isLoading) {
                 <div className="space-y-3">
                   <button
                     onClick={openModal}
-                    className="w-full bg-white text-[#1A4AB2] font-semibold rounded-lg  transition-colors py-3 px-6 flex items-center justify-center gap-2"
+                    className="w-full bg-white text-[#4A90E2] font-semibold rounded-lg  transition-colors py-3 px-6 flex items-center justify-center gap-2"
                   >
                     <Bookmark className="w-4 h-4" />
                     Start Application
@@ -833,16 +833,16 @@ if (isLoading) {
             <div className="bg-white border border-slate-200 rounded-xl p-6">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#1A4AB2]" />
-                  <span className="text-slate-700 font-medium">{phones.primary}</span>
+                  <Phone className="w-5 h-5 text-[#4A90E2]" />
+                  <span className="text-[#64748B] font-medium">{phones.primary}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#1A4AB2]" />
-                  <span className="text-slate-700 font-medium">{emails.info}</span>
+                  <Mail className="w-5 h-5 text-[#4A90E2]" />
+                  <span className="text-[#64748B] font-medium">{emails.info}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Globe className="w-5 h-5 text-[#1A4AB2]" />
-                  <span className="text-slate-700 font-medium">Global Opportunities</span>
+                  <Globe className="w-5 h-5 text-[#4A90E2]" />
+                  <span className="text-[#64748B] font-medium">Global Opportunities</span>
                 </div>
               </div>
             </div>

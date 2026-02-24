@@ -10,18 +10,13 @@ import {
   Users,
   ArrowRight,
   Headphones,
-  Zap
+  Zap,
+  Sparkles
 } from "lucide-react";
 import { useFormModal } from "@/context/FormModalContext";
 
 export default function ComprehensiveServices() {
   const { openModal } = useFormModal();
-
-  // Theme Palette Tokens
-  const PRIMARY_BLUE = "#4A90E2"; 
-  const SECONDARY_CYAN = "#00D4FF";
-  const BG_DEEP = "#12141D";
-  const SURFACE_CARD = "#1E212B";
 
   const services = [
     {
@@ -57,96 +52,82 @@ export default function ComprehensiveServices() {
   ];
 
   return (
-    <section id="services" className="py-24 bg-[#12141D] relative overflow-hidden">
-      {/* Premium Background Glows */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#4A90E2]/5 blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00D4FF]/5 blur-[140px] pointer-events-none" />
+    <section id="services" className="py-20 bg-white font-sans text-[#1E293B]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-24">
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
-
-        {/* Section Header */}
-        <div className="text-center mb-24">
-          <div className="inline-flex items-center gap-3 bg-[#1E212B] border border-[#94A3B8]/10 text-[#00D4FF] px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl">
-            <Zap size={14} className="text-[#4A90E2] animate-pulse" />
-            Our Expertise
+        {/* Simple Header */}
+        <div className="mb-12">
+          <div className="flex items-center gap-2 text-[#4A90E2] mb-3">
+            <Sparkles size={16} />
+            <span className="text-[10px] font-bold uppercase tracking-widest">Our Expertise</span>
           </div>
-          <h2 className="text-4xl md:text-7xl font-black text-[#F8FAFC] mb-8 tracking-tighter">
-            Complete <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Support System</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Complete Support System
           </h2>
-          <p className="text-[#94A3B8] max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="text-[#64748B] text-sm max-w-2xl font-medium leading-relaxed">
             From initial counseling to post-arrival support, we provide comprehensive 
             services to ensure your study abroad journey is smooth and successful.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        {/* Services Grid - Simple Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-[#1E212B] border border-[#94A3B8]/5 rounded-[40px] p-10 hover:border-[#4A90E2]/30 hover:shadow-[0_30px_60px_rgba(0,0,0,0.4)] transition-all duration-500 hover:-translate-y-3 flex flex-col h-full relative overflow-hidden"
+              className="group bg-[#F8FAFC] border border-slate-100 rounded-lg p-8 hover:border-[#4A90E2] transition-all flex flex-col h-full"
             >
-              {/* Subtle Card Glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A90E2]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* Icon Container */}
-              <div className="w-16 h-16 rounded-2xl bg-[#12141D] border border-[#94A3B8]/10 text-[#4A90E2] flex items-center justify-center group-hover:bg-[#4A90E2] group-hover:text-white group-hover:border-[#4A90E2] group-hover:rotate-[10deg] transition-all duration-500 shadow-inner mb-8 relative z-10">
-                <service.icon size={28} />
+              {/* Simple Icon Container */}
+              <div className="w-12 h-12 rounded-md bg-white border border-slate-100 text-[#4A90E2] flex items-center justify-center mb-6 shadow-sm group-hover:bg-[#4A90E2] group-hover:text-white transition-all">
+                <service.icon size={22} />
               </div>
 
-              <h3 className="text-xl font-bold text-[#F8FAFC] mb-4 group-hover:text-[#00D4FF] transition-colors leading-tight relative z-10">
+              <h3 className="text-lg font-semibold text-[#1E293B] mb-3 group-hover:text-[#4A90E2] transition-colors leading-tight">
                 {service.title}
               </h3>
 
-              <p className="text-[#94A3B8] text-sm leading-relaxed mb-8 flex-grow relative z-10">
+              <p className="text-[#64748B] text-xs leading-relaxed mb-6 flex-grow font-medium">
                 {service.desc}
               </p>
 
               {/* Action Footer */}
-              <div className="flex items-center justify-between pt-8 border-t border-[#94A3B8]/5 relative z-10">
-                <span className="text-[11px] font-black text-[#4A90E2] uppercase tracking-widest flex items-center gap-2 group-hover:gap-4 transition-all cursor-pointer">
+              <div className="pt-4 border-t border-slate-200/50">
+                <span className="text-xs font-bold text-[#4A90E2] flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer">
                   Explore Service
-                  <ArrowRight size={16} />
+                  <ArrowRight size={14} />
                 </span>
-                <div className="w-2 h-2 rounded-full bg-[#94A3B8]/20 group-hover:bg-[#00D4FF] group-hover:shadow-[0_0_8px_#00D4FF] transition-all" />
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom CTA Box - Elite Glassmorphism style */}
-        <div className="relative bg-[#1E212B] border border-[#94A3B8]/10 rounded-[50px] p-10 md:p-20 overflow-hidden shadow-2xl">
-          {/* Internal Glows */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#4A90E2]/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00D4FF]/5 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2" />
+        {/* Simple Bottom CTA Box */}
+        <div className="bg-[#F8FAFC] border border-slate-100 rounded-lg p-10 md:p-16 flex flex-col items-center text-center">
+          <div className="w-16 h-16 bg-white border border-slate-200 rounded-full flex items-center justify-center text-[#4A90E2] mb-8 shadow-sm">
+            <Headphones size={28} />
+          </div>
+          <h3 className="text-2xl md:text-3xl font-bold text-[#1E293B] mb-4 tracking-tight">
+            Ready to Start Your Journey?
+          </h3>
+          <p className="text-[#64748B] mb-10 max-w-xl text-sm font-medium leading-relaxed">
+            Get personalized guidance from our expert mentors. 
+            Schedule your free session today and take the first step toward your dream.
+          </p>
           
-          <div className="relative z-10 flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-[#12141D] border border-[#4A90E2]/20 rounded-3xl flex items-center justify-center text-[#00D4FF] mb-10 shadow-inner">
-              <Headphones size={36} />
-            </div>
-            <h3 className="text-3xl md:text-5xl font-black text-[#F8FAFC] mb-6 tracking-tight">
-              Ready to Start Your Journey?
-            </h3>
-            <p className="text-[#94A3B8] mb-12 max-w-2xl mx-auto text-lg leading-relaxed">
-              Get personalized guidance from our expert mentors. 
-              Schedule your free session today and take the first step toward your dream.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto">
-              <Link
-                href="/service"
-                className="bg-[#4A90E2] text-white px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#00D4FF] transition-all shadow-[0_10px_30px_rgba(74,144,226,0.3)] flex items-center justify-center gap-3"
-              >
-                All Services
-                <ArrowRight size={18} />
-              </Link>
-              <button 
-                onClick={() => openModal()} 
-                className="bg-transparent border-2 border-[#94A3B8]/20 text-[#F8FAFC] px-12 py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#F8FAFC] hover:text-[#12141D] hover:border-[#F8FAFC] transition-all flex items-center justify-center shadow-lg active:scale-95"
-              >
-                Book Free Consultation
-              </button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Link
+              href="/service"
+              className="bg-[#1E293B] text-white px-8 py-3 rounded-md font-bold text-sm hover:bg-[#4A90E2] transition-colors flex items-center justify-center gap-2 shadow-sm"
+            >
+              All Services
+              <ArrowRight size={16} />
+            </Link>
+            <button 
+              onClick={() => openModal()} 
+              className="bg-white border border-slate-200 text-[#1E293B] px-8 py-3 rounded-md font-bold text-sm hover:border-[#4A90E2] hover:text-[#4A90E2] transition-all flex items-center justify-center active:scale-95"
+            >
+              Book Free Consultation
+            </button>
           </div>
         </div>
 

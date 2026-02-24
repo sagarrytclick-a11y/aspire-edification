@@ -1,7 +1,6 @@
-"use client";
-
+"use client"
 import React from "react";
-import { Star, Quote, Award, CheckCircle2, Zap } from "lucide-react";
+import { Star, Quote, Award, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function StudentTestimonialSlider() {
@@ -10,7 +9,7 @@ export default function StudentTestimonialSlider() {
       name: "Ananya Reddy",
       university: "IIT Bombay",
       year: "2024",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=400&auto=format&fit=crop",
+      image: "https://img.freepik.com/premium-photo/portrait-24yearold-smart-indian-college-girl_1077802-296862.jpg",
       testimonial: "The peer learning culture and coding competitions at IIT Bombay shaped my technical depth.",
       achievement: "₹52 LPA Package"
     },
@@ -18,7 +17,7 @@ export default function StudentTestimonialSlider() {
       name: "Arjun Sharma",
       university: "IIT Delhi",
       year: "2023",
-      image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=400&auto=format&fit=crop",
+      image: "https://imgcdn.stablediffusionweb.com/2024/12/17/e591519f-4727-40bc-9fac-bc51ef1d14f6.jpg",
       testimonial: "IIT Delhi gave me exposure beyond textbooks. Every experience pushed me forward.",
       achievement: "Raised ₹3.5 Cr"
     },
@@ -26,7 +25,7 @@ export default function StudentTestimonialSlider() {
       name: "Meera Krishnan",
       university: "NIT Trichy",
       year: "2024",
-      image: "https://images.unsplash.com/photo-1619895862022-09114b41f16f?q=80&w=400&auto=format&fit=crop",
+      image: "https://media.istockphoto.com/id/1029797636/photo/school-girl-stock-image.jpg?s=612x612&w=0&k=20&c=vTO9wMeghrSTzTrKNvv_vBmjF7yJMMPA-coFg3bab2w=",
       testimonial: "Mentorship and the strong alumni network helped me prepare strategically for GATE.",
       achievement: "AIR 9 GATE"
     },
@@ -34,86 +33,76 @@ export default function StudentTestimonialSlider() {
       name: "Vikram Mehra",
       university: "DTU Delhi",
       year: "2023",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+      image: "https://img.freepik.com/premium-photo/portrait-indian-college-boy-holding-books_255667-22041.jpg?semt=ais_user_personalization&w=740&q=80",
       testimonial: "The technical interviews were tough, but the preparation modules were spot on.",
       achievement: "Selected GSoC"
     }
   ];
 
-  // Infinite loop ke liye array ko double kar rahe hain
   const duplicatedTestimonials = [...studentTestimonials, ...studentTestimonials];
 
   return (
-    <section className="py-24 bg-[#12141D] overflow-hidden relative">
-      {/* Background Glows */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4A90E2]/5 blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00D4FF]/5 blur-[120px] pointer-events-none" />
-
-      <div className="text-center mb-16 px-6">
-        <div className="inline-flex items-center gap-3 bg-[#1E212B] border border-[#94A3B8]/10 text-[#00D4FF] px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl">
-          <Zap size={14} className="text-[#4A90E2] fill-[#4A90E2]" />
-          Success Stories
+    <section className="py-20 bg-white overflow-hidden relative font-sans">
+      <div className="max-w-7xl mx-auto px-6 lg:px-24 mb-12">
+        <div className="flex items-center gap-2 text-[#4A90E2] mb-3">
+          <Sparkles size={16} />
+          <span className="text-[10px] font-bold uppercase tracking-widest">Success Stories</span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-black text-[#F8FAFC] tracking-tighter uppercase">
-          Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Future Leaders</span>
+        <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-[#1E293B]">
+          Trusted by Future Leaders
         </h2>
       </div>
 
       {/* Slider Container */}
       <div className="flex relative">
-        {/* Left & Right Gradient Overlays (Fading effect) */}
-        <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#12141D] to-transparent z-20 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#12141D] to-transparent z-20 pointer-events-none" />
+        {/* Fading Overlays */}
+        <div className="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" />
 
         <motion.div 
           className="flex gap-6 pr-6"
-          animate={{ x: [0, -1920] }} // Adjust based on content width
+          animate={{ x: [0, -1800] }} 
           transition={{
-            duration: 30, // Speed of slider
+            duration: 40, 
             repeat: Infinity,
             ease: "linear",
           }}
-          whileHover={{ animationPlayState: "paused" }} // Hover pe pause hoga
+          whileHover={{ x: undefined }} // Simple pause on hover logic can be handled via CSS or state if needed
         >
           {duplicatedTestimonials.map((student, i) => (
             <div
               key={i}
-              className="w-[350px] md:w-[450px] flex-shrink-0 group bg-[#1E212B] border border-[#94A3B8]/10 rounded-[30px] p-6 md:p-8 hover:border-[#4A90E2]/30 transition-all duration-500 relative overflow-hidden"
+              className="w-[320px] md:w-[400px] flex-shrink-0 group bg-[#F8FAFC] border border-slate-100 rounded-lg p-6 md:p-8 hover:border-[#4A90E2] transition-all duration-300 relative"
             >
-              {/* Achievement Badge */}
-              <div className="absolute top-4 right-4 z-20">
-                <div className="bg-[#12141D] border border-[#4A90E2]/20 px-3 py-1.5 rounded-lg flex items-center gap-2">
-                  <Award size={14} className="text-[#00D4FF]" />
-                  <span className="text-[9px] font-black text-[#F8FAFC] uppercase tracking-widest">{student.achievement}</span>
+              {/* Simple Achievement Badge */}
+              <div className="mb-6 flex justify-between items-start">
+                <div className="bg-white border border-slate-200 px-3 py-1 rounded-md shadow-sm flex items-center gap-2">
+                  <Award size={14} className="text-[#4A90E2]" />
+                  <span className="text-[9px] font-bold text-[#1E293B] uppercase tracking-wider">{student.achievement}</span>
                 </div>
+                <Quote size={24} className="text-slate-200" />
               </div>
 
-              <Quote size={32} className="text-[#4A90E2]/10 mb-4" />
-              <p className="text-[#F8FAFC] text-md md:text-lg font-medium leading-relaxed mb-6 italic min-h-[80px]">
+              <p className="text-[#64748B] text-sm font-medium leading-relaxed mb-8 italic">
                 "{student.testimonial}"
               </p>
 
               {/* Student Info */}
-              <div className="flex items-center gap-4 pt-4 border-t border-[#94A3B8]/5 relative z-10">
-                <div className="w-12 h-12 rounded-xl overflow-hidden border border-[#12141D] group-hover:border-[#4A90E2] transition-colors">
+              <div className="flex items-center gap-4 pt-6 border-t border-slate-200/50">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-sm">
                   <img src={student.image} alt={student.name} className="w-full h-full object-cover" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#F8FAFC] text-sm leading-none mb-1">{student.name}</h4>
-                  <p className="text-[10px] text-[#94A3B8] font-black uppercase tracking-widest">
-                    <span className="text-[#4A90E2]">{student.university}</span>
+                  <h4 className="font-bold text-[#1E293B] text-sm leading-none mb-1">{student.name}</h4>
+                  <p className="text-[10px] text-[#4A90E2] font-bold uppercase tracking-wider">
+                    {student.university}
                   </p>
                   <div className="flex gap-0.5 mt-1">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={10} className="text-[#00D4FF] fill-[#00D4FF]" />)}
+                    {[...Array(5)].map((_, i) => <Star key={i} size={10} className="text-yellow-400 fill-yellow-400" />)}
                   </div>
                 </div>
-                <div className="ml-auto opacity-40">
-                   <CheckCircle2 size={20} className="text-[#4A90E2]" />
-                </div>
+                <CheckCircle2 size={18} className="ml-auto text-green-500 opacity-50" />
               </div>
-
-              {/* Subtle Gradient Hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#4A90E2]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
           ))}
         </motion.div>
