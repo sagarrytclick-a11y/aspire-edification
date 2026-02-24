@@ -63,7 +63,7 @@ export function AdminTable<T = Record<string, unknown>>({
 
   if (data.length === 0) {
     return (
-      <div className="text-center py-8 sm:py-12 text-gray-500">
+      <div className="text-center py-8 sm:py-12 text-gray-400">
         <div className="text-base sm:text-lg font-medium mb-2">{emptyMessage}</div>
         <div className="text-sm">No records found</div>
       </div>
@@ -71,28 +71,29 @@ export function AdminTable<T = Record<string, unknown>>({
   }
 
   return (
-    <div className={`rounded-md border overflow-x-auto ${className}`}>
+    <div className={`rounded-md border border-gray-700 overflow-x-auto ${className}`}>
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="border-gray-700">
             {columns.map((column) => (
               <TableHead 
                 key={String(column.key)} 
                 style={{ width: column.width }}
+                className="text-gray-200 font-semibold"
               >
                 {column.title}
               </TableHead>
             ))}
             {actions && actions.length > 0 && (
-              <TableHead className="w-24">Actions</TableHead>
+              <TableHead className="w-24 text-gray-200 font-semibold">Actions</TableHead>
             )}
           </TableRow>
         </TableHeader>
         <TableBody>
           {data.map((record, index) => (
-            <TableRow key={index}>
+            <TableRow key={index} className="border-gray-700">
               {columns.map((column) => (
-                <TableCell key={String(column.key)}>
+                <TableCell key={String(column.key)} className="text-gray-300">
   {(() => {
     try {
       const value = (record as any)[column.key];
@@ -108,7 +109,7 @@ export function AdminTable<T = Record<string, unknown>>({
 
       // 2. Handle null or undefined
       if (value === undefined || value === null) {
-        return <span className="text-gray-400">N/A</span>;
+        return <span className="text-gray-500">N/A</span>;
       }
 
       // 3. Handle Dates
@@ -119,7 +120,7 @@ export function AdminTable<T = Record<string, unknown>>({
       // 4. Handle Objects (The culprit)
       if (typeof value === 'object') {
         // If it's a specific object like your University data, 
-        // we extract the most useful string (title or name)
+        // we extract most useful string (title or name)
         const displayValue = value.title || value.name || value.label;
         
         if (displayValue && typeof displayValue === 'string') {
@@ -127,14 +128,14 @@ export function AdminTable<T = Record<string, unknown>>({
         }
 
         // Fallback: Just stringify the whole thing so it doesn't crash
-        return <span className="text-xs text-gray-400 font-mono">{JSON.stringify(value)}</span>;
+        return <span className="text-xs text-gray-500 font-mono">{JSON.stringify(value)}</span>;
       }
 
       // 5. Default for strings, numbers, booleans
       return String(value);
     } catch (error) {
       console.error('Error rendering table cell:', error);
-      return <span className="text-destructive">Render Error</span>;
+      return <span className="text-red-400">Render Error</span>;
     }
   })()}
 </TableCell>
@@ -149,6 +150,7 @@ export function AdminTable<T = Record<string, unknown>>({
                         size="sm"
                         onClick={() => action.onClick(record, index)}
                         disabled={action.disabled}
+                        className="text-gray-300 hover:text-white hover:bg-gray-700"
                       >
                         {action.icon || action.label}
                       </Button>

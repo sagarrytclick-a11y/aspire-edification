@@ -53,20 +53,20 @@ export function AdminModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-      <div className={`w-full ${sizeClasses[size]} bg-white rounded-lg shadow-xl border max-h-[90vh] overflow-y-auto`}>
+      <div className={`w-full ${sizeClasses[size]} bg-gray-800 rounded-lg shadow-xl border border-gray-700 max-h-[90vh] overflow-y-auto`}>
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b">
+        <div className="flex items-center justify-between p-6 border-b border-gray-700">
           <div>
-            <h2 className="text-lg font-semibold">{title}</h2>
+            <h2 className="text-lg font-semibold text-white">{title}</h2>
             {description && (
-              <p className="text-sm text-gray-500 mt-1">{description}</p>
+              <p className="text-sm text-gray-400 mt-1">{description}</p>
             )}
           </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={handleCancel}
-            className="h-8 w-8 p-0"
+            className="h-8 w-8 p-0 text-gray-400 hover:text-white hover:bg-gray-700"
           >
             <X className="h-4 w-4" />
           </Button>
@@ -79,11 +79,12 @@ export function AdminModal({
 
         {/* Footer */}
         {showFooter && (
-          <div className="flex justify-end space-x-3 p-6 border-t bg-gray-50">
+          <div className="flex justify-end space-x-3 p-6 border-t border-gray-700 bg-gray-900">
             <Button
               variant="outline"
               onClick={handleCancel}
               disabled={loading}
+              className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
             >
               {cancelText}
             </Button>
@@ -91,6 +92,7 @@ export function AdminModal({
               <Button
                 onClick={handleConfirm}
                 disabled={loading}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
               >
                 {loading ? 'Saving...' : confirmText}
               </Button>
