@@ -1,16 +1,10 @@
 "use client"
 import React from "react";
-import { GraduationCap, ShieldCheck, Globe, CheckCircle2, ArrowRight, Star } from "lucide-react";
+import { GraduationCap, ShieldCheck, Globe, CheckCircle2, ArrowRight, Star, Sparkles } from "lucide-react";
 import { useFormModal } from "@/context/FormModalContext";
 
 export default function AdmissionCampusAdvantage() {
   const { openModal } = useFormModal();
-
-  // Brand Theme Tokens
-  const PRIMARY_BLUE = "#4A90E2"; 
-  const SECONDARY_CYAN = "#00D4FF";
-  const BG_DEEP = "#12141D";
-  const SURFACE_CARD = "#1E212B";
 
   const stats = [
     { label: "IITs Guided", value: "500+" },
@@ -38,39 +32,35 @@ export default function AdmissionCampusAdvantage() {
   ];
 
   return (
-    <section id="about" className="py-24 bg-[#12141D] relative overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#4A90E2]/5 blur-[150px] translate-x-1/4 -translate-y-1/4 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00D4FF]/5 blur-[120px] -translate-x-1/4 translate-y-1/4 pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 relative z-10">
+    <section id="about" className="py-20 bg-white font-sans text-[#1E293B]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-24">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
           {/* Left Side: Content */}
-          <div className="relative">
-            <div className="inline-flex items-center gap-3 bg-[#1E212B] border border-[#94A3B8]/10 text-[#00D4FF] px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-2xl">
-              <Star size={14} className="text-[#4A90E2] fill-[#4A90E2]" />
-              Why Choose Us
+          <div>
+            <div className="flex items-center gap-2 text-[#4A90E2] mb-4">
+              <Sparkles size={16} />
+              <span className="text-[10px] font-bold uppercase tracking-widest">Why Choose Us</span>
             </div>
             
-            <h2 className="text-4xl md:text-7xl font-black text-[#F8FAFC] mb-8 tracking-tighter leading-[1.05]">
-              Trusted <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90E2] to-[#00D4FF]">Indian College</span> Consultants
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6 leading-tight">
+              Trusted Indian College Consultants
             </h2>
             
-            <p className="text-[#94A3B8] text-lg leading-relaxed mb-12 max-w-xl">
+            <p className="text-[#64748B] text-sm leading-relaxed mb-10 max-w-xl font-medium">
               We help students secure admissions in top Indian engineering and medical colleges 
               through expert guidance, transparent processes, and strong institutional partnerships.
             </p>
 
-            {/* Stats Grid - Modern Dark Style */}
-            <div className="grid grid-cols-2 gap-5 mb-12">
+            {/* Stats Grid - Simple Light Style */}
+            <div className="grid grid-cols-2 gap-4 mb-10">
               {stats.map((stat, i) => (
-                <div key={i} className="bg-[#1E212B] border border-[#94A3B8]/10 p-7 rounded-[32px] group hover:border-[#4A90E2]/30 transition-all duration-500 shadow-xl">
-                  <div className="text-3xl font-black text-[#F8FAFC] tracking-tighter group-hover:text-[#00D4FF] transition-colors mb-1">
+                <div key={i} className="bg-[#F8FAFC] border border-slate-100 p-6 rounded-lg group hover:border-[#4A90E2] transition-colors">
+                  <div className="text-2xl font-bold text-[#1E293B] tracking-tight group-hover:text-[#4A90E2] transition-colors">
                     {stat.value}
                   </div>
-                  <div className="text-[10px] uppercase font-black tracking-widest text-[#94A3B8]">
+                  <div className="text-[9px] uppercase font-bold tracking-widest text-[#64748B] mt-1">
                     {stat.label}
                   </div>
                 </div>
@@ -79,31 +69,28 @@ export default function AdmissionCampusAdvantage() {
 
             <button 
               onClick={() => openModal()} 
-              className="bg-[#4A90E2] text-white px-10 py-5 rounded-2xl font-black text-xs uppercase tracking-[0.15em] flex items-center gap-3 hover:bg-[#00D4FF] transition-all shadow-[0_15px_35px_rgba(74,144,226,0.3)] active:scale-95 group"
+              className="bg-[#1E293B] text-white px-8 py-3 rounded-md font-bold text-sm hover:bg-[#4A90E2] transition-colors flex items-center gap-2 active:scale-95 group shadow-sm"
             >
               Get Started Now
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Right Side: Feature Vertical Cards */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {points.map((item, i) => (
               <div
                 key={i}
-                className="group bg-[#1E212B] border border-[#94A3B8]/5 p-8 md:p-10 rounded-[40px] hover:border-[#4A90E2]/20 hover:shadow-[0_40px_80px_rgba(0,0,0,0.5)] transition-all duration-500 flex flex-col md:flex-row items-start gap-8 hover:-translate-y-2 relative overflow-hidden"
+                className="group bg-[#F8FAFC] border border-slate-100 p-6 rounded-lg hover:border-[#4A90E2] transition-all flex items-start gap-6"
               >
-                {/* Accent line on hover */}
-                <div className="absolute top-0 left-0 h-full w-1 bg-[#4A90E2] opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                <div className="shrink-0 w-16 h-16 bg-[#12141D] text-[#4A90E2] border border-[#94A3B8]/10 flex items-center justify-center rounded-2xl group-hover:bg-[#4A90E2] group-hover:text-white transition-all duration-500 shadow-inner">
-                  <item.icon size={28} />
+                <div className="shrink-0 w-12 h-12 bg-white text-[#4A90E2] border border-slate-100 flex items-center justify-center rounded-md group-hover:bg-[#4A90E2] group-hover:text-white transition-all shadow-sm">
+                  <item.icon size={22} />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-[#F8FAFC] mb-3 group-hover:text-[#00D4FF] transition-colors">
+                  <h3 className="text-lg font-semibold text-[#1E293B] mb-2 group-hover:text-[#4A90E2] transition-colors">
                     {item.title}
                   </h3>
-                  <p className="text-[#94A3B8] text-sm leading-relaxed">
+                  <p className="text-[#64748B] text-xs leading-relaxed font-medium">
                     {item.desc}
                   </p>
                 </div>
@@ -114,10 +101,10 @@ export default function AdmissionCampusAdvantage() {
         </div>
 
         {/* Bottom Verification Strip */}
-        <div className="mt-24 pt-12 border-t border-[#94A3B8]/5 flex flex-wrap justify-center gap-8 md:gap-16">
+        <div className="mt-20 pt-10 border-t border-slate-100 flex flex-wrap justify-center gap-8 md:gap-12">
           {['IIT/JEE Specialized', 'NEET Counseling', 'Direct College Tie-ups'].map((text, i) => (
-            <div key={i} className="flex items-center gap-3 text-[#94A3B8] text-[10px] font-black uppercase tracking-[0.2em]">
-              <CheckCircle2 size={18} className="text-[#00D4FF]" />
+            <div key={i} className="flex items-center gap-2 text-[#64748B] text-[10px] font-bold uppercase tracking-widest">
+              <CheckCircle2 size={16} className="text-[#4A90E2]" />
               {text}
             </div>
           ))}

@@ -86,16 +86,16 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
 
   if (isError) {
     return (
-      <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+      <div className="text-center py-20 bg-[#F8FAFC] rounded-xl border border-slate-200">
         <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
           <GraduationCap className="w-8 h-8 text-red-500" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-3">Error Loading Related Colleges</h3>
-        <p className="text-slate-500 mb-6 max-w-md mx-auto">
+        <h3 className="text-xl font-bold text-[#1E293B] mb-3">Error Loading Related Colleges</h3>
+        <p className="text-[#64748B] mb-6 max-w-md mx-auto">
           Please try again later or explore our complete collection of top-ranked universities
         </p>
         <Link href="/colleges">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg flex items-center gap-2">
+          <Button className="bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white font-medium px-6 py-3 rounded-lg flex items-center gap-2">
             Explore All Colleges
             <ArrowRight className="w-4 h-4" />
           </Button>
@@ -127,16 +127,16 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
 
   if (colleges.length === 0) {
     return (
-      <div className="text-center py-20 bg-slate-50 rounded-xl border border-slate-200">
+      <div className="text-center py-20 bg-[#F8FAFC] rounded-xl border border-slate-200">
         <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <GraduationCap className="w-8 h-8 text-slate-400" />
         </div>
-        <h3 className="text-xl font-bold text-slate-900 mb-3">No Related Colleges Found</h3>
-        <p className="text-slate-500 mb-6 max-w-md mx-auto">
+        <h3 className="text-xl font-bold text-[#1E293B] mb-3">No Related Colleges Found</h3>
+        <p className="text-[#64748B] mb-6 max-w-md mx-auto">
           Explore our complete collection of top-ranked universities worldwide
         </p>
         <Link href="/colleges">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-lg flex items-center gap-2">
+          <Button className="bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white font-medium px-6 py-3 rounded-lg flex items-center gap-2">
             Explore All Colleges
             <ArrowRight className="w-4 h-4" />
           </Button>
@@ -148,8 +148,8 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
   return (
     <div className="space-y-8">
       <div className="text-center">
-        <h2 className="text-2xl font-bold text-slate-900 mb-4">Related Colleges</h2>
-        <p className="text-slate-600 max-w-2xl mx-auto">
+        <h2 className="text-2xl font-bold text-[#1E293B] mb-4">Related Colleges</h2>
+        <p className="text-[#64748B] max-w-2xl mx-auto">
           Explore similar institutions that might interest you
         </p>
       </div>
@@ -188,14 +188,14 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
               </div>
 
               <div className="p-6 flex-1 flex flex-col">
-                <h3 className="font-semibold text-lg text-slate-900 mb-4 line-clamp-2 min-h-[3.5rem]">
+                <h3 className="font-semibold text-lg text-[#1E293B] mb-4 line-clamp-2 min-h-[3.5rem]">
                   {college.name}
                 </h3>
                 
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   <div>
-                    <div className="text-xs text-slate-500 uppercase font-medium mb-1">Yearly Fees</div>
-                    <div className="flex items-center text-blue-600 font-semibold">
+                    <div className="text-xs text-[#64748B] uppercase font-medium mb-1">Yearly Fees</div>
+                    <div className="flex items-center text-[#4A90E2] font-semibold">
                       {/* <DollarSign size={16} /> */}
                       <span>
                         {college.fees 
@@ -206,9 +206,9 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
                     </div>
                   </div>
                   <div>
-                    <div className="text-xs text-slate-500 uppercase font-medium mb-1">Duration</div>
-                    <div className="flex items-center text-slate-700 font-semibold">
-                      <Clock size={16} className="mr-1 text-slate-400" />
+                    <div className="text-xs text-[#64748B] uppercase font-medium mb-1">Duration</div>
+                    <div className="flex items-center text-[#1E293B] font-semibold">
+                      <Clock size={16} className="mr-1 text-[#64748B]" />
                       <span>
                         {college.duration || college.fees_structure?.courses?.[0]?.duration || 'N/A'} years
                       </span>
@@ -218,7 +218,7 @@ const fetchRelatedColleges = async (slug: string): Promise<College[]> => {
 
                 <div className="mt-auto">
                   <Link href={`/colleges/${college.slug}`}>
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
+                    <Button className="w-full bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
                       View Details
                       <ArrowRight size={16} />
                     </Button>
