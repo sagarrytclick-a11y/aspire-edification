@@ -1,13 +1,8 @@
 import Link from "next/link";
 import {
   MapPin,
-  Award,
-  DollarSign,
-  Star,
-  Users,
-  CheckCircle,
+  ArrowRight,
 } from "lucide-react";
-import { useFormModal } from "@/context/FormModalContext";
 
 type CollegeCardProps = {
   data: {
@@ -15,158 +10,103 @@ type CollegeCardProps = {
     name: string;
     slug?: string;
     banner_url?: string;
-    location?: string;
-    rank?: string;
-    tuition?: string;
-    acceptance?: string;
-    rating?: string;
-    employability?: string;
-    tags?: string[];
+    city?: string;
+    country?: string;
+    fees?: number;
+    establishment_year?: number;
+    categories?: string[];
   };
+  category?: 'engineering' | 'medical' | 'management';
 };
 
-export default function CollegeCard({ data }: CollegeCardProps) {
-  const { openModal } = useFormModal();
-  
-  const getImageSrc = (image?: string) => {
-    if (!image) return null;
-    if (image.startsWith("http")) return image;
-    if (image.startsWith("/")) return image;
-    return `/uploads/colleges/${image}`;
+export default function CollegeCard({ data, category = 'engineering' }: CollegeCardProps) {
+  // Category-specific colors
+  const categoryColors = {
+    engineering: {
+      primary: '#4A90E2',
+      hover: 'hover:border-[#4A90E2]',
+      textHover: 'group-hover:text-[#4A90E2]',
+      program: 'B.Tech / M.Tech'
+    },
+    medical: {
+      primary: '#10B981',
+      hover: 'hover:border-[#10B981]',
+      textHover: 'group-hover:text-[#10B981]',
+      program: 'MBBS / BDS'
+    },
+    management: {
+      primary: '#8B5CF6',
+      hover: 'hover:border-[#8B5CF6]',
+      textHover: 'group-hover:text-[#8B5CF6]',
+      program: 'MBA / PGDM'
+    }
   };
 
-  const imageUrl = getImageSrc(data.banner_url) || 
-    "https://images.pexels.com/photos/159775/library-la-trobe-study-students-159775.jpeg?auto=compress&cs=tinysrgb&w=600";
-
+  const colors = categoryColors[category];
+  const imageUrl = data.banner_url || "https://images.unsplash.com/photo-1562774053-701939374585";
   const slug = data.slug || data._id;
 
-  const handleApplyNow = () => {
-    openModal();
-  };
-
   return (
-    <div className="group overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-slate-100 hover:border-green-200">
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={data.name || "College"}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+    <Link href={`/colleges/${slug}`} className="group">
+      <div className={`bg-white rounded-xl border border-slate-200 overflow-hidden ${colors.hover} hover:shadow-lg transition-all duration-300 flex flex-col h-full`}>
+        
+        {/* Image Area */}
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={imageUrl}
+            alt={data.name || "College"}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
 
-        {/* Rank Badge */}
-        {data.rank && (
-          <div className="absolute left-4 top-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-xs font-bold text-slate-800 shadow-lg">
-            {data.rank}
-          </div>
-        )}
+        {/* Content Area */}
+        <div className="p-6 flex flex-col flex-1">
+          <h3 className={`text-xl font-bold text-[#1E293B] ${colors.textHover} transition-colors mb-3`}>
+            {data.name}
+          </h3>
+          
+          {/* Location */}
+          {(data.city || data.country) && (
+            <div className="flex items-center gap-2 text-[#64748B] text-sm mb-4">
+              <MapPin size={14} className={colors.primary.replace('#', 'text-[')} />
+              <span>{data.city}{data.city && data.country ? ', ' : ''}{data.country}</span>
+            </div>
+          )}
 
-        {/* Scholarship Badge */}
-        {data.tags?.includes("Scholarship") && (
-          <div className="absolute right-4 top-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
-            💰 Scholarship
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div className="p-6">
-        {/* Tags */}
-        {data.tags && data.tags.length > 0 && (
-          <div className="mb-3 flex flex-wrap gap-2">
-            {data.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 border border-green-100"
-              >
-                <CheckCircle size={10} />
-                {tag}
+          {/* Fees and Program Information */}
+          <div className="space-y-2 mb-6">
+            {/* Annual Fees */}
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-[#64748B]">Annual Fees:</span>
+              <span className="text-lg font-bold text-[#1E293B]">
+                {data.fees ? `₹${data.fees.toLocaleString()}` : 'N/A'}
               </span>
-            ))}
+            </div>
+            
+            {/* Program Type */}
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-[#64748B]">Program:</span>
+              <span className="text-sm font-medium text-[#1E293B]">{colors.program}</span>
+            </div>
+
+            {/* Establishment Year */}
+            {data.establishment_year && (
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-[#64748B]">Established:</span>
+                <span className="text-sm font-medium text-[#1E293B]">{data.establishment_year}</span>
+              </div>
+            )}
           </div>
-        )}
 
-        {/* Title & Location */}
-        <h3 className="text-xl font-bold text-slate-900 mb-2 leading-tight">
-          {data.name}
-        </h3>
-
-        {data.location && (
-          <div className="flex items-center gap-2 text-slate-600 mb-4">
-            <MapPin size={16} className="text-green-500" />
-            <span className="text-sm font-medium">{data.location}</span>
+          {/* View Details Button */}
+          <div className="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+            <span className="text-xs text-[#64748B] font-medium">View Details</span>
+            <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white group-hover:bg-[#1E293B] transition-all`} style={{ backgroundColor: colors.primary }}>
+              <ArrowRight size={16} />
+            </div>
           </div>
-        )}
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {data.tuition && (
-            <div className="flex items-center gap-2">
-              <DollarSign size={16} className="text-green-500" />
-              <div>
-                <p className="text-xs text-slate-500">Tuition</p>
-                <p className="text-sm font-bold text-slate-900">
-                  {data.tuition}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {data.acceptance && (
-            <div className="flex items-center gap-2">
-              <Award size={16} className="text-green-500" />
-              <div>
-                <p className="text-xs text-slate-500">Acceptance</p>
-                <p className="text-sm font-bold text-slate-900">
-                  {data.acceptance}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {data.employability && (
-            <div className="flex items-center gap-2">
-              <Users size={16} className="text-green-500" />
-              <div>
-                <p className="text-xs text-slate-500">Employability</p>
-                <p className="text-sm font-bold text-slate-900">
-                  {data.employability}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {data.rating && (
-            <div className="flex items-center gap-2">
-              <Star size={16} className="text-green-500 fill-green-500" />
-              <div>
-                <p className="text-xs text-slate-500">Rating</p>
-                <p className="text-sm font-bold text-slate-900">
-                  {data.rating}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Actions */}
-        <div className="flex gap-3">
-          <Link
-            href={`/colleges/${slug}`}
-            className="flex-1 border-2 border-slate-200 text-slate-700 font-semibold py-3 px-4 rounded-xl hover:border-green-300 hover:text-green-600 transition-all duration-200 text-center"
-          >
-            View Details
-          </Link>
-
-          <button
-            onClick={handleApplyNow}
-            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-4 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 shadow-lg text-center"
-          >
-            Apply Now
-          </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

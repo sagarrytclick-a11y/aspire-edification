@@ -95,7 +95,7 @@ const ExplorePrograms = () => {
 
               {/* Action Button - Same Simple Style */}
               <Link href={card.href} className="mt-auto">
-                <button className="w-full bg-white border border-slate-200 hover:border-[#4A90E2] hover:text-[#4A90E2] text-[#1E293B] font-bold py-3 rounded-md text-sm transition-all flex items-center justify-center gap-2">
+                <button className="w-full bg-white border border-slate-200 hover:border-[#4A90E2] hover:bg-[#4A90E2] hover:text-white text-[#1E293B] font-bold py-3 rounded-md text-sm transition-all flex items-center justify-center gap-2">
                   {card.footerAction}
                   <ArrowRight size={14} />
                 </button>

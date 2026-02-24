@@ -1,158 +1,129 @@
-"use client";
 import React from 'react';
 import { GraduationCap, FileText, DollarSign, BookOpen, TrendingUp, Home, ArrowRight, Star, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import FAQ from "@/app/Components/FAQ";
 
-// Theme Constants
-const PRIMARY_BLUE = "#1A4AB2";
-const ACCENT_GOLD = "#FACC15";
-
 const ServicesPage = () => {
+  const services = [
+    {
+      title: "College Admissions", 
+      desc: "Strategic matching with top-tier institutions based on your academic profile.",
+      icon: <GraduationCap size={24} />
+    },
+    {
+      title: "Exam Preparation", 
+      desc: "Intensive preparation for JEE, NEET, and CAT with proven success rates.",
+      icon: <FileText size={24} />
+    },
+    {
+      title: "Campus Housing", 
+      desc: "Verified, safe, and convenient accommodation near major universities.",
+      icon: <Home size={24} />
+    },
+    {
+      title: "Scholarships", 
+      desc: "Navigate financial aid and secure exclusive scholarship opportunities.",
+      icon: <DollarSign size={24} />
+    },
+    {
+      title: "Career Guidance", 
+      desc: "Personalized mentorship to align your degree with industry opportunities.",
+      icon: <TrendingUp size={24} />
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen py-16 bg-white">
       
-      {/* HERO SECTION - Slate 950 Theme */}
-      <section className="relative pt-32 pb-24 bg-slate-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1A4AB2_1px,transparent_1px)] [background-size:40px_40px]"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#1A4AB2] text-white px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest mb-8 shadow-xl shadow-blue-900/20">
-            <Star size={14} className="text-[#FACC15]" /> Premium Academic Services
+      {/* Hero Section */}
+      <section className="py-20 bg-[#1E293B] text-white">
+        <div className="max-w-6xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-2 bg-[#4A90E2]/20 px-4 py-2 rounded-full text-sm font-bold mb-6">
+            <Star className="w-4 h-4" />
+            Premium Services
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 tracking-tighter uppercase leading-[0.9]">
-            YOUR COMPLETE <br />
-            <span className="text-[#FACC15]">ADMISSION SOLUTION</span>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Complete Admission Support
           </h1>
-          
-          <p className="text-slate-400 text-sm md:text-base max-w-3xl mx-auto font-medium uppercase tracking-wider leading-relaxed mb-12">
-            From strategic college selection to complex visa processing — we manage every 
-            milestone of your educational journey with 50 years of proven expertise.
+          <p className="text-lg opacity-90 max-w-3xl mx-auto">
+            From strategic college selection to visa processing — we manage every step.
           </p>
-          
-          <div className="flex flex-wrap justify-center gap-6">
-             {["95% Success Rate", "500+ Indian Colleges", "25+ Global Streams"].map((badge, i) => (
-               <div key={i} className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-[10px] font-black text-white uppercase tracking-widest">
-                  <ShieldCheck size={14} className="text-[#FACC15]" /> {badge}
-               </div>
-             ))}
-          </div>
         </div>
       </section>
 
-      {/* SERVICES GRID */}
-      <section className="py-32">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-950 mb-4 uppercase tracking-tighter">
-              EXPERT SUPPORT <span className="text-[#1A4AB2]">FOR EVERY STEP</span>
+      {/* Services Grid */}
+      <section className="py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-[#1E293B] mb-4">
+              Our <span className="text-[#4A90E2]">Services</span>
             </h2>
-            <p className="text-slate-400 text-sm font-bold uppercase tracking-[0.2em]">Comprehensive guidance tailored to your goals</p>
+            <p className="text-[#64748B] text-lg">
+              Comprehensive guidance tailored to your academic goals
+            </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              { 
-                title: "College Admissions", 
-                desc: "Strategic matching with top-tier Indian institutions based on your academic profile.",
-                icon: <GraduationCap size={28} />,
-                link: "Match Profile"
-              },
-              { 
-                title: "Entrance Exam Prep", 
-                desc: "Intensive preparation modules for JEE, NEET, and CAT with a track record of top percentiles.",
-                icon: <FileText size={28} />,
-                link: "Start Prep"
-              },
-              { 
-                title: "Campus Housing", 
-                desc: "Verified, safe, and convenient accommodation solutions near major university hubs.",
-                icon: <Home size={28} />,
-                link: "Browse Housing"
-              },
-              { 
-                title: "Scholarships & Aid", 
-                desc: "Navigate complex financial aid landscapes and secure exclusive scholarship grants.",
-                icon: <DollarSign size={28} />,
-                link: "Find Funding"
-              },
-              { 
-                title: "International Visa", 
-                desc: "End-to-end documentation support and interview coaching for global study permits.",
-                icon: <BookOpen size={28} />,
-                link: "Get Started"
-              },
-              { 
-                title: "Career Roadmap", 
-                desc: "Personalized mentorship to align your degree with long-term industry opportunities.",
-                icon: <TrendingUp size={28} />,
-                link: "Get Advice"
-              }
-            ].map((service, i) => (
-              <div key={i} className="group bg-white rounded-[40px] p-10 border border-slate-100 hover:border-[#1A4AB2] hover:shadow-[0_40px_80px_-20px_rgba(26,74,178,0.15)] transition-all duration-500 flex flex-col">
-                <div className="w-16 h-16 bg-slate-50 text-[#1A4AB2] rounded-[24px] flex items-center justify-center mb-8 group-hover:bg-[#1A4AB2] group-hover:text-white transition-all duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <div key={index} className="group p-8 bg-[#F8FAFC] border border-slate-200 rounded-xl hover:border-[#4A90E2] hover:shadow-lg transition-all">
+                <div className="w-16 h-16 rounded-xl bg-[#4A90E2]/10 text-[#4A90E2] flex items-center justify-center mb-6 group-hover:bg-[#4A90E2] group-hover:text-white transition-all">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl font-black text-slate-950 mb-4 uppercase tracking-tight group-hover:text-[#1A4AB2] transition-colors">
+                
+                <h3 className="text-xl font-semibold text-[#1E293B] mb-3 group-hover:text-[#4A90E2] transition-colors">
                   {service.title}
                 </h3>
-                <p className="text-slate-500 font-medium leading-relaxed mb-8 flex-1">
+                
+                <p className="text-[#64748B] leading-relaxed mb-6">
                   {service.desc}
                 </p>
-                <Link href="#" className="inline-flex items-center gap-2 text-[11px] font-black text-[#1A4AB2] uppercase tracking-widest group-hover:gap-4 transition-all">
-                  {service.link} <ArrowRight size={16} />
-                </Link>
+                
+                <div className="pt-4 border-t border-slate-200/50">
+                  <Link href="#" className="inline-flex items-center gap-2 text-[#4A90E2] font-medium hover:gap-3 transition-all">
+                    Learn More
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* STATS SECTION - Deep Blue Impact */}
-      <section className="max-w-7xl mx-auto px-6 mb-32">
-        <div className="bg-slate-950 rounded-[60px] p-12 md:p-20 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#1A4AB2_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+      {/* CTA Section */}
+      <section className="py-20 bg-[#F8FAFC]">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <div className="inline-flex items-center gap-3 bg-white border border-slate-200 rounded-full px-8 py-4 mb-8">
+            <ShieldCheck className="w-6 h-6 text-[#4A90E2]" />
+            <span className="text-[#64748B] font-medium">50+ Years of Excellence</span>
+          </div>
           
-          <div className="relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tighter">
-                PROVEN <span className="text-[#FACC15]">RECOGNITION</span>
-              </h2>
-              <p className="text-slate-400 text-[11px] font-black uppercase tracking-widest">Global impact across five decades</p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-              {[
-                { val: "10K+", label: "STUDENTS PLACED" },
-                { val: "500+", label: "COLLEGE PARTNERS" },
-                { val: "25+", label: "STATES COVERED" },
-                { val: "₹50Cr+", label: "TOTAL SCHOLARSHIPS" }
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <div className="text-4xl md:text-5xl font-black text-white mb-2 tracking-tighter">{stat.val}</div>
-                  <div className="text-[10px] font-black text-[#FACC15] uppercase tracking-[0.2em]">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center">
-              <Link href="/contact" className="inline-flex items-center gap-3 bg-white text-[#1A4AB2] px-10 h-16 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-[#FACC15] hover:text-slate-950 transition-all shadow-xl">
-                Start Your Journey Today
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-6">Expert consultation • No commitment required</p>
-            </div>
+          <h2 className="text-3xl font-bold text-[#1E293B] mb-4">
+            Ready to <span className="text-[#4A90E2]">Get Started?</span>
+          </h2>
+          
+          <p className="text-[#64748B] text-lg mb-8">
+            Join thousands of students who've achieved their dream education goals.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/contact" className="bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all flex items-center gap-2">
+              Talk to Expert
+              <ArrowRight size={18} />
+            </Link>
+            
+            <button className="bg-white border border-slate-200 text-[#1E293B] px-8 py-4 rounded-xl font-semibold hover:border-[#4A90E2] hover:text-[#4A90E2] transition-all">
+              Free Assessment
+            </button>
           </div>
         </div>
       </section>
 
-      {/* FAQ SECTION */}
-      <div className="bg-white py-20">
+      {/* FAQ Section */}
+      <section className="py-20 bg-white">
         <FAQ />
-      </div>
+      </section>
     </div>
   );
 };

@@ -1,0 +1,276 @@
+'use client'
+
+import React, { useMemo, memo } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ChevronLeft, ChevronRight, ArrowRight, AlertCircle, MapPin, GraduationCap, RefreshCw } from 'lucide-react'
+
+interface CollegeMappingProps {
+  colleges: any[]
+  isLoading: boolean
+  isError?: boolean
+  error?: any
+  currentPage: number
+  totalPages: number
+  onPageChange: (page: number) => void
+  itemsPerPage?: number
+  showPagination?: boolean
+  emptyMessage?: string
+  className?: string
+  onRefetch?: () => void
+}
+
+const CollegeCard = memo(({ college }: { college: any }) => {
+  return (
+    <div className="group bg-white rounded-2xl border-2 border-slate-300 hover:border-blue-500 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-500 overflow-hidden">
+      {/* College Banner */}
+      <div className="relative h-48 bg-gradient-to-br from-blue-600 to-blue-600/80 overflow-hidden">
+        {college.banner_url ? (
+          <img
+            src={college.banner_url}
+            alt={college.name}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <GraduationCap className="w-16 h-16 text-white/30" />
+          </div>
+        )}
+        {college.city && (
+          <div className="absolute top-4 right-4 bg-yellow-400 text-slate-900 px-3 py-1 rounded-full text-xs font-bold">
+            {college.city}
+          </div>
+        )}
+      </div>
+
+      {/* College Content */}
+      <div className="p-6">
+        <div className="mb-4">
+          <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+            {college.name}
+          </h3>
+          <div className="flex items-center gap-2 text-sm text-slate-600 mb-3">
+            <MapPin className="w-4 h-4 text-blue-600" />
+            <span>{typeof college.country_ref === "object" ? college.country_ref.name : college.country_ref}</span>
+            {college.city && (
+              <>
+                <span>•</span>
+                <span className="text-blue-600 font-medium">{college.city}</span>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Categories */}
+        {college.categories && college.categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {college.categories.slice(0, 2).map((category: string) => (
+              <span key={category} className="text-[9px] font-black bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-100 uppercase tracking-tighter">
+                {category}
+              </span>
+            ))}
+            {college.categories.length > 2 && (
+              <span className="text-[9px] font-black bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-100 uppercase tracking-tighter">
+                +{college.categories.length - 2}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Exams */}
+        {college.exams && college.exams.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {college.exams.slice(0, 2).map((exam: string) => (
+              <span key={exam} className="text-[9px] font-black bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-100 uppercase tracking-tighter">
+                {exam}
+              </span>
+            ))}
+            {college.exams.length > 2 && (
+              <span className="text-[9px] font-black bg-slate-50 text-slate-600 px-3 py-1.5 rounded-lg border border-slate-100 uppercase tracking-tighter">
+                +{college.exams.length - 2}
+              </span>
+            )}
+          </div>
+        )}
+
+        {/* Key Info */}
+        <div className="space-y-2 mb-6 text-sm">
+          {college.establishment_year && (
+            <div className="flex justify-between">
+              <span className="text-slate-500">Established:</span>
+              <span className="font-medium text-slate-900">{college.establishment_year}</span>
+            </div>
+          )}
+          {college.fees && (
+            <div className="flex justify-between">
+              <span className="text-slate-500">Fees:</span>
+              <span className="font-medium text-slate-900">₹{college.fees.toLocaleString()}/year</span>
+            </div>
+          )}
+        </div>
+
+        {/* Action Button */}
+        <Link href={`/colleges/${college.slug}`}>
+          <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-lg">
+            View Details
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </Link>
+      </div>
+    </div>
+  )
+})
+
+CollegeCard.displayName = 'CollegeCard'
+
+const CollegeMapping = memo(({ 
+  colleges,
+  isLoading,
+  isError = false,
+  error,
+  currentPage,
+  totalPages,
+  onPageChange,
+  itemsPerPage = 10,
+  showPagination = true,
+  emptyMessage = "No colleges found",
+  className = "",
+  onRefetch
+}: CollegeMappingProps) => {
+  const paginatedColleges = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage
+    const endIndex = startIndex + itemsPerPage
+    return colleges.slice(startIndex, endIndex)
+  }, [colleges, currentPage, itemsPerPage])
+
+  if (isLoading) {
+    return (
+      <div className={`text-center py-16 ${className}`}>
+        <div className="w-12 h-12 border-4 border-slate-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-slate-600 font-medium">Loading colleges...</p>
+      </div>
+    )
+  }
+
+  if (isError) {
+    return (
+      <div className={`text-center py-16 ${className}`}>
+        <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Error Loading Colleges</h2>
+        <p className="text-slate-600 mb-6">{error?.message || "Failed to load colleges"}</p>
+        {onRefetch && (
+          <Button onClick={onRefetch} className="bg-blue-600 hover:bg-blue-700">
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Try Again
+          </Button>
+        )}
+      </div>
+    )
+  }
+
+  if (colleges.length === 0) {
+    return (
+      <div className={`text-center py-16 ${className}`}>
+        <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 border-2 border-slate-300">
+          <MapPin className="w-12 h-12 text-slate-400" />
+        </div>
+        <h3 className="text-2xl font-bold text-slate-900 mb-2">{emptyMessage}</h3>
+        <p className="text-slate-600 mb-6">
+          Try adjusting your search terms or filters to find colleges.
+        </p>
+        {onRefetch && (
+          <Button onClick={onRefetch} className="bg-blue-600 hover:bg-blue-700">
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Refresh Results
+          </Button>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className={className}>
+      {/* Results Count */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {colleges.length} Colleges Found
+          </h2>
+          <p className="text-slate-600">
+            Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, colleges.length)} of {colleges.length}
+          </p>
+        </div>
+      </div>
+
+      {/* Colleges Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {paginatedColleges.map((college: any) => (
+          <CollegeCard key={college._id} college={college} />
+        ))}
+      </div>
+
+      {/* Pagination */}
+      {showPagination && totalPages > 1 && (
+        <div className="flex items-center justify-between">
+          <div className="text-sm text-slate-600">
+            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, colleges.length)} of {colleges.length} colleges
+          </div>
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+              className="flex items-center space-x-1"
+            >
+              <ChevronLeft className="h-4 w-4" />
+              <span>Previous</span>
+            </Button>
+            
+            <div className="flex items-center space-x-1">
+              {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                let pageNum
+                if (totalPages <= 5) {
+                  pageNum = i + 1
+                } else if (currentPage <= 3) {
+                  pageNum = i + 1
+                } else if (currentPage >= totalPages - 2) {
+                  pageNum = totalPages - 4 + i
+                } else {
+                  pageNum = currentPage - 2 + i
+                }
+                
+                return (
+                  <Button
+                    key={pageNum}
+                    variant={currentPage === pageNum ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => onPageChange(pageNum)}
+                    className="w-8 h-8 p-0"
+                  >
+                    {pageNum}
+                  </Button>
+                )
+              })}
+            </div>
+            
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className="flex items-center space-x-1"
+            >
+              <span>Next</span>
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+})
+
+CollegeMapping.displayName = 'CollegeMapping'
+
+export default CollegeMapping

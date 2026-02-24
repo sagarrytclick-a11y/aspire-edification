@@ -50,10 +50,10 @@ const CitySlider = () => {
           </div>
           
           <div className="flex gap-2">
-            <button onClick={handlePrev} className="p-2 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors">
+            <button onClick={handlePrev} className="p-2 border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
               <ChevronLeft size={20} className="text-slate-600" />
             </button>
-            <button onClick={handleNext} className="p-2 border border-slate-200 rounded-md hover:bg-slate-50 transition-colors">
+            <button onClick={handleNext} className="p-2 border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
               <ChevronRight size={20} className="text-slate-600" />
             </button>
           </div>
@@ -71,7 +71,7 @@ const CitySlider = () => {
                 className="flex-shrink-0 px-3"
                 style={{ width: `${100 / itemsPerView}%` }}
               >
-                <div className="border border-slate-100 rounded-lg p-6 hover:border-[#4A90E2] transition-colors bg-[#F8FAFC]">
+                <div className="border border-zinc-400 rounded-lg p-6 hover:border-[#4A90E2] transition-colors bg-[#F8FAFC]">
                   
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 bg-white rounded-md shadow-sm border border-slate-50">
