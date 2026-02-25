@@ -13,9 +13,9 @@ const COLLEGES_PER_PAGE = 6;
 const UniversityCard = ({ name, image, slug, country = "India", ranking, fees, duration, establishment_year, about, overview, courses }: any) => {
   return (
     <Link href={`/colleges/${slug}`} className="group block h-full">
-      <div className="bg-white border border-slate-100 rounded-lg overflow-hidden hover:border-[#4A90E2] transition-colors flex flex-col h-full bg-[#F8FAFC]">
+      <div className="bg-white border-2 border-slate-300 rounded-xl overflow-hidden hover:border-[#4A90E2] hover:shadow-lg hover:shadow-[#4A90E2]/20 transition-all duration-300 flex flex-col h-full">
         {/* Simple Image */}
-        <div className="h-44 bg-slate-100 border-b border-slate-100">
+        <div className="h-44 bg-slate-50 border-b-2 border-slate-300">
           <img
             src={image || `https://picsum.photos/seed/${slug}/400/300`}
             alt={name}
@@ -29,31 +29,31 @@ const UniversityCard = ({ name, image, slug, country = "India", ranking, fees, d
               {name}
             </h3>
             {ranking && (
-              <span className="text-[10px] font-bold bg-white px-2 py-1 rounded border border-slate-100 shadow-sm whitespace-nowrap">
+              <span className="text-[10px] font-bold bg-slate-100 border border-slate-300 px-2 py-1 rounded-lg shadow-sm whitespace-nowrap">
                 #{ranking} Rank
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-1 text-[#64748B] text-[10px] font-medium mb-4">
+          <div className="flex items-center gap-1 text-slate-600 text-[10px] font-medium mb-4">
             <MapPin size={12} /> {country} • Est. {establishment_year || "---"}
           </div>
 
           {/* Stats Row */}
-          <div className="flex gap-4 mb-4 pt-4 border-t border-slate-200/50">
+          <div className="flex gap-4 mb-4 pt-4 border-t-2 border-slate-200">
             <div>
-              <p className="text-[9px] text-[#64748B] font-bold uppercase tracking-wider">Fees</p>
+              <p className="text-[9px] text-slate-600 font-bold uppercase tracking-wider">Fees</p>
               <p className="text-xs font-semibold text-[#1E293B]">{fees || "Enquire"}</p>
             </div>
-            <div className="w-[1px] h-6 bg-slate-200 mt-1"></div>
+            <div className="w-[1px] h-6 bg-slate-300 mt-1"></div>
             <div>
-              <p className="text-[9px] text-[#64748B] font-bold uppercase tracking-wider">Duration</p>
+              <p className="text-[9px] text-slate-600 font-bold uppercase tracking-wider">Duration</p>
               <p className="text-xs font-semibold text-[#1E293B]">{duration || "4"} Years</p>
             </div>
           </div>
 
           <div className="mt-auto pt-4 flex items-center justify-between">
-            <span className="text-xs font-bold text-[#4A90E2] flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-xs font-bold text-[#4A90E2] flex items-center gap-1 group-hover:gap-2  transition-all">
               View Profile <ArrowRight size={14} />
             </span>
           </div>
@@ -62,7 +62,6 @@ const UniversityCard = ({ name, image, slug, country = "India", ranking, fees, d
     </Link>
   );
 };
-
 /* =======================
    UPCOMING EXAMS SECTION (SIMPLE)
 ======================= */

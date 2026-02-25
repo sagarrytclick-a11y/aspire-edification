@@ -156,14 +156,13 @@ const SearchSection = memo(({
 
         {/* Reset Button */}
         <div className="flex justify-end">
-          <Button
-            variant="outline"
+          <button
             onClick={handleReset}
-            className="flex items-center gap-2"
+            className="flex bg-[#4A90E2] text-white px-4 py-2 rounded-lg hover:bg-[#3B82F6] transition-colors items-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
             Reset Filters
-          </Button>
+          </button>
         </div>
       </div>
     </div>

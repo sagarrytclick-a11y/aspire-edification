@@ -38,7 +38,7 @@ export default function CollegesPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
-      
+
       {/* --- HEADER SECTION --- */}
       <header className="bg-[#F8FAFC] border-b border-slate-100 pt-28 pb-12">
         <div className="max-w-7xl mx-auto px-6 lg:px-24">
@@ -46,11 +46,11 @@ export default function CollegesPage() {
             <Sparkles size={16} />
             <span className="text-[10px] font-bold uppercase tracking-widest">2026 Academic Directory</span>
           </div>
-          
+
           <h1 className="text-3xl md:text-4xl font-bold text-[#1E293B] mb-8 tracking-tight">
             Find your <span className="text-[#4A90E2]">Future Hub</span>
           </h1>
-          
+
           {/* SEARCH SECTION */}
           <SearchSection
             onSearch={handleSearch}

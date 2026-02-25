@@ -324,9 +324,9 @@ if (isLoading) {
       </div>
 
       {/* Navigation Tab Bar */}
-      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex items-center gap-6 py-4 overflow-x-auto">
+      <div className="sticky z-50 top-16 sm:top-0 bg-white/95 backdrop-blur-md border-b-2 border-slate-200 shadow-lg">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center gap-2 sm:gap-6 py-4 overflow-x-auto">
             {[
               { name: 'Overview', id: 'overview' },
               { name: 'Key Highlights', id: 'key-highlights' },
@@ -346,10 +346,10 @@ if (isLoading) {
                     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 }}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap ${
+                className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-300 whitespace-nowrap border-2 border-transparent ${
                   activeTab === tab.id
-                    ? 'bg-[#4A90E2] text-white'
-                    : 'text-[#64748B] hover:text-[#4A90E2]'
+                    ? 'bg-[#4A90E2] text-white border-[#4A90E2] shadow-md'
+                    : 'text-[#64748B] hover:text-[#4A90E2] hover:border-[#4A90E2] hover:bg-slate-50'
                 }`}
               >
                 {tab.name}
