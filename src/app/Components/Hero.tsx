@@ -1,166 +1,139 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, ChevronRight, Sparkles, ArrowUpRight } from "lucide-react";
+import { Search, ArrowUpRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-
-// --- Swiper Imports ---
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
+import Image from "next/image";
 
 const Hero: React.FC = () => {
   const [query, setQuery] = useState("");
   const [showResults, setShowResults] = useState(false);
 
+  // Simple Search Fetch
   const { data: collegesData, isLoading } = useQuery({
-    queryKey: ["colleges-search", query],
+    queryKey: ["search", query],
     queryFn: async () => {
-      if (query.length < 2) return { data: { colleges: [] } };
-      const response = await fetch(`/api/colleges?search=${query}`);
-      return response.json();
+      const res = await fetch(`/api/colleges?search=${query}`);
+      return res.json();
     },
     enabled: query.length >= 2,
   });
 
   const colleges = collegesData?.data?.colleges || [];
 
-  const featuredColleges = [
-    { name: "Harvard University", img: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&q=80&w=1600" },
-    { name: "IIT Bombay", img: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1600" },
-    { name: "Stanford University", img: "https://images.unsplash.com/photo-1532649538693-f3a2ec1bf8bd?auto=format&fit=crop&q=80&w=1600" },
-  ];
-
   return (
-    <section className="relative min-h-[90vh] sm:min-h-[100vh] flex items-center overflow-hidden bg-white font-sans">
-      
-      {/* --- BACKGROUND / IMAGE SECTION (RIGHT SIDE) --- */}
-      <div className="absolute top-0 right-0 w-full lg:w-[45%] h-full z-0">
-        <Swiper
-          modules={[Autoplay, EffectFade]}
-          speed={1500}
-          autoplay={{ delay: 5000, disableOnInteraction: false }}
-          effect="fade"
-          className="h-full w-full"
-        >
-          {featuredColleges.map((college, idx) => (
-            <SwiperSlide key={idx}>
-              <div 
-                className="w-full h-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${college.img})` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:hidden" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:hidden" />
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* --- CONTENT SECTION (LEFT SIDE) --- */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10">
-        <div className="max-w-2xl lg:text-left text-center">
+    <section className="relative min-h-screen flex flex-col lg:flex-row items-center bg-white text-[#1E293B] overflow-hidden">
+       
+      {/* 1. LEFT CONTENT: Focus on Readability */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 z-10 order-2 lg:order-1">
+        <div className="max-w-2xl w-full space-y-8">
           
-          {/* Subtle Tagline */}
-          <div className="inline-flex mt-4 items-center gap-2 px-3 py-1 mb-6 sm:mb-8 bg-[#4A90E2]/5 border border-[#4A90E2]/10 rounded-full">
-            <Sparkles size={12} className="text-[#4A90E2]" />
-            <span className="text-[10px] font-bold tracking-widest text-[#4A90E2] uppercase">
+          {/* Professional Tagline */}
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#4A90E2]/10 border border-[#4A90E2]/20 rounded-full backdrop-blur-sm">
+            <span className="text-[#4A90E2] font-bold tracking-[0.2em] text-xs uppercase">
               Admission Intelligence 2026
             </span>
           </div>
 
-          {/* Clean Typography */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1E293B] mb-4 sm:mb-6 tracking-tighter leading-[1.1]">
-            Find Your <br />
-            <span className="text-[#4A90E2]">Future Campus.</span>
-          </h1>
+          {/* Enhanced Typography */}
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Find Your <br />
+              <span className="bg-gradient-to-r from-[#4A90E2] to-[#00D4FF] bg-clip-text text-transparent">Future Campus.</span>
+            </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-[#64748B] font-medium mb-8 sm:mb-10 max-w-lg lg:mx-0 mx-auto leading-relaxed">
-            Direct access to data-driven insights for 500+ elite universities. Your journey to JEE, NEET, and MBA success starts here.
-          </p>
+            <p className="text-[#64748B] text-lg leading-relaxed max-w-lg">
+              Data-driven insights for 500+ elite universities. Start your journey to JEE, NEET, and MBA success today.
+            </p>
+          </div>
 
-          {/* Sleek Search Bar */}
-          <div className="relative max-w-xl mb-8 sm:mb-12 lg:mx-0 mx-auto group">
-            <div className="relative bg-white rounded-2xl border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-2 transition-all group-focus-within:shadow-[0_20px_50px_rgba(74,144,226,0.1)] group-focus-within:border-[#4A90E2]/30">
-              <div className="flex items-center">
-                <div className="pl-4 pr-2 text-slate-400">
-                  <Search size={18} />
-                </div>
-
-                <input
-                  type="text"
-                  value={query}
-                  onChange={(e) => {
-                    setQuery(e.target.value);
-                    setShowResults(e.target.value.length >= 2);
-                  }}
-                  placeholder="Search by college, course or exam..."
-                  className="flex-1 bg-transparent py-3 text-[#1E293B] font-medium placeholder-slate-400 text-sm focus:outline-none"
-                />
-
-                <button className="bg-[#1E293B] text-white px-4 sm:px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 hover:bg-[#4A90E2] active:scale-95">
-                  <span className="hidden sm:inline">Search</span>
-                  <ArrowUpRight size={14} />
-                </button>
-              </div>
+          {/* Enhanced Search Bar */}
+          <div className="relative group">
+            <div className="flex items-center bg-white border-2 border-slate-200 rounded-2xl p-1.5 focus-within:border-[#4A90E2] focus-within:shadow-[0_0_20px_rgba(74,144,226,0.3)] transition-all shadow-xl">
+              <Search className="ml-4 text-[#64748B]" size={20} />
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setShowResults(e.target.value.length >= 2);
+                }}
+                placeholder="Search college or course..."
+                className="flex-1 bg-transparent py-4 px-4 text-[#1E293B] placeholder-[#64748B] text-sm focus:outline-none"
+              />
+              <button className="bg-gradient-to-r from-[#4A90E2] to-[#00D4FF] hover:from-[#00D4FF] hover:to-[#4A90E2] text-white px-6 py-3 rounded-xl font-bold text-sm transition-all flex items-center gap-2 shadow-lg">
+                Search <ArrowUpRight size={16} />
+              </button>
             </div>
 
-            {/* Dropdown Results */}
+            {/* Results Dropdown */}
             {showResults && (
-              <div className="absolute left-0 right-0 mt-3 bg-white rounded-2xl shadow-2xl border border-slate-50 max-h-[380px] overflow-hidden z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="absolute top-full left-0 right-0 mt-3 bg-white border border-slate-200 rounded-2xl shadow-2xl z-50 overflow-hidden">
                 {isLoading ? (
-                  <div className="p-10 text-center">
-                    <div className="w-5 h-5 border-2 border-[#4A90E2] border-t-transparent rounded-full animate-spin mx-auto" />
+                  <div className="p-6 text-center text-[#64748B]">
+                    <div className="w-6 h-6 border-2 border-[#4A90E2] border-t-transparent rounded-full animate-spin mx-auto" />
                   </div>
                 ) : colleges.length > 0 ? (
-                  <div className="py-2 overflow-y-auto max-h-[380px]">
-                    {colleges.map((college: any) => (
-                      <Link
-                        key={college._id}
-                        href={`/colleges/${college.slug}`}
-                        className="flex items-center gap-4 px-6 py-4 hover:bg-slate-50 transition-colors group/item"
-                      >
-                        <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden shrink-0 border border-slate-100">
-                          <img 
-                            src={college.banner_url || "/api/placeholder/100/100"} 
-                            alt={college.name}
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <div className="font-bold text-[#1E293B] text-sm group-hover/item:text-[#4A90E2] transition-colors">{college.name}</div>
-                          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tight">{college.city || 'Global Campus'}</div>
-                        </div>
-                        <ChevronRight size={14} className="text-slate-300 group-hover/item:translate-x-1 transition-transform" />
+                  <div className="max-h-80 overflow-y-auto">
+                    {colleges.slice(0, 5).map((college: any) => (
+                      <Link key={college._id} href={`/colleges/${college.slug}`} className="block p-4 hover:bg-slate-50 border-b border-slate-100 last:border-0 transition-colors">
+                        <p className="font-bold text-[#1E293B] text-sm mb-1">{college.name}</p>
+                        <p className="text-[10px] text-[#64748B] uppercase tracking-wider">{college.city || 'Global Campus'}</p>
                       </Link>
                     ))}
                   </div>
                 ) : (
-                  <div className="p-8 text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                    No results found
+                  <div className="p-6 text-center text-[#64748B] text-sm">
+                    No colleges found
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          {/* Stats Section */}
-          <div className="flex items-center lg:justify-start justify-center flex-wrap gap-12 pt-10 border-t border-slate-50">
+          {/* Enhanced Stats */}
+          <div className="flex gap-12 pt-8 border-t border-slate-100">
             {[
-              { val: "15k+", label: "Aspirants" },
-              { val: "500+", label: "Institutes" },
-              { val: "Top 1%", label: "Insights" },
+              { val: "50K+", label: "Students Guided" },
+              { val: "500+", label: "Partner Colleges" },
+              { val: "95%", label: "Success Rate" },
             ].map((stat, i) => (
-              <div key={i} className="group">
-                <div className="text-3xl font-bold text-[#1E293B] group-hover:text-[#4A90E2] transition-colors">{stat.val}</div>
-                <div className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">{stat.label}</div>
+              <div key={i} className="text-center">
+                <div className="text-2xl font-bold text-[#4A90E2] mb-1">{stat.val}</div>
+                <div className="text-[10px] text-[#64748B] uppercase tracking-widest font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* 2. RIGHT IMAGE: Professional & Full */}
+      <div className="w-full lg:w-1/2 h-[60vh] lg:h-screen relative order-1 lg:order-2">
+        <img 
+          src="/Hero.png" 
+          alt="Campus" 
+          className="w-full h-full object-cover lg:rounded-l-[80px]"
+        />
+        {/* Enhanced gradient overlay */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent" />
+        
+        {/* Logo overlay on image */}
+        <div className="absolute bottom-8 left-8 lg:bottom-12 lg:left-12">
+          <div className="flex items-center gap-3 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg">
+            <img 
+              src="/logo.png" 
+              alt="Aspire Edification Logo"
+              className="w-12 h-12 object-contain"
+            />
+            <div className="text-[#1E293B]">
+              <h3 className="font-bold text-lg">Aspire Edification</h3>
+              <p className="text-xs text-[#64748B]">Excellence in Education</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };
