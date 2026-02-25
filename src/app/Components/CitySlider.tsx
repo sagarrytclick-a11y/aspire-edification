@@ -38,8 +38,8 @@ const CitySlider = () => {
   }, [])
 
   return (
-    <section className="bg-white py-12 sm:py-16 px-4 sm:px-6 lg:px-24 font-sans text-[#1E293B]">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-16  sm:py-20 bg-white font-sans text-[#1E293B]">
+      <div className="max-w-6xl sm:px-[20px] mx-auto">
         
         {/* Simple Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
@@ -68,27 +68,27 @@ const CitySlider = () => {
             {INDIAN_CITIES.map((city) => (
               <div
                 key={city.id}
-                className="flex-shrink-0 px-3"
+                className="flex-shrink-0 px-2 sm:px-3"
                 style={{ width: `${100 / itemsPerView}%` }}
               >
-                <div className="border border-zinc-400 rounded-lg p-6 hover:border-[#4A90E2] transition-colors bg-[#F8FAFC]">
+                <div className="border-2 border-slate-300 rounded-xl p-4 sm:p-6 hover:border-[#4A90E2] transition-colors bg-white h-full">
                   
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="p-2 bg-white rounded-md shadow-sm border border-slate-50">
-                      <MapPin size={18} className="text-[#4A90E2]" />
+                  <div className="flex items-start justify-between mb-3 sm:mb-4">
+                    <div className="p-1.5 sm:p-2 bg-white rounded-md shadow-sm border border-slate-50">
+                      <MapPin size={14} className="text-[#4A90E2]" />
                     </div>
-                    <span className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider bg-slate-200/50 px-2 py-1 rounded">
+                    <span className="text-[8px] sm:text-[10px] font-bold text-[#64748B] uppercase tracking-wider bg-slate-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">
                       {city.examName}
                     </span>
                   </div>
 
                   {/* City Name thoda bold kiya hai */}
-                  <h3 className="text-xl font-semibold mb-1">{city.name}</h3>
-                  <p className="text-sm text-[#64748B] mb-6 font-medium">{city.stats.colleges} Institutions</p>
+                  <h3 className="text-lg sm:text-xl font-semibold mb-1 text-[#1E293B]">{city.name}</h3>
+                  <p className="text-xs sm:text-sm text-[#64748B] mb-4 sm:mb-6 font-medium">{city.stats.colleges} Institutions</p>
 
                   <Link href={city.href}>
-                    <span className="inline-flex items-center gap-2 text-sm font-bold text-[#4A90E2] hover:text-[#00D4FF] transition-colors">
-                      View Directory <ArrowRight size={14} />
+                    <span className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-bold text-[#4A90E2] hover:text-[#00D4FF] transition-colors">
+                      View Directory <ArrowRight size={3} className="sm:size-5" />
                     </span>
                   </Link>
                 </div>
@@ -98,9 +98,9 @@ const CitySlider = () => {
         </div>
 
         {/* Minimal Footer Action */}
-        <div className="mt-12 pt-8 border-t border-slate-100 flex justify-center">
-          <Link href="/colleges" className="flex items-center gap-2 text-sm font-semibold text-[#64748B] hover:text-[#4A90E2] transition-colors">
-            <Search size={14} />
+        <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-slate-100 flex justify-center">
+          <Link href="/colleges" className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#64748B] hover:text-[#4A90E2] transition-colors">
+            <Search size={12} className="sm:size-5" />
             Search for colleges in other cities
           </Link>
         </div>

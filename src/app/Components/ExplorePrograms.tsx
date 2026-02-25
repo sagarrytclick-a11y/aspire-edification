@@ -42,7 +42,7 @@ const ExplorePrograms = () => {
   ];
 
   return (
-    <div className="bg-white py-16 px-6 lg:px-24 max-w-7xl mx-auto font-sans text-[#1E293B]">
+    <div className="bg-white py-12 sm:py-16 px-4 sm:px-6 lg:px-24 max-w-7xl mx-auto font-sans text-[#1E293B]">
       
       {/* Simple Header - Same font size as others */}
       <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
