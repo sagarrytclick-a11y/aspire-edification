@@ -110,21 +110,44 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar: Single Line Style */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-            <p className="text-[11px] font-medium tracking-wide">
-              © {new Date().getFullYear()} <span className="text-[#F8FAFC]">{SITE_IDENTITY.name}</span>
-            </p>
-            <div className="h-4 w-px bg-white/10 hidden md:block" />
-            <div className="flex gap-6 text-[10px] uppercase tracking-[0.1em] font-bold">
-              <Link href="/privacy" className="hover:text-[#4A90E2]">Privacy</Link>
-              <Link href="/terms" className="hover:text-[#4A90E2]">Terms</Link>
-              <Link href="/contact" className="hover:text-[#4A90E2]">Sitemap</Link>
+        <div className="pt-8 border-t border-white/5 space-y-6">
+          {/* Main Footer Links */}
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+              <p className="text-[11px] font-medium tracking-wide">
+                © {new Date().getFullYear()} <span className="text-[#F8FAFC]">{SITE_IDENTITY.name}</span>
+              </p>
+              <div className="h-4 w-px bg-white/10 hidden md:block" />
+              <div className="flex gap-6 text-[10px] uppercase tracking-[0.1em] font-bold">
+                <Link href="/privacy" className="hover:text-[#4A90E2]">Privacy</Link>
+                <Link href="/terms" className="hover:text-[#4A90E2]">Terms</Link>
+                <Link href="/contact" className="hover:text-[#4A90E2]">Sitemap</Link>
+              </div>
             </div>
           </div>
           
-          <div className="text-[10px] text-center md:text-right max-w-md opacity-60 leading-relaxed italic">
-            Admissions and visa decisions are subject to institutional and governmental authority.
+          {/* Enhanced Disclaimer Section */}
+          <div className="bg-[#1E212B]/50 rounded-lg p-4 border border-white/5">
+            <div className="flex items-start gap-2 mb-3">
+              <div className="w-4 h-4 rounded-full bg-[#4A90E2]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-2 h-2 rounded-full bg-[#4A90E2]"></div>
+              </div>
+              <h5 className="text-[#F8FAFC] font-bold text-xs uppercase tracking-wider">Important Disclaimer</h5>
+            </div>
+            <div className="space-y-2 text-[10px] leading-relaxed text-[#94A3B8]">
+              <p>
+                <span className="text-[#F8FAFC] font-semibold">Educational Guidance Only:</span> Aspire Edification provides educational consulting and guidance services. We do not guarantee admissions, placements, or visa approvals.
+              </p>
+              <p>
+                <span className="text-[#F8FAFC] font-semibold">Third-Party Institutions:</span> Information about colleges, courses, and fees is sourced from institutional websites and official publications. Users must verify all details directly with respective institutions.
+              </p>
+              <p>
+                <span className="text-[#F8FAFC] font-semibold">No Authority Claims:</span> We are not authorized by any government body, university, or educational board. Our role is limited to advisory and application assistance.
+              </p>
+              <p className="pt-2 border-t border-white/10">
+                <span className="text-[#00D4FF] font-semibold">Decision Responsibility:</span> All academic and financial decisions remain solely the user's responsibility. We recommend thorough research before commitments.
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Plus, X, GraduationCap, Globe, Award, FileText, Users, Building, DollarSign, Calendar, CheckCircle } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { CITY_OPTIONS } from '@/lib/cities'
+import { COLLEGE_CATEGORIES, type CollegeCategory } from "@/lib/constants/collegeCategories";
+import { FORM_DEFAULTS, FORM_PLACEHOLDERS } from "@/lib/constants/formDefaults";
 
 interface Country {
   _id: string
@@ -212,7 +214,7 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
                     id="name"
                     value={data.name || ''}
                     onChange={(e) => onChange('name', e.target.value)}
-                    placeholder="Enter college name"
+                    placeholder={FORM_PLACEHOLDERS.college_name}
                     disabled={loading}
                     required
                     className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
@@ -224,7 +226,7 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
                     id="slug"
                     value={data.slug || ''}
                     onChange={(e) => onChange('slug', e.target.value)}
-                    placeholder="college-slug"
+                    placeholder={FORM_PLACEHOLDERS.slug}
                     disabled={loading}
                     required
                     className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
@@ -236,7 +238,7 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
                 <Label htmlFor="country" className="mb-3 block text-gray-200">Country *</Label>
                 <Select value={data.country_ref || ''} onValueChange={(value) => onChange('country_ref', value)}>
                   <SelectTrigger className="bg-gray-700 border-gray-600 text-white">
-                    <SelectValue placeholder="Select a country" />
+                    <SelectValue placeholder={FORM_PLACEHOLDERS.country} />
                   </SelectTrigger>
                   <SelectContent className="bg-gray-700 border-gray-600">
                     {countries.map((country, index) => (
@@ -281,7 +283,6 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
                   className="bg-gray-700 border-gray-600 text-white placeholder-gray-400"
                 />
               </div>
-
               <div>
                 <Label htmlFor="establishment_year" className="mb-3 block text-gray-200">Establishment Year</Label>
                 <Input
@@ -331,12 +332,8 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
 
               <div>
                 <Label className="mb-3 block text-gray-200">College Categories *</Label>
-                <div className="space-y-3">
-                  {[
-                    { id: 'management', label: 'Management', description: 'MBA, BBA, and other management programs' },
-                    { id: 'engineering', label: 'Engineering', description: 'B.Tech, M.Tech, and other engineering programs' },
-                    { id: 'medical', label: 'Medical', description: 'MBBS, BDS, and other medical programs' }
-                  ].map((category) => (
+                <div className="space-y-2">
+                  {COLLEGE_CATEGORIES.map((category) => (
                     <div key={category.id} className="flex items-start space-x-3 p-3 border border-gray-600 rounded-lg hover:bg-gray-700">
                       <Checkbox
                         id={category.id}
@@ -346,17 +343,16 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
                           if (checked) {
                             onChange('categories', [...currentCategories, category.id]);
                           } else {
-                            onChange('categories', currentCategories.filter((cat: string) => cat !== category.id));
+                            onChange('categories', currentCategories.filter(cat => cat !== category.id));
                           }
                         }}
-                        disabled={loading}
                       />
-                      <div className="flex-1">
-                        <Label htmlFor={category.id} className="font-medium cursor-pointer text-gray-200">
-                          {category.label}
-                        </Label>
-                        <p className="text-sm text-gray-400">{category.description}</p>
-                      </div>
+                      <Label htmlFor={category.id} className="text-gray-200">
+                        <div className="flex flex-col">
+                          <span className="font-medium">{category.label}</span>
+                          <span className="text-xs text-gray-400">{category.description}</span>
+                        </div>
+                      </Label>
                     </div>
                   ))}
                 </div>

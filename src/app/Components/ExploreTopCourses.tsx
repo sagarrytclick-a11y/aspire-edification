@@ -73,7 +73,7 @@ const ExploreTopCourses = () => {
                 <p className="text-slate-600 text-sm mb-6 leading-relaxed">
                   {item.description}
                 </p>
-                <div className="flex items-center text-[#4A90E2] text-sm font-bold gap-2 group-hover:text-[#10B981] transition-colors">
+                <div className="flex items-center text-[#4A90E2] text-sm font-bold gap-2 transition-colors">
                   View Colleges <ArrowRight size={14} />
                 </div>
               </div>

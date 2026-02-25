@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Menu, X, Zap, ArrowRight, ChevronDown } from "lucide-react";
 import { usePathname } from "next/navigation";
@@ -17,11 +17,36 @@ export default function SimpleNavbar() {
   const pathname = usePathname();
   const { openModal } = useFormModal();
 
+  // Ref to store timeout IDs
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleCollegeTypeMouseEnter = () => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Set a small delay before opening
+    timeoutRef.current = setTimeout(() => {
+      setCollegeTypeOpen(true);
+    }, 100);
+  };
+
+  const handleCollegeTypeMouseLeave = () => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Set a small delay before closing
+    timeoutRef.current = setTimeout(() => {
+      setCollegeTypeOpen(false);
+    }, 100);
+  };
 
   const collegeTypes = [
     { name: "Engineering Colleges", href: "/colleges/engineering" },
@@ -43,32 +68,33 @@ export default function SimpleNavbar() {
     { name: "Courses", href: "/courses" },
     { name: "Exams", href: "/exams" },
     { name: "Updates", href: "/blogs" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50  transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm"
-          : "bg-white py-5"
+          ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 shadow-sm"
+          : "bg-white py-6"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-24 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto  flex items-center  justify-between">
         
         {/* LOGO AREA */}
-        <Link href="/" className="flex items-center gap-1 group">
-             <Image src="/logo.png" alt="Logo" width={50} height={50} />
-          <span className="text-base font-bold text-[#1E293B] tracking-tight">
+        <Link href="/" className="flex items-center gap-2 group">
+             <Image src="/logo.png" alt="Logo" width={60} height={60} />
+          <span className="text-lg font-bold text-[#1E293B] tracking-tight">
             {SITE_IDENTITY.name}
           </span>
         </Link>
 
         {/* DESKTOP NAV - DROPDOWNS */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-2">
           {/* Home */}
           <Link
             href="/"
-            className={`px-4 py-2 rounded-md text-[11px] font-bold uppercase tracking-widest transition-all ${
+            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${
               pathname === "/"
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
                 : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
@@ -77,30 +103,30 @@ export default function SimpleNavbar() {
             Home
           </Link>
 
-          {/* Type of College Dropdown */}
+          {/* Colleges Dropdown */}
           <div 
             className="relative"
-            onMouseEnter={() => setCollegeTypeOpen(true)}
-            onMouseLeave={() => setCollegeTypeOpen(false)}
+            onMouseEnter={handleCollegeTypeMouseEnter}
+            onMouseLeave={handleCollegeTypeMouseLeave}
           >
             <button
-              className={`px-4 py-2 rounded-md text-[11px] font-bold uppercase tracking-widest transition-all flex items-center gap-1 ${
-                pathname?.includes("/colleges/") && !pathname?.includes("/city/")
+              className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${
+                pathname?.includes("/colleges/")
                   ? "text-[#4A90E2] bg-[#F8FAFC]"
                   : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
               }`}
             >
-              Type of College
-              <ChevronDown size={12} className={`transition-transform ${collegeTypeOpen ? 'rotate-180' : ''}`} />
+              Colleges
+              <ChevronDown size={14} className={`transition-transform ${collegeTypeOpen ? 'rotate-180' : ''}`} />
             </button>
             
             {collegeTypeOpen && (
-              <div className="absolute top-full left-0 mt-1 w-56 bg-white border-2 border-slate-300 rounded-lg shadow-lg z-50">
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border-2 border-slate-300 rounded-xl shadow-xl z-50">
                 {collegeTypes.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors first:rounded-t-lg last:rounded-b-lg"
+                    className="block px-5 py-4 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors first:rounded-t-xl last:rounded-b-xl"
                   >
                     {item.name}
                   </Link>
@@ -109,87 +135,62 @@ export default function SimpleNavbar() {
             )}
           </div>
 
-          {/* All Colleges Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setAllCollegesOpen(true)}
-            onMouseLeave={() => setAllCollegesOpen(false)}
-          >
-            <button
-              className={`px-4 py-2 rounded-md text-[11px] font-bold uppercase tracking-widest transition-all flex items-center gap-1 ${
-                pathname?.includes("/city/")
-                  ? "text-[#4A90E2] bg-[#F8FAFC]"
-                  : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
-              }`}
-            >
-              All Colleges
-              <ChevronDown size={12} className={`transition-transform ${allCollegesOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {allCollegesOpen && (
-              <div className="absolute top-full left-0 mt-1 w-56 bg-white border-2 border-slate-300 rounded-lg shadow-lg z-50">
-                {collegeLocations.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+          {/* Courses */}
+         
 
-          {/* More Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setMoreOpen(true)}
-            onMouseLeave={() => setMoreOpen(false)}
+          {/* Exams */}
+          <Link
+            href="/exams"
+            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${
+              pathname?.includes("/exams")
+                ? "text-[#4A90E2] bg-[#F8FAFC]"
+                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+            }`}
           >
-            <button
-              className={`px-4 py-2 rounded-md text-[11px] font-bold uppercase tracking-widest transition-all flex items-center gap-1 ${
-                pathname?.includes("/courses") || pathname?.includes("/exams") || pathname?.includes("/blogs")
-                  ? "text-[#4A90E2] bg-[#F8FAFC]"
-                  : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
-              }`}
-            >
-              More
-              <ChevronDown size={12} className={`transition-transform ${moreOpen ? 'rotate-180' : ''}`} />
-            </button>
-            
-            {moreOpen && (
-              <div className="absolute top-full left-0 mt-1 w-48 bg-white border-2 border-slate-300 rounded-lg shadow-lg z-50">
-                {moreOptions.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="block px-4 py-3 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors first:rounded-t-lg last:rounded-b-lg"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
+            Exams
+          </Link>
+
+          {/* Updates */}
+          <Link
+            href="/blogs"
+            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${
+              pathname?.includes("/blogs")
+                ? "text-[#4A90E2] bg-[#F8FAFC]"
+                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+            }`}
+          >
+            Updates
+          </Link>
+
+          {/* Contact */}
+          <Link
+            href="/contact"
+            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${
+              pathname?.includes("/contact")
+                ? "text-[#4A90E2] bg-[#F8FAFC]"
+                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+            }`}
+          >
+            Contact
+          </Link>
         </div>
 
         {/* ACTION BUTTONS */}
         <div className="flex items-center gap-4">
           <button
             onClick={openModal}
-            className="hidden sm:flex items-center gap-2 bg-[#1E293B] text-white px-6 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest hover:bg-[#4A90E2] transition-colors active:scale-95"
+            className="hidden sm:flex items-center gap-2 bg-[#4A90E2] text-white px-8 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide hover:bg-[#00D4FF] transition-all active:scale-95 shadow-lg"
           >
             Apply Now
-            <ArrowRight size={14} />
+            <ArrowRight size={16} />
           </button>
           
           {/* MOBILE TOGGLE */}
           <button 
-            className="lg:hidden p-2 text-[#1E293B] hover:bg-slate-100 rounded-md transition-colors" 
+            className="lg:hidden p-3 text-[#1E293B] hover:bg-slate-100 rounded-lg transition-colors" 
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>

@@ -98,8 +98,8 @@ export default function BlogsPage() {
       title: 'Title',
       render: (value: string, record: Blog) => (
         <div className="max-w-md">
-          <div className="font-medium text-gray-900 line-clamp-1">{value}</div>
-          <div className="text-sm text-gray-500">{record.category}</div>
+          <div className="font-medium text-white line-clamp-1">{value}</div>
+          <div className="text-sm text-gray-300">{record.category}</div>
         </div>
       )
     },
@@ -385,8 +385,8 @@ export default function BlogsPage() {
       {/* Filters and Add button */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">All Blog Posts</h2>
-            <p className="text-sm text-gray-500">
+            <h2 className="text-lg font-semibold text-white">All Blog Posts</h2>
+            <p className="text-sm text-gray-300">
               {filteredBlogs.length} of {blogs.length} posts
             </p>
           </div>
@@ -450,7 +450,7 @@ export default function BlogsPage() {
         {/* Pagination */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between mt-12">
-            <div className="text-sm text-gray-500">
+            <div className="text-sm text-gray-300">
               Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, filteredBlogs.length)} of {filteredBlogs.length} posts
             </div>
             <div className="flex items-center space-x-2">
@@ -546,7 +546,7 @@ export default function BlogsPage() {
           loading={deleteBlogMutation.isPending}
           size="sm"
         >
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <div className="flex items-center space-x-2 text-sm text-gray-300">
             <FileText className="h-4 w-4" />
             <span>{blogToDelete?.title}</span>
           </div>
