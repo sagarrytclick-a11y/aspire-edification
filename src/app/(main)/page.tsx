@@ -1,6 +1,6 @@
 "use client";
 
-import AdmissionCampusAdvantage from "@/app/Components/AdvantageCard";
+import AspireEdificationAdvantage from "@/app/Components/AdvantageCard";
 import CtaSection from "@/app/Components/CtaSection";
 import EducationStats from "@/app/Components/EducationStats";
 import FAQ from "@/app/Components/FAQ";
@@ -27,7 +27,7 @@ const page = () => {
       <EducationStats />
       <LatestBlogs />
       <Services />
-      <AdmissionCampusAdvantage />
+      <AspireEdificationAdvantage />
       <StudentTestimonials />
       <FAQ />
       {/* <InfiniteMovingCardsDemo /> */}

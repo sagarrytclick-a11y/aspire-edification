@@ -47,7 +47,7 @@ export default function SimpleNavbar() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-[100] transition-all duration-300 ${
+      className={`fixed top-0 w-full z-50  transition-all duration-300 ${
         isScrolled
           ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm"
           : "bg-white py-5"

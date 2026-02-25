@@ -60,10 +60,10 @@ const ExplorePrograms = () => {
         {cards.map((card, index) => (
           <div 
             key={index} 
-            className="border border-slate-100 rounded-lg overflow-hidden bg-[#F8FAFC] hover:border-[#4A90E2] transition-colors group flex flex-col"
+            className="border-2 border-slate-300 rounded-xl overflow-hidden bg-white hover:border-[#4A90E2] hover:shadow-lg hover:shadow-[#4A90E2]/20 transition-all duration-300 group flex flex-col"
           >
             {/* Simple Image Header */}
-            <div className="aspect-[16/10] w-full overflow-hidden border-b border-slate-100">
+            <div className="aspect-[16/10] w-full overflow-hidden border-b-2 border-slate-300 bg-slate-50">
               <img 
                 src={card.image} 
                 alt={card.title} 
@@ -74,20 +74,20 @@ const ExplorePrograms = () => {
             {/* Content Area */}
             <div className="p-6 flex flex-col flex-grow">
               <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-white rounded-md border border-slate-100 shadow-sm">
+                <div className="p-2 bg-white rounded-lg border-2 border-slate-300 shadow-sm">
                   {card.icon}
                 </div>
-                <h3 className="text-xl font-semibold">{card.title}</h3>
+                <h3 className="text-xl font-semibold text-[#1E293B]">{card.title}</h3>
               </div>
               
-              <p className="text-[#64748B] text-sm mb-6 leading-relaxed font-medium">
+              <p className="text-slate-600 text-sm mb-6 leading-relaxed">
                 {card.description}
               </p>
 
               {/* Simple Tags */}
               <div className="flex flex-wrap gap-2 mb-8">
                 {card.tags.map(tag => (
-                  <span key={tag} className="text-[10px] font-bold text-[#1E293B] bg-white border border-slate-100 px-3 py-1 rounded-md">
+                  <span key={tag} className="text-[10px] font-bold text-[#1E293B] bg-slate-100 border border-slate-300 px-3 py-1 rounded-md">
                     {tag}
                   </span>
                 ))}
@@ -95,7 +95,7 @@ const ExplorePrograms = () => {
 
               {/* Action Button - Same Simple Style */}
               <Link href={card.href} className="mt-auto">
-                <button className="w-full bg-white border border-slate-200 hover:border-[#4A90E2] hover:bg-[#4A90E2] hover:text-white text-[#1E293B] font-bold py-3 rounded-md text-sm transition-all flex items-center justify-center gap-2">
+                <button className="w-full bg-white border-2 border-slate-300 hover:border-[#4A90E2] hover:bg-[#4A90E2] hover:text-white text-[#1E293B] font-bold py-3 rounded-md text-sm transition-all flex items-center justify-center gap-2">
                   {card.footerAction}
                   <ArrowRight size={14} />
                 </button>

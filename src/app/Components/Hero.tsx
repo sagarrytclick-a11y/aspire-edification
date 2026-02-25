@@ -34,10 +34,10 @@ const Hero: React.FC = () => {
   ];
 
   return (
-    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-white font-sans">
+    <section className="relative min-h-[90vh] sm:min-h-[100vh] flex items-center overflow-hidden bg-white font-sans">
       
       {/* --- BACKGROUND / IMAGE SECTION (RIGHT SIDE) --- */}
-      <div className="absolute top-0 right-0 w-full lg:w-[45%] h-full z-0 hidden lg:block">
+      <div className="absolute top-0 right-0 w-full lg:w-[45%] h-full z-0">
         <Swiper
           modules={[Autoplay, EffectFade]}
           speed={1500}
@@ -51,7 +51,8 @@ const Hero: React.FC = () => {
                 className="w-full h-full bg-cover bg-center"
                 style={{ backgroundImage: `url(${college.img})` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-transparent lg:hidden" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent lg:hidden" />
               </div>
             </SwiperSlide>
           ))}
@@ -59,29 +60,29 @@ const Hero: React.FC = () => {
       </div>
 
       {/* --- CONTENT SECTION (LEFT SIDE) --- */}
-      <div className="container mx-auto px-6 lg:px-24 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-24 relative z-10">
         <div className="max-w-2xl lg:text-left text-center">
           
           {/* Subtle Tagline */}
-          <div className="inline-flex mt-4 items-center gap-2 px-3 py-1 mb-8 bg-[#4A90E2]/5  border border-[#4A90E2]/10 rounded-full">
+          <div className="inline-flex mt-4 items-center gap-2 px-3 py-1 mb-6 sm:mb-8 bg-[#4A90E2]/5 border border-[#4A90E2]/10 rounded-full">
             <Sparkles size={12} className="text-[#4A90E2]" />
-            <span className="text-[10px] font-bold tracking-widest  text-[#4A90E2] uppercase">
+            <span className="text-[10px] font-bold tracking-widest text-[#4A90E2] uppercase">
               Admission Intelligence 2026
             </span>
           </div>
 
           {/* Clean Typography */}
-          <h1 className="text-5xl md:text-5xl font-bold text-[#1E293B] mb-6 tracking-tighter leading-[1.1]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1E293B] mb-4 sm:mb-6 tracking-tighter leading-[1.1]">
             Find Your <br />
             <span className="text-[#4A90E2]">Future Campus.</span>
           </h1>
 
-          <p className="text-base md:text-lg text-[#64748B] font-medium mb-10 max-w-lg lg:mx-0 mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg text-[#64748B] font-medium mb-8 sm:mb-10 max-w-lg lg:mx-0 mx-auto leading-relaxed">
             Direct access to data-driven insights for 500+ elite universities. Your journey to JEE, NEET, and MBA success starts here.
           </p>
 
           {/* Sleek Search Bar */}
-          <div className="relative max-w-xl mb-12 lg:mx-0 mx-auto group">
+          <div className="relative max-w-xl mb-8 sm:mb-12 lg:mx-0 mx-auto group">
             <div className="relative bg-white rounded-2xl border border-slate-100 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-2 transition-all group-focus-within:shadow-[0_20px_50px_rgba(74,144,226,0.1)] group-focus-within:border-[#4A90E2]/30">
               <div className="flex items-center">
                 <div className="pl-4 pr-2 text-slate-400">
@@ -99,8 +100,8 @@ const Hero: React.FC = () => {
                   className="flex-1 bg-transparent py-3 text-[#1E293B] font-medium placeholder-slate-400 text-sm focus:outline-none"
                 />
 
-                <button className="bg-[#1E293B] text-white px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 hover:bg-[#4A90E2] active:scale-95">
-                  Search
+                <button className="bg-[#1E293B] text-white px-4 sm:px-6 py-3 rounded-xl font-bold text-xs transition-all flex items-center gap-2 hover:bg-[#4A90E2] active:scale-95">
+                  <span className="hidden sm:inline">Search</span>
                   <ArrowUpRight size={14} />
                 </button>
               </div>

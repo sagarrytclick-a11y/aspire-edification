@@ -75,16 +75,16 @@ export default function LatestBlogs() {
         {/* Blog Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {isLoading ? (
-             [1, 2, 3].map((i) => <div key={i} className="h-96 bg-[#F8FAFC] rounded-lg animate-pulse border border-slate-100" />)
+             [1, 2, 3].map((i) => <div key={i} className="h-96 bg-white rounded-xl animate-pulse border-2 border-slate-300" />)
           ) : (
             blogs?.map((blog) => (
               <Link
                 key={blog._id}
                 href={`/blogs/${blog.slug}`}
-                className="group bg-[#F8FAFC] border border-slate-100 rounded-lg overflow-hidden hover:border-[#4A90E2] transition-all flex flex-col h-full"
+                className="group bg-white border-2 border-slate-300 rounded-xl overflow-hidden hover:border-[#4A90E2] hover:shadow-lg hover:shadow-[#4A90E2]/20 transition-all duration-300 flex flex-col h-full"
               >
                 {/* Image Section */}
-                <div className="h-52 overflow-hidden border-b border-slate-100">
+                <div className="h-52 overflow-hidden border-b-2 border-slate-300 bg-slate-50">
                   {blog.image ? (
                     <img
                       src={blog.image}
@@ -92,7 +92,7 @@ export default function LatestBlogs() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-slate-200 text-[#4A90E2] font-bold text-3xl">
+                    <div className="w-full h-full flex items-center justify-center bg-slate-100 text-[#4A90E2] font-bold text-3xl border border-slate-300">
                       {initials(blog.title)}
                     </div>
                   )}
@@ -100,7 +100,7 @@ export default function LatestBlogs() {
 
                 {/* Content Section */}
                 <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider text-[#64748B] mb-4">
+                  <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-4">
                     <span className="flex items-center gap-1.5">
                       <Calendar size={12} className="text-[#4A90E2]" />
                       {formatDate(blog.createdAt)}

@@ -67,7 +67,7 @@ export default function FeaturedColleges() {
           {isLoading ? (
             // Loading skeleton
             Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-lg animate-pulse">
+              <div key={index} className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-slate-300 shadow-lg animate-pulse">
                 <div className="h-48 sm:h-56 lg:h-64 bg-slate-200"></div>
                 <div className="p-5 sm:p-6 space-y-4">
                   <div className="h-4 bg-slate-200 rounded w-3/4"></div>
@@ -95,10 +95,10 @@ export default function FeaturedColleges() {
             collegeData.map((college) => (
             <div
               key={college._id}
-              className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group"
+              className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-slate-300 shadow-lg hover:shadow-xl hover:shadow-[#4A90E2]/20 hover:border-[#4A90E2] transition-all duration-300 transform hover:-translate-y-2 group"
             >
               {/* Image Container */}
-              <div className="relative h-48 sm:h-56 lg:h-64 w-full overflow-hidden">
+              <div className="relative h-48 sm:h-56 lg:h-64 w-full overflow-hidden border-b-2 border-slate-300 bg-slate-50">
                 <img 
                   src={college.image_url || college.image || "/placeholder-college.jpg"} 
                   alt={college.name || "College Image"} 
@@ -106,7 +106,7 @@ export default function FeaturedColleges() {
                 />
                 
                 {/* Ranking Badge with Default */}
-                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-lg flex items-center gap-1.5 text-xs font-bold">
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md text-white px-3 py-1 rounded-lg flex items-center gap-1.5 text-xs font-bold border border-white/20">
                   <Trophy size={12} className="text-yellow-400" />
                   Rank {college.ranking || "N/A"}
                 </div>
@@ -116,10 +116,10 @@ export default function FeaturedColleges() {
               <div className="p-5 sm:p-6">
                 <div className="mb-4">
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] uppercase tracking-widest font-extrabold text-green-600 bg-green-50 px-2 py-0.5 rounded">
+                    <span className="text-[10px] uppercase tracking-widest font-extrabold text-green-600 bg-green-50 border border-green-200 px-2 py-0.5 rounded-lg">
                       {college.type || "General"}
                     </span>
-                    <span className="text-slate-400 text-xs flex items-center gap-1">
+                    <span className="text-slate-600 text-xs flex items-center gap-1">
                       <Calendar size={12} />
                       Est. {college.established || "Unknown"}
                     </span>
@@ -129,20 +129,20 @@ export default function FeaturedColleges() {
                     {college.name || "Institution Name"}
                   </h3>
                   
-                  <div className="flex items-center gap-1.5 text-slate-500 text-sm">
+                  <div className="flex items-center gap-1.5 text-slate-600 text-sm">
                     <MapPin size={14} className="text-green-500 flex-shrink-0" />
                     <span className="line-clamp-1">{college.location || "Location not specified"}</span>
                   </div>
                 </div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-2 gap-4 py-4 border-y border-slate-50 mb-5">
+                <div className="grid grid-cols-2 gap-4 py-4 border-y-2 border-slate-200 mb-5">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-blue-50 rounded-lg text-blue-600">
+                    <div className="p-2 bg-blue-50 rounded-lg border border-blue-200 text-blue-600">
                       <BookOpen size={16} />
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase text-slate-400 font-bold">Courses</p>
+                      <p className="text-[10px] uppercase text-slate-600 font-bold">Courses</p>
                       <p className="text-sm font-bold text-slate-700">{college.numberOfCourses || "0"}+</p>
                     </div>
                   </div>
@@ -152,13 +152,13 @@ export default function FeaturedColleges() {
                   </div>
                 </div>
 
-                <p className="text-slate-500 text-sm line-clamp-2 mb-6">
+                <p className="text-slate-600 text-sm line-clamp-2 mb-6">
                   {college.overview || "No description available for this institution."}
                 </p>
 
                 {/* Action Button */}
                 <Link href={`/colleges/${college.slug || "#"}`} className="block">
-                  <button className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-600 transition-all group/btn">
+                  <button className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white py-3 rounded-xl font-bold text-sm hover:bg-green-600 transition-all group/btn border-2 border-slate-300">
                     View College Profile
                     <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
                   </button>

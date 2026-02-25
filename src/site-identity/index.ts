@@ -75,19 +75,19 @@ export const SITE_IDENTITY: SiteIdentity = {
   },
   contact: {
     phone: {
-      display: "+91-9220606908",
-      raw: "+919625271104",
-      additional: ["+91-9220606908", "+91-9625271104"]
+      display: "+91-8806818972",
+      raw: "+918806818972",
+      additional: ["+91-8806818972", "+91-8806818972"]
     },
     email: {
-      support: "Info@admissioncampus.in",
-      admissions: "Contact@admissioncampus.in",
-      general: "Info@admissioncampus.in",
+      support: "Ramjanam.rai@gmail.com",
+      admissions: "Ramjanam.rai@gmail.com",
+      general: "Ramjanam.rai@gmail.com",
     },
     address: {
-      office: "Wave One, Silver Wing, Floor 24th, Office No. 20 & 21, Noida Sector 18, Noida - 201301",
-      city: "Noida",
-      country: "Uttar Pradesh",
+      office: "1E/12 ,SEWAK HOUSE 2ND FLOOR JHNDEWALAN EXTENSION NEW DELHI 110055",
+      city: "New Delhi",
+      country: "India",
       mapLink: "https://goo.gl/maps/example",
     },
     socials: {

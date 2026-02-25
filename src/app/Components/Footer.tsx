@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Instagram, Linkedin, Twitter, ChevronUp, Zap, Sparkles } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Instagram, Linkedin, Twitter, ChevronUp, Sparkles } from 'lucide-react';
 import { SITE_IDENTITY } from "@/site-identity";
 import { useContactInfo, createMailtoLink, createTelLink, createWhatsAppLink } from "@/hooks/useContactInfo";
 import { useFormModal } from '@/context/FormModalContext';
@@ -18,31 +18,25 @@ const Footer = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: "Top Colleges", href: "/colleges" },
-    { name: "Entrance Exams", href: "/exams" },
-    { name: "Success Stories", href: "/testimonials" },
-    { name: "Resource Hub", href: "/blogs" },
-    { name: "About Aspire", href: "/about" },
-  ];
-
   return (
-    <footer className="bg-white text-[#64748B] pt-20 pb-10 px-6 border-t border-slate-100 font-sans relative">
+    <footer className="bg-[#12141D] text-[#94A3B8] pt-16 pb-8 px-6 font-sans relative overflow-hidden">
+      {/* Subtle Glow Effect */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-[#4A90E2]/30 to-transparent" />
+
       <div className="max-w-7xl mx-auto">
-        
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+        {/* Main Grid: 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           
-          {/* Brand Identity */}
-          <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <Image src={`/logo.png`} alt={SITE_IDENTITY.name} width={50} height={50} />
-              <span className="text-xl font-bold text-[#1E293B] tracking-tight">
-                {SITE_IDENTITY.name}
-              </span>
+          {/* 1. Brand Identity */}
+          <div className="space-y-6">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="p-1 bg-white/5 rounded-lg border border-white/10 group-hover:border-[#4A90E2]/50 transition-colors">
+                <Image src="/logo.png" alt={SITE_IDENTITY.name} width={42} height={42} className="brightness-110" />
+              </div>
+              <span className="text-xl font-bold text-[#F8FAFC] tracking-tight">{SITE_IDENTITY.name}</span>
             </Link>
-            <p className="text-sm leading-relaxed max-w-sm font-medium">
-              {SITE_IDENTITY.description} Empowering the next generation of global leaders through strategic education consulting.
+            <p className="text-sm leading-relaxed text-[#94A3B8]">
+              {SITE_IDENTITY.description} Leading the way in strategic education consulting for global leaders.
             </p>
             <div className="flex gap-3">
               {[
@@ -51,20 +45,28 @@ const Footer = () => {
                 { icon: Twitter, href: "#" },
                 { icon: MessageCircle, href: createWhatsAppLink(phones.primary) }
               ].map((social, i) => (
-                <a key={i} href={social.href} className="w-10 h-10 rounded-md bg-[#F8FAFC] border border-slate-100 flex items-center justify-center text-[#64748B] hover:text-[#4A90E2] hover:border-[#4A90E2] hover:bg-white transition-all shadow-sm">
-                  <social.icon size={18} />
+                <a key={i} href={social.href} className="w-9 h-9 rounded-md bg-[#1E212B] border border-white/5 flex items-center justify-center text-[#94A3B8] hover:text-[#00D4FF] hover:border-[#00D4FF] transition-all">
+                  <social.icon size={16} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="lg:col-span-2">
-            <h4 className="text-[#1E293B] font-bold text-xs uppercase tracking-widest mb-6">Navigation</h4>
-            <ul className="space-y-3">
-              {navLinks.map((link) => (
+          {/* 2. Quick Navigation */}
+          <div>
+            <h4 className="text-[#F8FAFC] font-semibold text-sm mb-6 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#4A90E2]" /> Explore
+            </h4>
+            <ul className="space-y-4 text-sm font-medium">
+              {[
+                { name: "Top Colleges", href: "/colleges" },
+                { name: "Entrance Exams", href: "/exams" },
+                { name: "Success Stories", href: "/testimonials" },
+                { name: "Resource Hub", href: "/blogs" }
+              ].map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-xs font-bold hover:text-[#4A90E2] transition-colors flex items-center gap-2">
+                  <Link href={link.href} className="hover:text-[#4A90E2] transition-colors flex items-center group">
+                    <ArrowRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all mr-2 text-[#4A90E2]" />
                     {link.name}
                   </Link>
                 </li>
@@ -72,86 +74,68 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div className="lg:col-span-3">
-            <h4 className="text-[#1E293B] font-bold text-xs uppercase tracking-widest mb-6">Get In Touch</h4>
-            <div className="space-y-5 text-xs">
-              <a href={createTelLink(phones.primary)} className="flex items-center gap-3 group">
-                <div className="w-9 h-9 rounded-md bg-[#F8FAFC] flex items-center justify-center text-[#4A90E2] border border-slate-100 group-hover:bg-[#4A90E2] group-hover:text-white transition-all"><Phone size={14}/></div>
-                <span className="font-bold text-[#1E293B]">{phones.primary}</span>
+          {/* 3. Contact Details */}
+          <div>
+            <h4 className="text-[#F8FAFC] font-semibold text-sm mb-6 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00D4FF]" /> Contact
+            </h4>
+            <div className="space-y-4 text-sm">
+              <a href={createTelLink(phones.primary)} className="flex items-center gap-3 hover:text-[#F8FAFC] transition-colors group">
+                <Phone size={16} className="text-[#4A90E2]" />
+                <span>{phones.primary}</span>
               </a>
-              <a href={createMailtoLink(emails.info)} className="flex items-center gap-3 group">
-                <div className="w-9 h-9 rounded-md bg-[#F8FAFC] flex items-center justify-center text-[#4A90E2] border border-slate-100 group-hover:bg-[#4A90E2] group-hover:text-white transition-all"><Mail size={14}/></div>
-                <span className="font-bold text-[#1E293B] lowercase">{emails.info}</span>
+              <a href={createMailtoLink(emails.info)} className="flex items-center gap-3 hover:text-[#F8FAFC] transition-colors group">
+                <Mail size={16} className="text-[#4A90E2]" />
+                <span className="lowercase">{emails.info}</span>
               </a>
               <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-md bg-[#F8FAFC] flex items-center justify-center text-[#4A90E2] border border-slate-100 shrink-0"><MapPin size={14}/></div>
-                <span className="leading-relaxed font-bold text-[#1E293B]">{address.full}</span>
+                <MapPin size={16} className="text-[#4A90E2] shrink-0 mt-1" />
+                <span className="leading-snug">{address.full}</span>
               </div>
             </div>
           </div>
 
-          {/* Footer CTA - Clean Surface Style */}
-          <div className="lg:col-span-3">
-            <div className="p-6 rounded-lg bg-[#F8FAFC] border border-slate-100 shadow-sm relative overflow-hidden group">
-              <div className="flex items-center gap-2 text-[#4A90E2] mb-3">
-                <Sparkles size={14} />
-                <h4 className="font-bold text-xs uppercase tracking-wider">Expert Counseling</h4>
-              </div>
-              <p className="text-[11px] text-[#64748B] mb-6 leading-relaxed font-medium">Book a session with our advisors to map your academic future.</p>
-              <button 
-                onClick={openModal}
-                className="w-full bg-[#1E293B] text-white py-3 rounded-md text-[10px] font-bold uppercase tracking-widest hover:bg-[#4A90E2] transition-all flex items-center justify-center gap-2 shadow-sm active:scale-95"
-              >
-                Book My Session
-                <ArrowRight size={14} />
-              </button>
-            </div>
+          {/* 4. CTA Card */}
+          <div className="bg-[#1E212B] p-6 rounded-xl border border-white/5 shadow-2xl relative group">
+            <Sparkles className="absolute top-4 right-4 text-[#00D4FF]/20 group-hover:text-[#00D4FF] transition-colors" size={20} />
+            <h4 className="text-[#F8FAFC] font-bold text-sm mb-2">Ready to Start?</h4>
+            <p className="text-xs text-[#94A3B8] mb-6 leading-relaxed">Book a 1-on-1 session with our expert academic advisors today.</p>
+            <button 
+              onClick={openModal}
+              className="w-full bg-[#4A90E2] hover:bg-[#00D4FF] text-white py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#4A90E2]/10 active:scale-95"
+            >
+              Consult Now <ArrowRight size={14} />
+            </button>
           </div>
-
         </div>
 
-        {/* Bottom Bar */}
-        {/* Bottom Bar */}
-        <div className="pt-10 border-t border-slate-100">
-          {/* Disclaimer - Refined Structure */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-8">
-            <div className="lg:col-span-8">
-              <div className="flex items-start gap-3 opacity-70 group">
-                <div className="mt-1 p-1 bg-slate-100 rounded text-[#94A3B8] group-hover:bg-[#4A90E2]/10 group-hover:text-[#4A90E2] transition-colors">
-                  <Sparkles size={12} />
-                </div>
-                <div className="space-y-2">
-                  <h5 className="text-[10px] font-black uppercase tracking-[0.15em] text-[#1E293B]">Legal Disclaimer</h5>
-                  <p className="text-[10px] leading-relaxed font-medium">
-                    The content provided by <span className="text-[#1E293B] font-bold">{SITE_IDENTITY.name}</span> is for general informational purposes only. All information on the site is provided in good faith, however, we make no representation or warranty of any kind regarding the accuracy, validity, or completeness of institutional data. 
-                    <span className="block mt-1 italic text-[#94A3B8]">Final admission and visa decisions rest solely with the respective universities and governmental authorities.</span>
-                  </p>
-                </div>
-              </div>
+        {/* Bottom Bar: Single Line Style */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+            <p className="text-[11px] font-medium tracking-wide">
+              © {new Date().getFullYear()} <span className="text-[#F8FAFC]">{SITE_IDENTITY.name}</span>
+            </p>
+            <div className="h-4 w-px bg-white/10 hidden md:block" />
+            <div className="flex gap-6 text-[10px] uppercase tracking-[0.1em] font-bold">
+              <Link href="/privacy" className="hover:text-[#4A90E2]">Privacy</Link>
+              <Link href="/terms" className="hover:text-[#4A90E2]">Terms</Link>
+              <Link href="/sitemap" className="hover:text-[#4A90E2]">Sitemap</Link>
             </div>
-            
-            <div className="lg:col-span-4 flex flex-col lg:items-end gap-4">
-              <div className="flex gap-6 text-[10px] font-black uppercase tracking-widest text-[#1E293B]">
-                <Link href="/privacy" className="hover:text-[#4A90E2] transition-colors">Privacy Policy</Link>
-                <Link href="/term" className="hover:text-[#4A90E2] transition-colors">Terms of Use</Link>
-                <Link href="/contact" className="hover:text-[#4A90E2] transition-colors">Sitemap</Link>
-              </div>
-              <p className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-widest">
-                © {new Date().getFullYear()} {SITE_IDENTITY.name} • All Rights Reserved
-              </p>
-            </div>
+          </div>
+          
+          <div className="text-[10px] text-center md:text-right max-w-md opacity-60 leading-relaxed italic">
+            Admissions and visa decisions are subject to institutional and governmental authority.
           </div>
         </div>
       </div>
 
-      {/* Back to Top - Minimalist */}
+      {/* Back to Top */}
       {isScrolled && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 w-12 h-12 bg-[#1E293B] text-white rounded-md flex items-center justify-center shadow-lg hover:bg-[#4A90E2] transition-all z-50 group active:scale-90"
+          className="fixed bottom-8 right-8 w-11 h-11 bg-[#4A90E2] text-white rounded-full flex items-center justify-center shadow-xl hover:bg-[#00D4FF] hover:-translate-y-1 transition-all z-50 active:scale-90"
         >
-          <ChevronUp size={20} className="group-hover:-translate-y-1 transition-transform" />
+          <ChevronUp size={20} />
         </button>
       )}
     </footer>

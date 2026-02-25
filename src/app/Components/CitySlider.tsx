@@ -38,22 +38,22 @@ const CitySlider = () => {
   }, [])
 
   return (
-    <section className="bg-white py-16 px-6 lg:px-24 font-sans text-[#1E293B]">
+    <section className="bg-white py-12 sm:py-16 px-4 sm:px-6 lg:px-24 font-sans text-[#1E293B]">
       <div className="max-w-7xl mx-auto">
         
         {/* Simple Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-12">
           <div>
             {/* Thoda bold heading */}
-            <h2 className="text-3xl font-bold tracking-tight mb-2">Popular Cities</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight mb-2">Popular Cities</h2>
             <p className="text-[#64748B] text-sm">Find top colleges across India's educational hubs.</p>
           </div>
           
           <div className="flex gap-2">
-            <button onClick={handlePrev} className="p-2 border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
+            <button onClick={handlePrev} className="p-2 hover:border-[#4A90E2] border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
               <ChevronLeft size={20} className="text-slate-600" />
             </button>
-            <button onClick={handleNext} className="p-2 border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
+            <button onClick={handleNext} className="p-2 hover:border-[#4A90E2] border border-slate-200 rounded-md hover:bg-[#4A90E2] hover:text-white transition-colors">
               <ChevronRight size={20} className="text-slate-600" />
             </button>
           </div>
