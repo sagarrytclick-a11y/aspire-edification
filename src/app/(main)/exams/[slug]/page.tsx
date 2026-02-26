@@ -107,7 +107,7 @@ const ExamPage = () => {
   if (!exam) return <div className="min-h-screen flex flex-col items-center justify-center gap-4 text-center"> <h2 className="text-2xl font-bold">Exam not found</h2><Link href="/exams"><Button>Back to Exams</Button></Link></div>
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br py-16 from-slate-50 to-white">
       {/* 1. Hero Section - Minimal & Clean */}
       <header className="bg-gradient-to-br from-[#1A4AB2] to-[#1A4AB2]/90 text-white py-16 md:py-24 relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
@@ -169,7 +169,7 @@ const ExamPage = () => {
           {exam.overview && (
             <section id="overview" className="scroll-mt-32 bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-sm">
               <div className="max-w-3xl">
-                <h2 className="text-3xl font-bold mb-6">{exam.overview.title}</h2>
+                <h2 className="text-3xl text-[#1A4AB2] font-bold mb-6">{exam.overview.title}</h2>
                 <p className="text-slate-600 text-lg leading-relaxed mb-8">{exam.overview.content}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {exam.overview.key_highlights.map((h, i) => (
@@ -186,7 +186,7 @@ const ExamPage = () => {
           {/* Registration */}
           {exam.registration && (
             <section id="registration" className="scroll-mt-32">
-              <h2 className="text-3xl font-bold mb-6 px-4">{exam.registration.title}</h2>
+              <h2 className="text-3xl text-[#1A4AB2] font-bold mb-6 px-4">{exam.registration.title}</h2>
               <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
                 <p className="text-slate-600 mb-8">{exam.registration.description}</p>
                 <div className="space-y-4">
@@ -204,7 +204,7 @@ const ExamPage = () => {
           {/* Exam Pattern */}
           {exam.exam_pattern && (
             <section id="pattern" className="scroll-mt-32 bg-white rounded-3xl p-8 border border-slate-200 shadow-sm">
-              <h2 className="text-3xl font-bold mb-8">{exam.exam_pattern.title}</h2>
+              <h2 className="text-3xl text-[#1A4AB2] font-bold mb-8">{exam.exam_pattern.title}</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                 <StatCard icon={<Timer />} label="Duration" value={`${exam.exam_pattern.total_duration_mins}m`} color="[#1A4AB2]" />
                 <StatCard icon={<TrendingUp />} label="Score Range" value={exam.exam_pattern.score_range} color="[#FACC15]" />
@@ -235,7 +235,7 @@ const ExamPage = () => {
           {/* Exam Dates */}
           {exam.exam_dates && (
             <section id="dates" className="scroll-mt-32">
-              <h2 className="text-3xl font-bold mb-6 px-4">{exam.exam_dates.title}</h2>
+              <h2 className="text-3xl text-[#1A4AB2] font-bold mb-6 px-4">{exam.exam_dates.title}</h2>
               <div className="grid gap-4">
                 {exam.exam_dates.important_dates.map((item, i) => (
                   <div key={i} className="bg-white p-6 rounded-2xl border border-slate-200 flex justify-between items-center shadow-sm hover:border-[#1A4AB2]/30 transition-all">
