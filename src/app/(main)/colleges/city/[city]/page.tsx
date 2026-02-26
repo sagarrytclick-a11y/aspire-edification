@@ -3,7 +3,6 @@
 import React, { useState, useMemo, useCallback } from 'react'
 import { useParams } from 'next/navigation'
 import { useAllColleges } from '@/hooks/useColleges'
-import SearchSection from '@/components/colleges/SearchSection'
 import CollegeMapping from '@/components/colleges/CollegeMapping'
 import BackgroundSlider from '@/components/BackgroundSlider'
 import { getCityBySlug, INDIAN_CITIES } from '@/lib/cities'
@@ -11,66 +10,7 @@ import { MapPin } from 'lucide-react'
 
 // Theme Constants
 const PRIMARY_BLUE = "#1A4AB2"
-const ACCENT_GOLD = "#FACC15"
 
-// City configuration
-const cityConfig: Record<string, { 
-  name: string; 
-  color: string; 
-  gradient: string; 
-  description: string;
-  features: string[];
-  stats: { colleges: string; students: string; avgFees: string };
-}> = {
-  mumbai: {
-    name: "Mumbai",
-    color: "#1A4AB2",
-    gradient: "from-[#1A4AB2] via-[#1A4AB2]/90 to-slate-900",
-    description: "Financial capital with premier engineering, management, and medical institutions",
-    features: ["IIT Bombay", "NMIMS", "Top Medical Colleges"],
-    stats: { colleges: "500+", students: "2L+", avgFees: "₹2-15L" }
-  },
-  delhi: {
-    name: "Delhi",
-    color: "#DC2626",
-    gradient: "from-[#DC2626] via-[#DC2626]/90 to-slate-900",
-    description: "Educational hub with IIT Delhi, Delhi University, AIIMS, and premier management schools",
-    features: ["IIT Delhi", "AIIMS", "DU Colleges"],
-    stats: { colleges: "600+", students: "3L+", avgFees: "₹1-20L" }
-  },
-  bangalore: {
-    name: "Bangalore",
-    color: "#059669",
-    gradient: "from-[#059669] via-[#059669]/90 to-slate-900",
-    description: "Silicon Valley of India with excellent engineering colleges and research institutions",
-    features: ["IISc", "RV College", "Top B-Schools"],
-    stats: { colleges: "400+", students: "2.5L+", avgFees: "₹3-18L" }
-  },
-  hyderabad: {
-    name: "Hyderabad",
-    color: "#7C3AED",
-    gradient: "from-[#7C3AED] via-[#7C3AED]/90 to-slate-900",
-    description: "Emerging educational destination with IIT Hyderabad and excellent institutions",
-    features: ["IIT Hyderabad", "BITS Pilami", "NIMS"],
-    stats: { colleges: "350+", students: "2L+", avgFees: "₹2-12L" }
-  },
-  chennai: {
-    name: "Chennai",
-    color: "#EA580C",
-    gradient: "from-[#EA580C] via-[#EA580C]/90 to-slate-900",
-    description: "Traditional educational hub with IIT Madras and renowned institutions",
-    features: ["IIT Madras", "Anna University", "CMC Vellore"],
-    stats: { colleges: "450+", students: "2.2L+", avgFees: "₹1.5-15L" }
-  },
-  pune: {
-    name: "Pune",
-    color: "#0891B2",
-    gradient: "from-[#0891B2] via-[#0891B2]/90 to-slate-900",
-    description: "Oxford of the East with SPPU and top engineering colleges",
-    features: ["SPPU", "COEP", "SIBM"],
-    stats: { colleges: "380+", students: "1.8L+", avgFees: "₹2-10L" }
-  }
-}
 
 export default function CityCollegesPage() {
   const params = useParams()
@@ -167,7 +107,7 @@ export default function CityCollegesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen py-16 bg-slate-50">
       {/* Hero Header */}
       <div className={`relative bg-gradient-to-br ${cityInfo.gradient} text-white`}>
         <BackgroundSlider>
@@ -182,12 +122,12 @@ export default function CityCollegesPage() {
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
               Top Colleges in <span className="text-[#FACC15]">{cityInfo.name}</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
+            {/* <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8">
               {cityInfo.description}. Find the perfect institution for your educational journey.
-            </p>
+            </p> */}
             
             {/* Quick Stats */}
-            <div className="flex flex-wrap justify-center gap-8 text-center">
+            {/* <div className="flex flex-wrap justify-center gap-8 text-center">
               <div>
                 <div className="text-3xl font-bold text-[#FACC15]">{colleges.length}</div>
                 <div className="text-sm text-white/70 uppercase tracking-wider">Colleges Found</div>
@@ -200,25 +140,15 @@ export default function CityCollegesPage() {
                 <div className="text-3xl font-bold text-[#FACC15]">{cityInfo.stats.avgFees}</div>
                 <div className="text-sm text-white/70 uppercase tracking-wider">Avg Fees</div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
-      {/* Search Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
-        <SearchSection
-          onSearch={handleSearch}
-          countries={countries}
-          exams={exams}
-          categories={['engineering', 'medical', 'management']}
-          showCategoryFilter={true}
-          placeholder={`Search colleges in ${cityInfo.name}...`}
-        />
-      </div>
+    
 
       {/* Results Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16">
+      <div className="max-w-7xl py-5 mx-auto px-6 lg:px-8 pb-16">
         <CollegeMapping
           colleges={colleges}
           isLoading={isLoading}

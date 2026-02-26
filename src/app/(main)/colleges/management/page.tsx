@@ -41,7 +41,7 @@ export default function ManagementCollegesPage() {
   const totalPages = Math.ceil(colleges.length / itemsPerPage)
 
   return (
-    <div className="min-h-screen bg-white text-[#1E293B]">
+    <div className="min-h-screen py-12 bg-white text-[#1E293B]">
       
       {/* HEADER SECTION - Static */}
       <section className="pt-24 pb-12 px-6">

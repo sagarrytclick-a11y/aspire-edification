@@ -31,13 +31,13 @@ const ExplorePrograms = () => {
       href: "/colleges"
     },
     {
-      title: "College Predictor",
-      description: "Evaluate your admission chances based on your entrance exam scores.",
-      image: "https://images.ctfassets.net/lzny33ho1g45/sPSeeTxCEcdLaaQGBozcg/9f15738e145e90d0844d37fc7df5cd55/image12.png",
+      title: "College Compare",
+      description: "Compare colleges based on your entrance exam scores.",
+      image: "https://i.pinimg.com/1200x/f1/9a/c9/f19ac975e74bf07432725b87ec30e60e.jpg",
       icon: <GraduationCap size={18} className="text-[#4A90E2]" />,
       tags: ["Rank Predictor", "Cut-offs"],
       footerAction: "Check Now",
-      href: "/predictor"
+      href: "/compare"
     }
   ];
 

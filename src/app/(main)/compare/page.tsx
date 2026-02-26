@@ -88,10 +88,10 @@ export default function CompareColleges() {
     }
   });
 
-  const filteredColleges = colleges.filter((college: College) =>
+  const filteredColleges = Array.isArray(colleges) ? colleges.filter((college: College) =>
     college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     college.city?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  ) : [];
 
   const availableColleges = filteredColleges.filter(
     (college: College) => !selectedColleges.some(selected => selected._id === college._id)
@@ -131,9 +131,9 @@ export default function CompareColleges() {
           parseInt(course.annual_tuition_fee.replace(/[^\d]/g, ''))
         ).filter((fee: any) => !isNaN(fee));
         const avgFee = fees.length > 0 ? Math.round(fees.reduce((a: any, b: any) => a + b, 0) / fees.length) : 0;
-        return avgFee > 0 ? `₹${avgFee.toLocaleString()}` : college.fees ? `₹${college.fees.toLocaleString()}` : 'N/A';
+        return avgFee > 0 ? `₹${avgFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
       }
-      return college.fees ? `₹${college.fees.toLocaleString()}` : 'N/A';
+      return college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
     }},
     { key: 'establishment_year', label: 'Established', icon: GraduationCap, format: (college: College) => college.establishment_year || 'N/A' },
     { key: 'exams', label: 'Entrance Exams', icon: CheckCircle2, format: (college: College) => college.exams?.join(', ') || 'N/A' },
@@ -333,7 +333,7 @@ export default function CompareColleges() {
                     <tr key={metric.key} className="border-b border-slate-100 hover:bg-slate-50">
                       <td className="p-4 font-medium text-slate-700">
                         <div className="flex items-center gap-2">
-                          <metric.icon className="w-4 h-4 text-blue-600" />
+                          {React.createElement(metric.icon, { className: "w-4 h-4 text-blue-600" })}
                           {metric.label}
                         </div>
                       </td>
@@ -411,9 +411,9 @@ export default function CompareColleges() {
                                 parseInt(course.annual_tuition_fee.replace(/[^\d]/g, ''))
                               ).filter((fee: any) => !isNaN(fee));
                               const avgFee = fees.length > 0 ? Math.round(fees.reduce((a: any, b: any) => a + b, 0) / fees.length) : 0;
-                              return avgFee > 0 ? `₹${avgFee.toLocaleString()}` : college.fees ? `₹${college.fees.toLocaleString()}` : 'N/A';
+                              return avgFee > 0 ? `₹${avgFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
                             }
-                            return college.fees ? `₹${college.fees.toLocaleString()}` : 'N/A';
+                            return college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
                           })()}
                         </span>
                       </div>

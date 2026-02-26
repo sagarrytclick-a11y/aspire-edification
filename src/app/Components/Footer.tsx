@@ -120,7 +120,7 @@ const Footer = () => {
               <div className="h-4 w-px bg-white/10 hidden md:block" />
               <div className="flex gap-6 text-[10px] uppercase tracking-[0.1em] font-bold">
                 <Link href="/privacy" className="hover:text-[#4A90E2]">Privacy</Link>
-                <Link href="/terms" className="hover:text-[#4A90E2]">Terms</Link>
+                <Link href="/term" className="hover:text-[#4A90E2]">Terms</Link>
                 <Link href="/contact" className="hover:text-[#4A90E2]">Sitemap</Link>
               </div>
             </div>

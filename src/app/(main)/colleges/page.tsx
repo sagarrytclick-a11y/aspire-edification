@@ -37,7 +37,7 @@ export default function CollegesPage() {
   const totalPages = Math.ceil(colleges.length / itemsPerPage)
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className="min-h-screen py-12 bg-white font-sans text-slate-900">
 
       {/* --- HEADER SECTION --- */}
       <header className="bg-[#F8FAFC] border-b border-slate-100 pt-28 pb-12">
