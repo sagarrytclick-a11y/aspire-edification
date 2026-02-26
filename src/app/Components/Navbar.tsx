@@ -14,8 +14,10 @@ export default function SimpleNavbar() {
   const [collegeTypeOpen, setCollegeTypeOpen] = useState(false);
   const [allCollegesOpen, setAllCollegesOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const [othersOpen, setOthersOpen] = useState(false);
   const [mobileCollegesOpen, setMobileCollegesOpen] = useState(false);
   const [mobileCitiesOpen, setMobileCitiesOpen] = useState(false);
+  const [mobileOthersOpen, setMobileOthersOpen] = useState(false);
   const pathname = usePathname();
   const { openModal } = useFormModal();
 
@@ -50,6 +52,28 @@ export default function SimpleNavbar() {
     }, 100);
   };
 
+  const handleOthersMouseEnter = () => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Set a small delay before opening
+    timeoutRef.current = setTimeout(() => {
+      setOthersOpen(true);
+    }, 100);
+  };
+
+  const handleOthersMouseLeave = () => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Set a small delay before closing
+    timeoutRef.current = setTimeout(() => {
+      setOthersOpen(false);
+    }, 100);
+  };
+
   const collegeTypes = [
     { name: "Engineering Colleges", href: "/colleges/engineering" },
     { name: "Medical Colleges", href: "/colleges/medical" },
@@ -73,11 +97,16 @@ export default function SimpleNavbar() {
     { name: "Contact", href: "/contact" },
   ];
 
+  const othersOptions = [
+    { name: "Compare Colleges", href: "/compare" },
+    { name: "About Us", href: "/about" },
+  ];
+
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 shadow-sm"
-          : "bg-white py-6"
+        ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 shadow-sm"
+        : "bg-white py-6"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -97,7 +126,7 @@ export default function SimpleNavbar() {
             href="/"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname === "/"
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Home
@@ -110,10 +139,10 @@ export default function SimpleNavbar() {
             onMouseLeave={handleCollegeTypeMouseLeave}
           >
             <button
-              className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${pathname?.includes("/colleges/")
+              className={`px-5 py-3 flex gap-2 items-center rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/colleges/")
                   ? "text-[#4A90E2] bg-[#F8FAFC]"
-                  : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
-                }`}
+                  : "text-black hover:text-white hover:bg-[#4A90E2]"
+                 }`}
             >
               Colleges
               <ChevronDown size={14} className={`transition-transform ${collegeTypeOpen ? 'rotate-180' : ''}`} />
@@ -121,11 +150,11 @@ export default function SimpleNavbar() {
 
             {collegeTypeOpen && (
               <div className="absolute top-full left-0 mt-2 w-64 bg-white border-2 border-slate-300 rounded-xl shadow-xl z-50">
-                {collegeTypes.map((item) => (
+                {collegeTypes.map((item, index) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-5 py-4 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-600 transition-colors first:rounded-t-xl last:rounded-b-xl"
+                    className={`block px-5 py-4 text-sm text-slate-700 hover:bg-blue-500 hover:text-white hover:rounded-lg transition-colors ${index === 0 ? 'rounded-t-xl' : index === collegeTypes.length - 1 ? 'rounded-b-xl' : ''}`}
                   >
                     {item.name}
                   </Link>
@@ -135,25 +164,22 @@ export default function SimpleNavbar() {
           </div>
 
           {/* Courses */}
-
-
           {/* Exams */}
           <Link
             href="/exams"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/exams")
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Exams
           </Link>
 
-          {/* Updates */}
           <Link
             href="/blogs"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/blogs")
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Updates
@@ -164,11 +190,42 @@ export default function SimpleNavbar() {
             href="/contact"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/contact")
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
-            Contact
+            Contact Us
           </Link>
+
+          {/* Others Dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={handleOthersMouseEnter}
+            onMouseLeave={handleOthersMouseLeave}
+          >
+            <button
+              className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${pathname?.includes("/compare") || pathname?.includes("/about")
+                  ? "text-[#4A90E2] bg-[#F8FAFC]"
+                  : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                 }`}
+            >
+              Others
+              <ChevronDown size={14} className={`transition-transform ${othersOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {othersOpen && (
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white border-2 border-slate-300 rounded-xl shadow-xl z-50">
+                {othersOptions.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block px-5 py-4 text-sm text-slate-700 hover:bg-blue-500 hover:text-white hover:rounded-lg transition-colors first:rounded-t-xl last:rounded-b-xl"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* ACTION BUTTONS */}
@@ -203,7 +260,7 @@ export default function SimpleNavbar() {
             <Link
               href="/"
               onClick={() => setIsOpen(false)}
-              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname === "/" ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-slate-50"
+              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname === "/" ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-blue-500 hover:text-white"
                 }`}
             >
               Home
@@ -212,7 +269,7 @@ export default function SimpleNavbar() {
             <Link
               href="/exams"
               onClick={() => setIsOpen(false)}
-              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname?.includes("/exams") ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-slate-50"
+              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname?.includes("/exams") ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-blue-500 hover:text-white"
                 }`}
             >
               Exams
@@ -221,7 +278,7 @@ export default function SimpleNavbar() {
             <Link
               href="/blogs"
               onClick={() => setIsOpen(false)}
-              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname?.includes("/blogs") ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-slate-50"
+              className={`text-base sm:text-lg font-bold tracking-tight py-3 px-4 rounded-lg transition-colors ${pathname?.includes("/blogs") ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#1E293B] hover:bg-blue-500 hover:text-white"
                 }`}
             >
               Updates
@@ -256,7 +313,7 @@ export default function SimpleNavbar() {
                     key={item.name}
                     href={item.href}
                     onClick={() => { setIsOpen(false); setMobileCollegesOpen(false); }}
-                    className={`text-sm sm:text-base font-medium tracking-tight py-2.5 px-4 pl-8 rounded-lg transition-colors ${pathname === item.href ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#64748B] hover:bg-slate-50 hover:text-[#1E293B]"
+                    className={`text-sm sm:text-base font-medium tracking-tight py-2.5 px-4 pl-8 rounded-lg transition-colors ${pathname === item.href ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#64748B] hover:bg-blue-500 hover:text-white hover:rounded-lg"
                       }`}
                   >
                     {item.name}
@@ -285,10 +342,39 @@ export default function SimpleNavbar() {
                     key={item.name}
                     href={item.href}
                     onClick={() => { setIsOpen(false); setMobileCitiesOpen(false); }}
-                    className={`text-xs sm:text-sm font-medium tracking-tight py-2 px-3 rounded-lg text-center transition-colors ${pathname === item.href ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#64748B] hover:bg-slate-50 hover:text-[#1E293B]"
+                    className={`text-xs sm:text-sm font-medium tracking-tight py-2 px-3 rounded-lg text-center transition-colors ${pathname === item.href ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#64748B] hover:bg-blue-500 hover:text-white hover:rounded-lg"
                       }`}
                   >
                     {item.name.replace(' Colleges', '')}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Others Section */}
+          <div className="border-t border-slate-100 pt-4">
+            <button
+              onClick={() => setMobileOthersOpen(!mobileOthersOpen)}
+              className="flex items-center justify-between w-full px-4 py-3 rounded-lg hover:bg-slate-50 transition-colors"
+            >
+              <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider">Others</h3>
+              <ChevronDown
+                size={16}
+                className={`text-slate-400 transition-transform duration-200 ${mobileOthersOpen ? 'rotate-180' : ''}`}
+              />
+            </button>
+            <div className={`overflow-hidden transition-all duration-300 ${mobileOthersOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+              <div className="flex flex-col gap-1 pt-2">
+                {othersOptions.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => { setIsOpen(false); setMobileOthersOpen(false); }}
+                    className={`text-sm sm:text-base font-medium tracking-tight py-2.5 px-4 pl-8 rounded-lg transition-colors ${pathname === item.href ? "text-[#4A90E2] bg-[#F8FAFC]" : "text-[#64748B] hover:bg-blue-500 hover:text-white hover:rounded-lg"
+                      }`}
+                  >
+                    {item.name}
                   </Link>
                 ))}
               </div>
@@ -308,4 +394,5 @@ export default function SimpleNavbar() {
       </div>
     </nav>
   );
-}
+
+};

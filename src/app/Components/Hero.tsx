@@ -59,7 +59,7 @@ const Hero: React.FC = () => {
           {/* LEFT CONTENT */}
           <div className="w-full lg:flex-[1.2] space-y-6 md:space-y-8 text-center lg:text-left">
             <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-[#4A90E2] rounded-lg text-xs font-bold">
+              <div className="inline-flex items-center gap-2 px-3 py-6 bg-blue-50 text-[#4A90E2] rounded-lg text-xs font-bold">
                 <ShieldCheck size={14} /> AI-VERIFIED INSTITUTIONS
               </div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-[#0F172A]">
