@@ -62,7 +62,7 @@ const Hero: React.FC = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 text-[#4A90E2] rounded-lg text-xs font-bold">
                 <ShieldCheck size={14} /> AI-VERIFIED INSTITUTIONS
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-[#0F172A]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-[#0F172A]">
                 The Smartest Way to <br className="hidden sm:block" />
                 <span className="bg-gradient-to-r from-[#4A90E2] via-[#00D4FF] to-[#4A90E2] bg-clip-text text-transparent">
                   Pick Your College.
@@ -251,20 +251,20 @@ const Hero: React.FC = () => {
 
         {/* PARTNER LOGOS - Responsive padding */}
         <div className="mt-16 md:mt-24 pt-8 md:pt-12 border-t border-slate-200/60">
-          <p className="text-center text-[9px] md:text-[11px] font-bold text-[#94A3B8] uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-10 px-4">
+          <p className="text-center text-black text-[9px] md:text-[11px] font-bold text-[#94A3B8] uppercase tracking-[0.2em] md:tracking-[0.3em] mb-6 md:mb-10 px-4">
             Trusted by leading educational boards
           </p>
-          <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-8 md:gap-20 opacity-40 grayscale px-4">
-            <div className="text-sm md:text-xl font-bold italic text-slate-400 text-center">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap text-black justify-center items-center gap-8 md:gap-20 opacity-40 grayscale px-4">
+            <div className="text-sm md:text-xl font-bold italic  text-center">
               NAAC A++
             </div>
-            <div className="text-sm md:text-xl font-bold italic text-slate-400 text-center">
+            <div className="text-sm md:text-xl font-bold italic  text-center">
               NIRF Ranked
             </div>
-            <div className="text-sm md:text-xl font-bold italic text-slate-400 text-center uppercase">
+            <div className="text-sm md:text-xl font-bold italic  text-center uppercase">
               Aicte
             </div>
-            <div className="text-sm md:text-xl font-bold italic text-slate-400 text-center uppercase">
+            <div className="text-sm md:text-xl font-bold italic  text-center uppercase">
               Ugc
             </div>
           </div>

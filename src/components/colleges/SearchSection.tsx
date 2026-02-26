@@ -117,10 +117,10 @@ const SearchSection = memo(({
 
           {countries.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">Country</label>
+              <label className="block text-sm font-medium text-black mb-2">Country</label>
               <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                 <SelectTrigger className="w-full border-2 border-slate-300 focus:border-blue-500">
-                  <Globe className="w-4 h-4 mr-2 text-slate-400" />
+                  <Globe className="w-4 h-4 mr-2 text-black" />
                   <SelectValue placeholder="All Countries" />
                 </SelectTrigger>
                 <SelectContent>

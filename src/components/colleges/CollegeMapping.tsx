@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useMemo, memo } from 'react'
+import React, { useMemo, memo, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ChevronLeft, ChevronRight, ArrowRight, AlertCircle, MapPin, GraduationCap, RefreshCw } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowRight, AlertCircle, MapPin, GraduationCap, RefreshCw, Search } from 'lucide-react'
+import { COLLEGE_CATEGORIES } from '@/lib/constants/collegeCategories'
 
 interface CollegeMappingProps {
   colleges: any[]
@@ -137,11 +138,35 @@ const CollegeMapping = memo(({
   className = "",
   onRefetch
 }: CollegeMappingProps) => {
+  const [searchTerm, setSearchTerm] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
+
+  const filteredColleges = useMemo(() => {
+    let filtered = colleges
+    
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(college => 
+        college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        college.city?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
+    
+    // Filter by category
+    if (selectedCategory) {
+      filtered = filtered.filter(college => 
+        college.categories?.includes(selectedCategory)
+      )
+    }
+    
+    return filtered
+  }, [colleges, searchTerm, selectedCategory])
+
   const paginatedColleges = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage
     const endIndex = startIndex + itemsPerPage
-    return colleges.slice(startIndex, endIndex)
-  }, [colleges, currentPage, itemsPerPage])
+    return filteredColleges.slice(startIndex, endIndex)
+  }, [filteredColleges, currentPage, itemsPerPage])
 
   if (isLoading) {
     return (
@@ -191,27 +216,56 @@ const CollegeMapping = memo(({
   return (
     <div className={className}>
       {/* Results Count */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="mb-8">
         <div>
           <h2 className="text-2xl font-bold text-[#1E293B]">
-            {colleges.length} Colleges Found
+            {filteredColleges.length} Colleges Found
           </h2>
           <p className="text-[#64748B]">
-            Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, colleges.length)} of {colleges.length}
+            Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, filteredColleges.length)} of {filteredColleges.length}
           </p>
         </div>
       </div>
 
-      {/* Category Filter Section */}
-      <div className="mb-8">
+      {/* Search and Filter Section */}
+      <div className="mb-8 space-y-4">
+        {/* Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Search colleges..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-3 border-2 border-slate-300 rounded-lg focus:border-[#4A90E2] focus:outline-none text-[#1E293B] placeholder-slate-400"
+          />
+        </div>
+
+        {/* Category Filter */}
         <div className="flex flex-wrap gap-3 items-center">
           <h3 className="text-sm font-semibold text-[#1E293B] mr-4">Filter by Category:</h3>
-          {['Engineering', 'Medical', 'Management', 'Arts', 'Commerce', 'Science'].map((category) => (
+          <button
+            key="all"
+            onClick={() => setSelectedCategory('')}
+            className={`px-4 py-2 text-sm font-medium rounded-lg border-2 transition-all ${
+              selectedCategory === '' 
+                ? 'border-[#4A90E2] bg-[#4A90E2] text-white' 
+                : 'border-slate-300 bg-white text-[#64748B] hover:border-[#4A90E2] hover:text-[#4A90E2] hover:bg-slate-50'
+            }`}
+          >
+            All
+          </button>
+          {COLLEGE_CATEGORIES.map((category) => (
             <button
-              key={category}
-              className="px-4 py-2 text-sm font-medium rounded-lg border-2 border-slate-300 bg-white text-[#64748B] hover:border-[#4A90E2] hover:text-[#4A90E2] hover:bg-slate-50 transition-all"
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-4 py-2 text-sm font-medium rounded-lg border-2 transition-all ${
+                selectedCategory === category.id 
+                  ? 'border-[#4A90E2] bg-[#4A90E2] text-white' 
+                  : 'border-slate-300 bg-white text-[#64748B] hover:border-[#4A90E2] hover:text-[#4A90E2] hover:bg-slate-50'
+              }`}
             >
-              {category}
+              {category.label}
             </button>
           ))}
         </div>
