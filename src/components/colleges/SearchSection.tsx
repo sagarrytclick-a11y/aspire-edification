@@ -1,43 +1,41 @@
 'use client'
 
-import React, { useState, useEffect, useCallback, memo } from 'react'
+import { useState, useEffect, useCallback, memo } from 'react'
 import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, X, RefreshCw, Globe, Award } from 'lucide-react'
+import { Search, X, RefreshCw, Award } from 'lucide-react'
+import { useCategories } from '@/hooks/useCategories'
 
 interface SearchSectionProps {
-  onSearch: (searchTerm: string, country: string, exam: string, category?: string) => void
-  countries?: string[]
+  onSearch: (searchTerm: string, exam: string, category?: string) => void
   exams?: string[]
-  categories?: string[]
+  categories?: string[] // Keep for backward compatibility but will be ignored
   placeholder?: string
   showCategoryFilter?: boolean
   initialSearchTerm?: string
-  initialCountry?: string
   initialExam?: string
   initialCategory?: string
   className?: string
 }
 
-const SearchSection = memo(({ 
+const SearchSection = memo(({
   onSearch,
-  countries = [],
   exams = [],
-  categories = [],
+  categories = [], // Will be ignored, using API instead
   placeholder = "Search colleges...",
   showCategoryFilter = false,
   initialSearchTerm = '',
-  initialCountry = 'all',
   initialExam = 'all',
   initialCategory = 'all',
   className = ""
 }: SearchSectionProps) => {
   const [localSearchTerm, setLocalSearchTerm] = useState(initialSearchTerm)
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(initialSearchTerm)
-  const [selectedCountry, setSelectedCountry] = useState(initialCountry)
   const [selectedExam, setSelectedExam] = useState(initialExam)
   const [selectedCategory, setSelectedCategory] = useState(initialCategory)
+
+  // Fetch categories from API
+  const { data: apiCategories, isLoading: categoriesLoading } = useCategories()
 
   // Debounce search term
   useEffect(() => {
@@ -52,8 +50,8 @@ const SearchSection = memo(({
 
   // Trigger search when debounced values change
   useEffect(() => {
-    onSearch(debouncedSearchTerm, selectedCountry, selectedExam, selectedCategory)
-  }, [debouncedSearchTerm, selectedCountry, selectedExam, selectedCategory, onSearch])
+    onSearch(debouncedSearchTerm, selectedExam, selectedCategory)
+  }, [debouncedSearchTerm, selectedExam, selectedCategory, onSearch])
 
   const handleSearchChange = useCallback((value: string) => {
     setLocalSearchTerm(value)
@@ -62,7 +60,6 @@ const SearchSection = memo(({
   const handleClear = useCallback(() => {
     setLocalSearchTerm('')
     setDebouncedSearchTerm('')
-    setSelectedCountry('all')
     setSelectedExam('all')
     setSelectedCategory('all')
   }, [])
@@ -95,19 +92,19 @@ const SearchSection = memo(({
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {showCategoryFilter && categories.length > 0 && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {showCategoryFilter && (
             <div>
               <label className="block text-sm font-medium text-black mb-2">Category</label>
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select value={selectedCategory} onValueChange={setSelectedCategory} disabled={categoriesLoading}>
                 <SelectTrigger className="w-full border-2 text-black border-slate-300 focus:border-blue-500">
-                  <SelectValue placeholder="All Categories" />
+                  <SelectValue placeholder={categoriesLoading ? "Loading..." : "All Categories"} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map((category) => (
-                    <SelectItem key={category} value={category}>
-                      {category.charAt(0).toUpperCase() + category.slice(1)}
+                  {apiCategories?.map((category) => (
+                    <SelectItem key={category._id} value={category.slug}>
+                      {category.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -115,25 +112,6 @@ const SearchSection = memo(({
             </div>
           )}
 
-          {countries.length > 0 && (
-            <div>
-              <label className="block text-sm font-medium text-black mb-2">Country</label>
-              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                <SelectTrigger className="w-full border-2 border-slate-300 focus:border-blue-500">
-                  <Globe className="w-4 h-4 mr-2 text-black" />
-                  <SelectValue placeholder="All Countries" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Countries</SelectItem>
-                  {countries.map((country) => (
-                    <SelectItem key={country} value={country}>
-                      {country}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
 
           {exams.length > 0 && (
             <div>

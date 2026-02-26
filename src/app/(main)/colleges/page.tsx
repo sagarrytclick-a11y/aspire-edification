@@ -8,29 +8,39 @@ import { Sparkles } from 'lucide-react'
 
 export default function CollegesPage() {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCountry, setSelectedCountry] = useState<string>('all')
   const [selectedExam, setSelectedExam] = useState<string>('all')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 9
 
   // Handle search from SearchSection component
-  const handleSearch = useCallback((term: string, country: string, exam: string) => {
+  const handleSearch = useCallback((term: string, exam: string, category?: string) => {
     setSearchTerm(term)
-    setSelectedCountry(country)
     setSelectedExam(exam)
+    setSelectedCategory(category || 'all')
     setCurrentPage(1)
   }, [])
 
-  const { data: collegesResponse, isLoading, error, refetch } = useAllColleges(searchTerm, selectedCountry, selectedExam)
-  const colleges = collegesResponse?.colleges || []
+  const { data: collegesResponse, isLoading, error, refetch } = useAllColleges(searchTerm, 'all', selectedExam)
+  const allColleges = collegesResponse?.colleges || []
+  
+  // Filter colleges by selected category
+  const colleges = useMemo(() => {
+    if (selectedCategory === 'all') {
+      return allColleges
+    }
+    return allColleges.filter((college: any) =>
+      college.categories?.includes(selectedCategory)
+    )
+  }, [allColleges, selectedCategory])
 
   // Extract unique values for filters
-  const { countries, exams } = useMemo(() => {
-    const countrySet = new Set(colleges.map((c: any) => typeof c.country_ref === "object" ? c.country_ref.name : c.country_ref).filter(Boolean))
+  const { exams, categories } = useMemo(() => {
     const examSet = new Set(colleges.flatMap((college: any) => college.exams || []))
+    const categorySet = new Set(colleges.flatMap((college: any) => college.categories || []))
     return {
-      countries: Array.from(countrySet) as string[],
-      exams: Array.from(examSet) as string[]
+      exams: Array.from(examSet) as string[],
+      categories: Array.from(categorySet) as string[]
     }
   }, [colleges])
 
@@ -54,8 +64,9 @@ export default function CollegesPage() {
           {/* SEARCH SECTION */}
           <SearchSection
             onSearch={handleSearch}
-            countries={countries}
             exams={exams}
+            categories={categories}
+            showCategoryFilter={true}
             placeholder="Search college, city..."
             className="max-w-4xl"
           />
