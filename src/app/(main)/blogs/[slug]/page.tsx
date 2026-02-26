@@ -87,47 +87,53 @@ const BlogDetailPage = () => {
   }
 
   return (
-    <div className="min-h-screen py-16 bg-white">
-      {/* Simple Header */}
-      <div className="border-b border-slate-100">
-        <div className="max-w-4xl mx-auto px-6 py-8">
-          <Link href="/blogs">
-            <Button variant="ghost" className="mb-4 text-slate-500 hover:text-[#1A4AB2] font-medium flex gap-2">
-              <ArrowLeft size={16} />
-              Back to Articles
-            </Button>
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 opacity-50"></div>
+        
+        <div className="relative max-w-4xl mx-auto px-6 py-16 md:py-24">
+          {/* Back Button */}
+          <Link href="/blogs" className="inline-flex items-center gap-2 text-[#4A90E2] hover:text-[#3A7BC8] font-medium mb-8 transition-colors">
+            <ArrowLeft size={18} />
+            <span className="text-sm">Back to Articles</span>
           </Link>
           
-          <div className="flex flex-wrap gap-2 mb-4">
-            <span className="bg-[#1A4AB2]/10 text-[#1A4AB2] px-3 py-1 rounded-full text-sm font-medium">
+          {/* Category & Tags */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            <Badge className="bg-[#4A90E2] hover:bg-[#3A7BC8] text-white px-4 py-1.5 text-xs font-semibold">
               {blog.category}
-            </span>
+            </Badge>
             {blog.tags.map((tag) => (
-              <span key={tag} className="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-sm">
+              <Badge key={tag} variant="secondary" className="bg-slate-100 text-slate-600 hover:bg-slate-200 px-3 py-1 text-xs">
                 #{tag}
-              </span>
+              </Badge>
             ))}
           </div>
           
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          {/* Title */}
+          <h1 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">
             {blog.title}
           </h1>
           
           {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-6 text-sm text-slate-500">
+          <div className="flex flex-wrap items-center gap-6 text-sm text-slate-600 mb-8">
             <div className="flex items-center gap-2">
-              <User size={16} />
-              <span>{blog.author || 'Academic Team'}</span>
+              <div className="w-8 h-8 rounded-full bg-[#4A90E2]/10 flex items-center justify-center">
+                <User size={14} className="text-[#4A90E2]" />
+              </div>
+              <span className="font-medium">{blog.author || 'Academic Team'}</span>
             </div>
             <div className="flex items-center gap-2">
-              <Calendar size={16} />
+              <Calendar size={16} className="text-slate-400" />
               <span>
-                {blog.published_at ? new Date(blog.published_at).toLocaleDateString() : new Date(blog.createdAt).toLocaleDateString()}
+                {blog.published_at ? new Date(blog.published_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' }) : new Date(blog.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
               </span>
             </div>
             {blog.read_time && (
               <div className="flex items-center gap-2">
-                <Clock size={16} />
+                <Clock size={16} className="text-slate-400" />
                 <span>{blog.read_time} min read</span>
               </div>
             )}
@@ -137,7 +143,7 @@ const BlogDetailPage = () => {
 
       {/* Featured Image */}
       {blog.image && (
-        <div className="relative h-96 w-full overflow-hidden bg-slate-100">
+        <div className="relative h-80 md:h-96 w-full overflow-hidden bg-slate-100 border-y border-slate-200">
           <img
             src={blog.image.startsWith('http') ? blog.image : `/images/${blog.image}`}
             alt={blog.title}
@@ -150,38 +156,49 @@ const BlogDetailPage = () => {
         </div>
       )}
 
-      {/* Content */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="prose prose-lg max-w-none">
-          <div 
-            className="text-slate-700 leading-relaxed"
-            dangerouslySetInnerHTML={{ 
-              __html: blog.content.replace(/\n/g, '<br />') 
-            }}
-          />
-        </div>
-
-        {/* Related Exams */}
-        {blog.related_exams.length > 0 && (
-          <div className="mt-12 p-6 bg-slate-50 rounded-xl">
-            <h3 className="font-semibold text-slate-900 mb-4">Related Exams</h3>
-            <div className="flex flex-wrap gap-3">
-              {blog.related_exams.map((exam) => (
-                <span key={exam} className="bg-white text-[#1A4AB2] px-4 py-2 rounded-lg border border-slate-200 text-sm font-medium">
-                  {exam}
-                </span>
-              ))}
-            </div>
+      {/* Content Section */}
+      <div className="max-w-4xl mx-auto px-6 py-16">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 md:p-12">
+          {/* Article Content */}
+          <div className="prose prose-lg max-w-none prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-[#4A90E2] prose-strong:text-slate-900 prose-ul:text-slate-700 prose-ol:text-slate-700">
+            <div 
+              className="text-slate-700 leading-relaxed"
+              dangerouslySetInnerHTML={{ 
+                __html: blog.content.replace(/\n/g, '<br />') 
+              }}
+            />
           </div>
-        )}
 
-        {/* Back to Blogs */}
-        <div className="mt-12 text-center">
-          <Link href="/blogs">
-            <Button className="bg-[#1A4AB2] hover:bg-[#1A4AB2]/90 text-white px-8 py-3">
-              Read More Articles
+          {/* Related Exams */}
+          {blog.related_exams.length > 0 && (
+            <div className="mt-12 p-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+              <h3 className="text-lg font-semibold text-slate-900 mb-6 flex items-center gap-2">
+                <FileText size={18} className="text-[#4A90E2]" />
+                Related Exams
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {blog.related_exams.map((exam) => (
+                  <Badge key={exam} className="bg-white text-[#4A90E2] border border-[#4A90E2]/20 hover:bg-[#4A90E2] hover:text-white px-4 py-2 text-sm font-medium transition-colors">
+                    {exam}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 items-center justify-between border-t border-slate-100 pt-8">
+            <Link href="/blogs">
+              <Button className="bg-[#4A90E2] hover:bg-[#3A7BC8] text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                Read More Articles
+              </Button>
+            </Link>
+            
+            <Button variant="outline" className="border-slate-200 text-slate-600 hover:bg-slate-50 px-6 py-3 rounded-lg font-medium transition-colors">
+              <Share2 size={16} className="mr-2" />
+              Share Article
             </Button>
-          </Link>
+          </div>
         </div>
       </div>
     </div>

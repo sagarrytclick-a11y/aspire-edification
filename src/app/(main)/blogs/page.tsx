@@ -102,23 +102,44 @@ export default function BlogsPage() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {paginatedBlogs.map(blog => (
-              <article key={blog._id} className="bg-white border border-slate-100 rounded-lg overflow-hidden hover:border-[#4A90E2] transition-all shadow-sm flex flex-col">
-                <Link href={`/blogs/${blog.slug}`} className="relative aspect-video bg-slate-100">
-                  <img src={blog.image || `https://picsum.photos/seed/${blog.slug}/600/400`} alt={blog.title} className="w-full h-full object-cover" />
+              <article key={blog._id} className="bg-white border-2 border-slate-300 rounded-xl overflow-hidden hover:border-[#4A90E2] hover:shadow-lg hover:shadow-[#4A90E2]/20 transition-all duration-300 flex flex-col h-full">
+                {/* Image Section - Fixed Height */}
+                <Link href={`/blogs/${blog.slug}`} className="relative h-48 bg-slate-50 border-b-2 border-slate-300">
+                  <img 
+                    src={blog.image || `https://picsum.photos/seed/${blog.slug}/400/200`} 
+                    alt={blog.title} 
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                  />
                 </Link>
-                <div className="p-6 flex flex-1 flex-col">
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase mb-3">
-                    <Calendar size={12} /> {new Date(blog.published_at || blog.createdAt).toLocaleDateString()}
+
+                {/* Content Section */}
+                <div className="p-5 flex-1 flex flex-col">
+                  {/* Date */}
+                  <div className="flex items-center gap-2 text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-2">
+                    <Calendar size={12} />
+                    {new Date(blog.published_at || blog.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' })}
                   </div>
-                  <h2 className="text-lg font-bold text-[#1E293B] mb-3 line-clamp-2 leading-snug">{blog.title}</h2>
-                  <p className="text-sm text-slate-500 line-clamp-2 mb-6 font-medium">{blog.content}</p>
-                  <div className="mt-auto pt-4 border-t border-slate-50 flex items-center justify-between">
+
+                  {/* Title */}
+                  <h2 className="text-base font-bold text-[#1E293B] mb-2 line-clamp-2 leading-snug">
+                    {blog.title}
+                  </h2>
+
+                  {/* Description - Fixed Height */}
+                  <p className="text-slate-600 text-xs mb-4 leading-relaxed line-clamp-2 h-8">
+                    {blog.content}
+                  </p>
+
+                  {/* Footer */}
+                  <div className="mt-auto pt-3 border-t border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-[#4A90E2]"><User size={14} /></div>
-                      <span className="text-[10px] font-bold uppercase text-slate-600">{blog.author || 'Team'}</span>
+                      <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
+                        <User size={10} className="text-[#4A90E2]" />
+                      </div>
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B]">TEAM</span>
                     </div>
                     <Link href={`/blogs/${blog.slug}`} className="text-[#4A90E2] hover:translate-x-1 transition-transform">
-                      <ArrowRight size={18} />
+                      <ArrowRight size={14} />
                     </Link>
                   </div>
                 </div>
