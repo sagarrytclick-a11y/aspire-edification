@@ -133,14 +133,15 @@ export function useColleges(search: string, country: string, exam: string) {
 }
 
 // Hook for fetching all colleges (no limit) for client-side pagination
-export function useAllColleges(search: string, country: string, exam: string) {
+export function useAllColleges(search: string, country: string, exam: string, category?: string) {
   return useQuery({
-    queryKey: ['colleges', 'all', search, country, exam],
+    queryKey: ['colleges', 'all', search, country, exam, category],
     queryFn: async () => {
       const params = new URLSearchParams({
         ...(search && { search }),
         ...(country && country !== 'all' && { country }),
         ...(exam && exam !== 'all' && { exam }),
+        ...(category && category !== 'all' && { category }),
         limit: '1000' // Set a high limit to get all colleges
       })
 

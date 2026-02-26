@@ -12,8 +12,8 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Plus, X, GraduationCap, Globe, Award, FileText, Users, Building, DollarSign, Calendar, CheckCircle } from 'lucide-react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { CITY_OPTIONS } from '@/lib/cities'
-import { COLLEGE_CATEGORIES, type CollegeCategory } from "@/lib/constants/collegeCategories";
 import { FORM_DEFAULTS, FORM_PLACEHOLDERS } from "@/lib/constants/formDefaults";
+import { useAdminCategories } from '@/hooks/useAdminCategories'
 
 interface Country {
   _id: string
@@ -93,6 +93,9 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
   const [newDocument, setNewDocument] = useState('')
   const [newCampusHighlight, setNewCampusHighlight] = useState('')
   const [newCourse, setNewCourse] = useState({ course_name: '', duration: '', annual_tuition_fee: '' })
+
+  // Fetch dynamic categories
+  const { data: categories = [], isLoading: categoriesLoading } = useAdminCategories()
 
   // Calculate form completion percentage
   const calculateCompletion = () => {
@@ -332,31 +335,42 @@ export function ComprehensiveCollegeForm({ data, countries, onChange, onSubmit, 
 
               <div>
                 <Label className="mb-3 block text-gray-200">College Categories *</Label>
-                <div className="space-y-2">
-                  {COLLEGE_CATEGORIES.map((category) => (
-                    <div key={category.id} className="flex items-start space-x-3 p-3 border border-gray-600 rounded-lg hover:bg-gray-700">
-                      <Checkbox
-                        id={category.id}
-                        checked={(data.categories || []).includes(category.id)}
-                        onCheckedChange={(checked) => {
-                          const currentCategories = data.categories || [];
-                          if (checked) {
-                            onChange('categories', [...currentCategories, category.id]);
-                          } else {
-                            onChange('categories', currentCategories.filter(cat => cat !== category.id));
-                          }
-                        }}
-                      />
-                      <Label htmlFor={category.id} className="text-gray-200">
-                        <div className="flex flex-col">
-                          <span className="font-medium">{category.label}</span>
-                          <span className="text-xs text-gray-400">{category.description}</span>
-                        </div>
-                      </Label>
-                    </div>
-                  ))}
-                </div>
-                {(!data.categories || data.categories.length === 0) && (
+                {categoriesLoading ? (
+                  <div className="flex items-center justify-center p-4">
+                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                    <span className="ml-2 text-gray-400">Loading categories...</span>
+                  </div>
+                ) : categories.length === 0 ? (
+                  <div className="text-center p-4 border border-gray-600 rounded-lg">
+                    <p className="text-gray-400">No categories available. Please add categories first.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {categories.map((category) => (
+                      <div key={category.slug} className="flex items-start space-x-3 p-3 border border-gray-600 rounded-lg hover:bg-gray-700">
+                        <Checkbox
+                          id={category.slug}
+                          checked={(data.categories || []).includes(category.slug)}
+                          onCheckedChange={(checked) => {
+                            const currentCategories = data.categories || [];
+                            if (checked) {
+                              onChange('categories', [...currentCategories, category.slug]);
+                            } else {
+                              onChange('categories', currentCategories.filter(cat => cat !== category.slug));
+                            }
+                          }}
+                        />
+                        <Label htmlFor={category.slug} className="text-gray-200">
+                          <div className="flex flex-col">
+                            <span className="font-medium">{category.name}</span>
+                            <span className="text-xs text-gray-400">{category.description}</span>
+                          </div>
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {(!data.categories || data.categories.length === 0) && !categoriesLoading && (
                   <p className="text-sm text-red-400">At least one category is required</p>
                 )}
               </div>

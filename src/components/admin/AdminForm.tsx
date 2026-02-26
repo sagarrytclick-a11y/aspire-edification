@@ -31,16 +31,20 @@ interface AdminFormProps {
   fields: FormField[]
   data: Record<string, unknown>
   onChange: (field: string, value: unknown) => void
+  onSubmit?: () => void
   loading?: boolean
   className?: string
+  submitLabel?: string
 }
 
 export function AdminForm({
   fields,
   data,
   onChange,
+  onSubmit,
   loading = false,
-  className = ''
+  className = '',
+  submitLabel = 'Submit'
 }: AdminFormProps) {
   const [tagInputs, setTagInputs] = React.useState<Record<string, string>>({})
   
@@ -206,7 +210,10 @@ export function AdminForm({
   }
 
   return (
-    <div className={`space-y-6 ${className}`}>
+    <form onSubmit={(e) => {
+      e.preventDefault()
+      onSubmit?.()
+    }} className={`space-y-6 ${className}`}>
       {fields.map((field) => (
         <div key={field.name} className="space-y-3">
           {field.type !== 'checkbox' && (
@@ -221,6 +228,17 @@ export function AdminForm({
           )}
         </div>
       ))}
-    </div>
+      {onSubmit && (
+        <div className="flex gap-3 justify-end pt-4">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
+            {loading ? 'Saving...' : submitLabel}
+          </Button>
+        </div>
+      )}
+    </form>
   )
 }

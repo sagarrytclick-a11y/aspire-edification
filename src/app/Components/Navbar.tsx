@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { SITE_IDENTITY } from "@/site-identity";
 import { useFormModal } from "@/context/FormModalContext";
 import Image from "next/image";
+import { useCategories } from "@/hooks/useCategories";
 
 export default function SimpleNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,9 @@ export default function SimpleNavbar() {
   const [mobileOthersOpen, setMobileOthersOpen] = useState(false);
   const pathname = usePathname();
   const { openModal } = useFormModal();
+
+  // Fetch categories from API
+  const { data: categories, isLoading: categoriesLoading } = useCategories();
 
   // Ref to store timeout IDs
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -75,9 +79,10 @@ export default function SimpleNavbar() {
   };
 
   const collegeTypes = [
-    { name: "Engineering Colleges", href: "/colleges/engineering" },
-    { name: "Medical Colleges", href: "/colleges/medical" },
-    { name: "Management Colleges", href: "/colleges/management" },
+    ...(categories?.map(category => ({
+      name: `${category.name} Colleges`,
+      href: `/colleges/category/${category.slug}`
+    })) || []),
     { name: "All Colleges", href: "/colleges" },
   ];
 
@@ -125,8 +130,8 @@ export default function SimpleNavbar() {
           <Link
             href="/"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname === "/"
-                ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-white hover:bg-[#4A90E2]"
+              ? "text-[#4A90E2] bg-[#F8FAFC]"
+              : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Home
@@ -140,9 +145,9 @@ export default function SimpleNavbar() {
           >
             <button
               className={`px-5 py-3 flex gap-2 items-center rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/colleges/")
-                  ? "text-[#4A90E2] bg-[#F8FAFC]"
-                  : "text-black hover:text-white hover:bg-[#4A90E2]"
-                 }`}
+                ? "text-[#4A90E2] bg-[#F8FAFC]"
+                : "text-black hover:text-white hover:bg-[#4A90E2]"
+                }`}
             >
               Colleges
               <ChevronDown size={14} className={`transition-transform ${collegeTypeOpen ? 'rotate-180' : ''}`} />
@@ -168,8 +173,8 @@ export default function SimpleNavbar() {
           <Link
             href="/exams"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/exams")
-                ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-white hover:bg-[#4A90E2]"
+              ? "text-[#4A90E2] bg-[#F8FAFC]"
+              : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Exams
@@ -178,8 +183,8 @@ export default function SimpleNavbar() {
           <Link
             href="/blogs"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/blogs")
-                ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-white hover:bg-[#4A90E2]"
+              ? "text-[#4A90E2] bg-[#F8FAFC]"
+              : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Updates
@@ -189,8 +194,8 @@ export default function SimpleNavbar() {
           <Link
             href="/contact"
             className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/contact")
-                ? "text-[#4A90E2] bg-[#F8FAFC]"
-                : "text-black hover:text-white hover:bg-[#4A90E2]"
+              ? "text-[#4A90E2] bg-[#F8FAFC]"
+              : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
             Contact Us
@@ -204,9 +209,9 @@ export default function SimpleNavbar() {
           >
             <button
               className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${pathname?.includes("/compare") || pathname?.includes("/about")
-                  ? "text-[#4A90E2] bg-[#F8FAFC]"
-                  : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
-                 }`}
+                ? "text-[#4A90E2] bg-[#F8FAFC]"
+                : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
+                }`}
             >
               Others
               <ChevronDown size={14} className={`transition-transform ${othersOpen ? 'rotate-180' : ''}`} />

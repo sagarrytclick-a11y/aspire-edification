@@ -1,10 +1,9 @@
 'use client'
 
-import React, { useMemo, memo, useState } from 'react'
+import React, { useMemo, memo, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ChevronLeft, ChevronRight, ArrowRight, AlertCircle, MapPin, GraduationCap, RefreshCw, Search } from 'lucide-react'
-import { COLLEGE_CATEGORIES } from '@/lib/constants/collegeCategories'
 
 interface CollegeMappingProps {
   colleges: any[]
@@ -19,6 +18,7 @@ interface CollegeMappingProps {
   emptyMessage?: string
   className?: string
   onRefetch?: () => void
+  currentCategory?: string // New prop to indicate the page's main category
 }
 
 const CollegeCard = memo(({ college }: { college: any }) => {
@@ -45,7 +45,7 @@ const CollegeCard = memo(({ college }: { college: any }) => {
       </div>
 
       {/* College Content */}
-      <div className="p-6 flex flex-col flex-grow">
+      <div className="p-6 flex flex-col grow">
         <div className="mb-4">
           <h3 className="text-xl font-bold text-[#1E293B] mb-2 group-hover:text-[#4A90E2] transition-colors line-clamp-2">
             {college.name}
@@ -136,10 +136,10 @@ const CollegeMapping = memo(({
   showPagination = true,
   emptyMessage = "No colleges found",
   className = "",
-  onRefetch
+  onRefetch,
+  currentCategory
 }: CollegeMappingProps) => {
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('')
 
   const filteredColleges = useMemo(() => {
     let filtered = colleges
@@ -152,15 +152,8 @@ const CollegeMapping = memo(({
       )
     }
 
-    // Filter by category
-    if (selectedCategory) {
-      filtered = filtered.filter(college =>
-        college.categories?.includes(selectedCategory)
-      )
-    }
-
     return filtered
-  }, [colleges, searchTerm, selectedCategory])
+  }, [colleges, searchTerm])
 
   const paginatedColleges = useMemo(() => {
     const startIndex = (currentPage - 1) * itemsPerPage
@@ -230,8 +223,16 @@ const CollegeMapping = memo(({
       {/* Search and Filter Section */}
       <div className="mb-8 space-y-4">
         {/* Search Bar */}
-
-
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-black w-5 h-5" />
+          <input
+            type="text"
+            placeholder="Search colleges by name or city..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-[#4A90E2] text-black focus:ring-2 focus:ring-[#4A90E2]/20"
+          />
+        </div>
       </div>
 
       {/* Colleges Grid */}
