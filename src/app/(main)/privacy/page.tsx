@@ -1,5 +1,3 @@
-'use client'
-
 import { SITE_IDENTITY } from '@/site-identity'
 import { ShieldCheck, Lock, Eye, FileText, Mail, Phone } from 'lucide-react'
 

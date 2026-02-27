@@ -136,7 +136,7 @@ export default function BlogsPage() {
                       <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center">
                         <User size={10} className="text-[#4A90E2]" />
                       </div>
-                      <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B]">TEAM</span>
+                      <span className="text-[9px] font-bold uppercase tracking-wider text-[#64748B]">ASPIRE TEAM</span>
                     </div>
                     <Link href={`/blogs/${blog.slug}`} className="text-[#4A90E2] hover:translate-x-1 transition-transform">
                       <ArrowRight size={14} />

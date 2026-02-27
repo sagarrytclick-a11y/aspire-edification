@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { GraduationCap, TrendingUp, Users, Award, ShieldCheck } from "lucide-react";
 

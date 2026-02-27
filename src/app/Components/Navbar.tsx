@@ -104,14 +104,14 @@ export default function SimpleNavbar() {
 
   const othersOptions = [
     { name: "Compare Colleges", href: "/compare" },
-    { name: "About Us", href: "/about" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   return (
     <nav
       className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled
         ? "bg-white/90 backdrop-blur-md border-b border-slate-100 py-4 shadow-sm"
-        : "bg-white py-6"
+        : "bg-white py-3"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -192,13 +192,13 @@ export default function SimpleNavbar() {
 
           {/* Contact */}
           <Link
-            href="/contact"
-            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/contact")
+            href="/about"
+            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/about")
               ? "text-[#4A90E2] bg-[#F8FAFC]"
               : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
           >
-            Contact Us
+            About Us
           </Link>
 
           {/* Others Dropdown */}
