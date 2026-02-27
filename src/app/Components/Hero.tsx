@@ -107,7 +107,7 @@ const Hero: React.FC = () => {
               <div className="max-h-[320px] overflow-y-auto custom-scrollbar">
                 {isLoading ? (
                   <div className="p-8 text-center text-[#4A90E2] animate-pulse">
-                    Searching database...
+                    Searching colleges...
                   </div>
                 ) : colleges.length > 0 ? (
                   colleges.map((college: any) => (
