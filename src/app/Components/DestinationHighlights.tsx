@@ -1,5 +1,4 @@
 "use client"
-import React from 'react';
 import { MapPin, Clock, DollarSign, Users, Star, CheckCircle, ArrowRight } from 'lucide-react';
 
 export default function DestinationHighlights() {

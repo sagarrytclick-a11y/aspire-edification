@@ -1,12 +1,11 @@
-"use client";
+"use client"
 import React from "react";
-import { Mail, Phone, MapPin, MessageCircle, ArrowRight, Instagram, Linkedin, HelpCircle, CheckCircle } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle, Instagram, Linkedin, HelpCircle, CheckCircle } from "lucide-react";
 import { useContactInfo, createMailtoLink, createTelLink, createWhatsAppLink } from "@/hooks/useContactInfo";
-import { useFormModal } from "@/context/FormModalContext";
+import ContactClientButton from "@/components/ContactClientButton";
 
 export default function ContactPage() {
   const { emails, phones, address, socials } = useContactInfo();
-  const { openModal } = useFormModal();
 
   return (
     <div className="min-h-screen py-16 bg-white">
@@ -48,12 +47,7 @@ export default function ContactPage() {
         </div>
 
         <div className="text-center">
-          <button
-            onClick={openModal}
-            className="bg-[#4A90E2] hover:bg-[#4A90E2]/90 text-white px-8 py-4 rounded-xl font-semibold transition-colors"
-          >
-            Start Your Journey <ArrowRight size={18} className="inline ml-2" />
-          </button>
+          <ContactClientButton />
         </div>
       </div>
     </div>

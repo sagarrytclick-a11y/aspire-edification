@@ -2,6 +2,7 @@ import React from 'react';
 import { GraduationCap, FileText, DollarSign, BookOpen, TrendingUp, Home, ArrowRight, Star, ShieldCheck } from 'lucide-react';
 import Link from 'next/link';
 import FAQ from "@/app/Components/FAQ";
+import FreeAssessmentButton from "@/components/FreeAssessmentButton";
 
 const ServicesPage = () => {
   const services = [
@@ -113,9 +114,7 @@ const ServicesPage = () => {
               <ArrowRight size={18} />
             </Link>
             
-            <button className="bg-white border border-slate-200 text-[#1E293B] px-8 py-4 rounded-xl font-semibold hover:border-[#4A90E2] hover:text-[#4A90E2] transition-all">
-              Free Assessment
-            </button>
+            <FreeAssessmentButton />
           </div>
         </div>
       </section>
