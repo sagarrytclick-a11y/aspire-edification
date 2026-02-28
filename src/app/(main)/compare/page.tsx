@@ -127,11 +127,8 @@ export default function CompareColleges() {
     }},
     { key: 'fees', label: 'Annual Fees', icon: TrendingUp, format: (college: College) => {
       if (college.fees_structure?.courses && college.fees_structure.courses.length > 0) {
-        const fees = college.fees_structure.courses.map((course: any) => 
-          parseInt(course.annual_tuition_fee.replace(/[^\d]/g, ''))
-        ).filter((fee: any) => !isNaN(fee));
-        const avgFee = fees.length > 0 ? Math.round(fees.reduce((a: any, b: any) => a + b, 0) / fees.length) : 0;
-        return avgFee > 0 ? `₹${avgFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
+        const course = college.fees_structure.courses[0];
+        return course.annual_tuition_fee.replace(/^:\s*/, '') || 'N/A';
       }
       return college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
     }},
@@ -407,11 +404,8 @@ export default function CompareColleges() {
                         <span className="font-medium text-slate-900">
                           {(() => {
                             if (college.fees_structure?.courses && college.fees_structure.courses.length > 0) {
-                              const fees = college.fees_structure.courses.map((course: any) => 
-                                parseInt(course.annual_tuition_fee.replace(/[^\d]/g, ''))
-                              ).filter((fee: any) => !isNaN(fee));
-                              const avgFee = fees.length > 0 ? Math.round(fees.reduce((a: any, b: any) => a + b, 0) / fees.length) : 0;
-                              return avgFee > 0 ? `₹${avgFee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
+                              const course = college.fees_structure.courses[0];
+                              return course.annual_tuition_fee.replace(/^:\s*/, '') || 'N/A';
                             }
                             return college.fees ? `₹${college.fees.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "-")}` : 'N/A';
                           })()}
