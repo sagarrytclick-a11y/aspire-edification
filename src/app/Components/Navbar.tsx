@@ -125,11 +125,11 @@ export default function SimpleNavbar() {
         </Link>
 
         {/* DESKTOP NAV - DROPDOWNS */}
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-1">
           {/* Home */}
           <Link
             href="/"
-            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname === "/"
+            className={`px-4 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname === "/"
               ? "text-[#4A90E2] bg-[#F8FAFC]"
               : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
@@ -144,7 +144,7 @@ export default function SimpleNavbar() {
             onMouseLeave={handleCollegeTypeMouseLeave}
           >
             <button
-              className={`px-5 py-3 flex gap-2 items-center rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/colleges/")
+              className={`px-5 py-3 flex gap-2 items-center rounded-lg text-xs font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/colleges/")
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
                 : "text-black hover:text-white hover:bg-[#4A90E2]"
                 }`}
@@ -172,7 +172,7 @@ export default function SimpleNavbar() {
           {/* Exams */}
           <Link
             href="/exams"
-            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/exams")
+            className={`px-5 py-3 rounded-lg text-xs font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/exams")
               ? "text-[#4A90E2] bg-[#F8FAFC]"
               : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
@@ -182,7 +182,7 @@ export default function SimpleNavbar() {
 
           <Link
             href="/blogs"
-            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/blogs")
+            className={`px-5 py-3 rounded-lg text-xs font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/blogs")
               ? "text-[#4A90E2] bg-[#F8FAFC]"
               : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
@@ -193,7 +193,7 @@ export default function SimpleNavbar() {
           {/* Contact */}
           <Link
             href="/about"
-            className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/about")
+            className={`px-5 py-3 rounded-lg text-xs font-semibold uppercase tracking-wide transition-all ${pathname?.includes("/about")
               ? "text-[#4A90E2] bg-[#F8FAFC]"
               : "text-black hover:text-white hover:bg-[#4A90E2]"
               }`}
@@ -208,7 +208,7 @@ export default function SimpleNavbar() {
             onMouseLeave={handleOthersMouseLeave}
           >
             <button
-              className={`px-5 py-3 rounded-lg text-sm font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${pathname?.includes("/compare") || pathname?.includes("/about")
+              className={`px-5 py-3 rounded-lg text-xs font-semibold uppercase tracking-wide transition-all flex items-center gap-2 ${pathname?.includes("/compare") || pathname?.includes("/about")
                 ? "text-[#4A90E2] bg-[#F8FAFC]"
                 : "text-black hover:text-[#4A90E2] hover:bg-slate-50"
                 }`}
